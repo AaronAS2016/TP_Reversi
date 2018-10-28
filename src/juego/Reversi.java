@@ -71,6 +71,9 @@ public class Reversi {
 		if (dimensionTablero < 4) {
 			throw new Error("El tablero debe tener una dimensión minima de 4x4");
 		}
+		if(dimensionTablero %2 != 0){
+			throw new Error("El tablero debe ser de un número par");
+		}
 	}
 
 	/* ------ METODOS DE CARGA DEL TABLERO ---------- */
@@ -148,8 +151,15 @@ public class Reversi {
 	 * post: devuelve la cantidad de fichas negras en el tablero.
 	 */
 	public int contarFichasNegras() {
-
-		return 4;
+		int fichasNegras = 0;
+		for(int i = 0; i < this.matrizReversi.length; i++){
+			for(int j = 0; j < this.matrizReversi[i].length; j++){
+				if(this.matrizReversi[i][j] == Casillero.NEGRAS){
+					fichasNegras++;
+				}		
+			}
+		}
+		return fichasNegras;
 	}
 
 	/**
@@ -157,7 +167,15 @@ public class Reversi {
 	 */
 	public int contarFichasBlancas() {
 
-		return 0;
+		int fichasBlancas = 0;
+		for(int i = 0; i < this.matrizReversi.length; i++){
+			for(int j = 0; j < this.matrizReversi[i].length; j++){
+				if(this.matrizReversi[i][j] == Casillero.BLANCAS){
+					fichasBlancas++;
+				}		
+			}
+		}
+		return fichasBlancas;
 	}
 
 	/**
@@ -165,8 +183,15 @@ public class Reversi {
 	 * ninguno de los jugadores puede colocar una ficha.
 	 */
 	public boolean termino() {
-
-		return false;
+		int fichasOcupadas = 0;
+		for(int i = 0; i < this.matrizReversi.length; i++){
+			for(int j = 0; j < this.matrizReversi[i].length; j++){
+				if(this.matrizReversi[i][j] != Casillero.LIBRE){
+					fichasOcupadas++;
+				}		
+			}
+		}
+		return (fichasOcupadas == (this.matrizReversi.length * this.matrizReversi.length));
 	}
 
 	/**

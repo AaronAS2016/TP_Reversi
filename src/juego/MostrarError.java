@@ -28,7 +28,7 @@ public class MostrarError implements UncaughtExceptionHandler {
 
 		escenario.setScene(escena);
 		escenario.setResizable(false);
-		escenario.setTitle("Error");
+		escenario.setTitle("¡Ups!");
 		escenario.show();
 	}
 
