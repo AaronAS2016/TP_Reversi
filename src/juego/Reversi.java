@@ -9,6 +9,15 @@ package juego;
  * 
  */
 public class Reversi {
+	
+	
+	
+	private int filas;
+	private int columnas;
+	private String[] jugadores = new String[2];
+	private String jugadorActual;
+	
+	private Casillero[][] matrizReversi;
 
 	/**
 	 * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -25,16 +34,29 @@ public class Reversi {
 	 *            : nombre del jugador con fichas blancas.
 	 */
 
-	private int filas;
-	private int columnas;
-	private String[] jugadores = new String[2];
-	private String jugadorActual;
 
 	public Reversi(int dimensionTablero, String fichasNegras, String fichasBlancas) {
 		validarTablero(dimensionTablero);
 		validarJugadores(fichasNegras, fichasBlancas);
 		cargarTablero(dimensionTablero);
 		cargarJugadores(fichasNegras, fichasBlancas);
+		armarTablero(dimensionTablero);
+	}
+	
+	private void armarTablero(int dimension){
+		this.matrizReversi = new Casillero[dimension][dimension];
+		int mitadDelTablero = matrizReversi.length / 2;
+		//pintamos la matriz de casilleros vacios
+		for(int i = 0; i < this.matrizReversi.length; i++){
+			for(int j = 0; j < this.matrizReversi[i].length; j++){
+					this.matrizReversi[i][j] = Casillero.LIBRE;
+			}
+		}
+		//pintamos los casilleros blancos y negro para cada jugador
+		this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.NEGRAS;
+		this.matrizReversi[mitadDelTablero-1][mitadDelTablero] = Casillero.BLANCAS;
+		this.matrizReversi[mitadDelTablero-1][mitadDelTablero-1] = Casillero.NEGRAS;
+		this.matrizReversi[mitadDelTablero][mitadDelTablero-1] = Casillero.BLANCAS;
 	}
 
 	/* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
@@ -97,13 +119,12 @@ public class Reversi {
 	 * @param columna
 	 */
 	public Casillero obtenerCasillero(int fila, int columna) {
-
-		return Casillero.LIBRE;
+		return this.matrizReversi[fila-1][columna-1];
 	}
 
 	public boolean puedeColocarFicha(int fila, int columna) {
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -115,8 +136,12 @@ public class Reversi {
 	 * @param fila
 	 * @param columna
 	 */
+	
+	//ojo, llegan al revés
 	public void colocarFicha(int fila, int columna) {
-
+		//System.out.println("Fila:" + fila + "\nColumna: " + columna);
+		this.matrizReversi[fila-1][columna-1] = Casillero.NEGRAS;
+		
 	}
 
 	/**
@@ -124,7 +149,7 @@ public class Reversi {
 	 */
 	public int contarFichasNegras() {
 
-		return 0;
+		return 4;
 	}
 
 	/**
