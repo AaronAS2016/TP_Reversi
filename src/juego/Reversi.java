@@ -1,6 +1,10 @@
 package juego;
 
 /**
+ * 
+ * Mica estuvo aqui
+ * gil el que lee <3 (?
+ * 
  * Juego Reversi
  * 
  * Reglas:
