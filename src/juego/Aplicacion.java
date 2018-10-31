@@ -1,8 +1,14 @@
 package juego;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,13 +36,20 @@ public class Aplicacion extends Application {
 	private TextField campoDimension;
 
 	private Button botonIniciar;
+	
+	//private Button btnIniciar;
+	
+
 
 	@Override
-	public void start(Stage escenarioPrincipal) {
+	public void start(Stage escenarioPrincipal) throws IOException  {
 
 		crearGrilla();
+		
+		//Parent root =  FXMLLoader.load(getClass().getResource("/views/pantalla_principal.fxml"));
 
 		Scene escena = new Scene(grilla, 400, 300);
+		//btnIniciar.setOnAction(event -> checkID())
 		escenarioPrincipal.setScene(escena);
 		escenarioPrincipal.setTitle(TITULO);
 		escenarioPrincipal.show();
@@ -95,7 +108,7 @@ public class Aplicacion extends Application {
 		tablero.mostrar();
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
 		

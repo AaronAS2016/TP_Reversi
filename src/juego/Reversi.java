@@ -16,6 +16,7 @@ public class Reversi {
 	private int columnas;
 	private String[] jugadores = new String[2];
 	private String jugadorActual;
+	private Casillero casilleroActual = Casillero.NEGRAS;
 	
 	private Casillero[][] matrizReversi;
 
@@ -126,8 +127,26 @@ public class Reversi {
 	}
 
 	public boolean puedeColocarFicha(int fila, int columna) {
+		boolean sePuedeColocarFicha = false;
+		if(this.matrizReversi[fila-1][columna-1] == Casillero.LIBRE){
+			if((!(fila-1 < 0) && !(fila-1 > this.matrizReversi.length))
+					&& ((!(columna-1 < 0) && !(columna-1 > this.matrizReversi[0].length)))){
+					
+					//Vemos si hay posibilidad en la columna
+					
 
-		return true;
+					for(int i = 0; i < this.matrizReversi.length;i++){
+						if(((fila-1) == 0 && ((columna-1)-i) == 0) {
+							System.out.println("ENTRA");
+							System.out.println("Fila:" + fila + "\nColumna: " + columna);
+							sePuedeColocarFicha = true;
+						}
+					}
+				}
+		}
+			
+		
+		return sePuedeColocarFicha;
 	}
 
 	/**
@@ -143,7 +162,19 @@ public class Reversi {
 	//ojo, llegan al revés
 	public void colocarFicha(int fila, int columna) {
 		//System.out.println("Fila:" + fila + "\nColumna: " + columna);
-		this.matrizReversi[fila-1][columna-1] = Casillero.NEGRAS;
+		switch(casilleroActual){
+			case NEGRAS:
+				casilleroActual = Casillero.BLANCAS;
+				break;
+			case BLANCAS:
+				casilleroActual = Casillero.NEGRAS;
+				break;
+			default:
+				casilleroActual = Casillero.NEGRAS;
+				break;		
+		}
+		this.matrizReversi[fila-1][columna-1] = casilleroActual;
+
 		
 	}
 
