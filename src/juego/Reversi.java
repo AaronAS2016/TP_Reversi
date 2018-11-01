@@ -11,14 +11,19 @@ package juego;
 public class Reversi {
 	
 	
+	/* Constantes del Tablero */
+	private static final int MAXIMO_DEL_TABLERO = 10;
+	private static final int MINIMO_DEL_TABLERO = 4;
 	
 	private int filas;
 	private int columnas;
+	
 	private String[] jugadores = new String[2];
 	private String jugadorActual;
-	private Casillero casilleroActual = Casillero.NEGRAS;
-	
+	private Casillero casilleroActual  = Casillero.NEGRAS;
+
 	private Casillero[][] matrizReversi;
+	private Casillero[][] matrizEnglobadora;
 
 	/**
 	 * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -35,29 +40,45 @@ public class Reversi {
 	 *            : nombre del jugador con fichas blancas.
 	 */
 
-
-	public Reversi(int dimensionTablero, String fichasNegras, String fichasBlancas) {
+	public Reversi(int dimensionTablero, String fichasNegras,
+			String fichasBlancas) {
 		validarTablero(dimensionTablero);
 		validarJugadores(fichasNegras, fichasBlancas);
 		cargarTablero(dimensionTablero);
 		cargarJugadores(fichasNegras, fichasBlancas);
 		armarTablero(dimensionTablero);
+		armarMatriz(this.matrizReversi);
 	}
 	
-	private void armarTablero(int dimension){
-		this.matrizReversi = new Casillero[dimension][dimension];
-		int mitadDelTablero = matrizReversi.length / 2;
-		//pintamos la matriz de casilleros vacios
-		for(int i = 0; i < this.matrizReversi.length; i++){
-			for(int j = 0; j < this.matrizReversi[i].length; j++){
-					this.matrizReversi[i][j] = Casillero.LIBRE;
+	private void armarMatriz(Casillero[][] matriz){
+		this.matrizEnglobadora = new Casillero[matriz.length + 2][matriz.length+2];
+		//INICIALIZAMOS EN NULA
+		for(int i = 0; i < matrizEnglobadora.length; i++){
+			for(int j = 0; j < matrizEnglobadora[i].length; j++){
+				this.matrizEnglobadora[i][j] = Casillero.NULA;
 			}
 		}
-		//pintamos los casilleros blancos y negro para cada jugador
+		for(int i = 0; i < matriz.length; i++){
+			for(int j = 0; j < matriz[i].length; j++){
+				this.matrizEnglobadora[i+1][j+1] = matriz[i][j];
+			}
+		}
+	}
+
+	private void armarTablero(int dimension) {
+		this.matrizReversi = new Casillero[dimension][dimension];
+		int mitadDelTablero = matrizReversi.length / 2;
+		// pintamos la matriz de casilleros vacios
+		for (int i = 0; i < this.matrizReversi.length; i++) {
+			for (int j = 0; j < this.matrizReversi[i].length; j++) {
+				this.matrizReversi[i][j] = Casillero.LIBRE;
+			}
+		}
+		// pintamos los casilleros blancos y negro para cada jugador
 		this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.NEGRAS;
-		this.matrizReversi[mitadDelTablero-1][mitadDelTablero] = Casillero.BLANCAS;
-		this.matrizReversi[mitadDelTablero-1][mitadDelTablero-1] = Casillero.NEGRAS;
-		this.matrizReversi[mitadDelTablero][mitadDelTablero-1] = Casillero.BLANCAS;
+		this.matrizReversi[mitadDelTablero - 1][mitadDelTablero] = Casillero.BLANCAS;
+		this.matrizReversi[mitadDelTablero - 1][mitadDelTablero - 1] = Casillero.NEGRAS;
+		this.matrizReversi[mitadDelTablero][mitadDelTablero - 1] = Casillero.BLANCAS;
 	}
 
 	/* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
@@ -69,10 +90,10 @@ public class Reversi {
 	}
 
 	private void validarTablero(int dimensionTablero) {
-		if (dimensionTablero < 4) {
+		if (dimensionTablero < MINIMO_DEL_TABLERO && dimensionTablero > MAXIMO_DEL_TABLERO) {
 			throw new Error("El tablero debe tener una dimensión minima de 4x4");
 		}
-		if(dimensionTablero %2 != 0){
+		if (dimensionTablero % 2 != 0) {
 			throw new Error("El tablero debe ser de un número par");
 		}
 	}
@@ -123,29 +144,15 @@ public class Reversi {
 	 * @param columna
 	 */
 	public Casillero obtenerCasillero(int fila, int columna) {
-		return this.matrizReversi[fila-1][columna-1];
+		return this.matrizReversi[fila - 1][columna - 1];
 	}
 
 	public boolean puedeColocarFicha(int fila, int columna) {
 		boolean sePuedeColocarFicha = false;
-		if(this.matrizReversi[fila-1][columna-1] == Casillero.LIBRE){
-			if((!(fila-1 < 0) && !(fila-1 > this.matrizReversi.length))
-					&& ((!(columna-1 < 0) && !(columna-1 > this.matrizReversi[0].length)))){
-					
-					//Vemos si hay posibilidad en la columna
-					
-
-					for(int i = 0; i < this.matrizReversi.length;i++){
-						if(((fila-1) == 0 && ((columna-1)-i) == 0) {
-							System.out.println("ENTRA");
-							System.out.println("Fila:" + fila + "\nColumna: " + columna);
-							sePuedeColocarFicha = true;
-						}
-					}
-				}
-		}
+		if (this.matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
 			
-		
+		}
+
 		return sePuedeColocarFicha;
 	}
 
@@ -158,11 +165,11 @@ public class Reversi {
 	 * @param fila
 	 * @param columna
 	 */
-	
-	//ojo, llegan al revés
+
+	// ojo, llegan al revés
 	public void colocarFicha(int fila, int columna) {
-		//System.out.println("Fila:" + fila + "\nColumna: " + columna);
-		switch(casilleroActual){
+		 System.out.println("Fila:" + fila + "\nColumna: " + columna);
+		switch (casilleroActual) {
 			case NEGRAS:
 				casilleroActual = Casillero.BLANCAS;
 				break;
@@ -171,11 +178,10 @@ public class Reversi {
 				break;
 			default:
 				casilleroActual = Casillero.NEGRAS;
-				break;		
+				break;
 		}
-		this.matrizReversi[fila-1][columna-1] = casilleroActual;
+		this.matrizReversi[fila - 1][columna - 1] = casilleroActual;
 
-		
 	}
 
 	/**
@@ -183,11 +189,11 @@ public class Reversi {
 	 */
 	public int contarFichasNegras() {
 		int fichasNegras = 0;
-		for(int i = 0; i < this.matrizReversi.length; i++){
-			for(int j = 0; j < this.matrizReversi[i].length; j++){
-				if(this.matrizReversi[i][j] == Casillero.NEGRAS){
+		for (int i = 0; i < this.matrizReversi.length; i++) {
+			for (int j = 0; j < this.matrizReversi[i].length; j++) {
+				if (this.matrizReversi[i][j] == Casillero.NEGRAS) {
 					fichasNegras++;
-				}		
+				}
 			}
 		}
 		return fichasNegras;
@@ -199,11 +205,11 @@ public class Reversi {
 	public int contarFichasBlancas() {
 
 		int fichasBlancas = 0;
-		for(int i = 0; i < this.matrizReversi.length; i++){
-			for(int j = 0; j < this.matrizReversi[i].length; j++){
-				if(this.matrizReversi[i][j] == Casillero.BLANCAS){
+		for (int i = 0; i < this.matrizReversi.length; i++) {
+			for (int j = 0; j < this.matrizReversi[i].length; j++) {
+				if (this.matrizReversi[i][j] == Casillero.BLANCAS) {
 					fichasBlancas++;
-				}		
+				}
 			}
 		}
 		return fichasBlancas;
@@ -215,11 +221,11 @@ public class Reversi {
 	 */
 	public boolean termino() {
 		int fichasOcupadas = 0;
-		for(int i = 0; i < this.matrizReversi.length; i++){
-			for(int j = 0; j < this.matrizReversi[i].length; j++){
-				if(this.matrizReversi[i][j] != Casillero.LIBRE){
+		for (int i = 0; i < this.matrizReversi.length; i++) {
+			for (int j = 0; j < this.matrizReversi[i].length; j++) {
+				if (this.matrizReversi[i][j] != Casillero.LIBRE) {
 					fichasOcupadas++;
-				}		
+				}
 			}
 		}
 		return (fichasOcupadas == (this.matrizReversi.length * this.matrizReversi.length));
