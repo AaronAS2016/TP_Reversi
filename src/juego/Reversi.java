@@ -2,249 +2,310 @@ package juego;
 
 /**
  * Juego Reversi
- * 
+ * <p>
  * Reglas:
- * 
+ * <p>
  * https://es.wikipedia.org/wiki/Reversi https://es.wikihow.com/jugar-a-Othello
- * 
  */
 public class Reversi {
-	
-	
-	/* Constantes del Tablero */
-	private static final int MAXIMO_DEL_TABLERO = 10;
-	private static final int MINIMO_DEL_TABLERO = 4;
-	
-	private int filas;
-	private int columnas;
-	
-	private String[] jugadores = new String[2];
-	private String jugadorActual;
-	private Casillero casilleroActual  = Casillero.NEGRAS;
 
-	private Casillero[][] matrizReversi;
-	private Casillero[][] matrizEnglobadora;
 
-	/**
-	 * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
-	 * juego entre el jugador que tiene fichas negras, identificado como
-	 * 'fichasNegras' y el jugador que tiene fichas blancas, identificado como
-	 * 'fichasBlancas'. El tablero tiene 4 fichas: 2 negras y 2 blancas. Estas
-	 * fichas están intercaladas en el centro del tablero.
-	 * 
-	 * @param dimensionTablero
-	 *            : cantidad de filas y columnas que tiene el tablero.
-	 * @param fichasNegras
-	 *            : nombre del jugador con fichas negras.
-	 * @param fichasBlancas
-	 *            : nombre del jugador con fichas blancas.
-	 */
+    /* Constantes del Tablero */
+    private static final int MAXIMO_DEL_TABLERO = 10;
+    private static final int MINIMO_DEL_TABLERO = 4;
 
-	public Reversi(int dimensionTablero, String fichasNegras,
-			String fichasBlancas) {
-		validarTablero(dimensionTablero);
-		validarJugadores(fichasNegras, fichasBlancas);
-		cargarTablero(dimensionTablero);
-		cargarJugadores(fichasNegras, fichasBlancas);
-		armarTablero(dimensionTablero);
-		armarMatriz(this.matrizReversi);
-	}
-	
-	private void armarMatriz(Casillero[][] matriz){
-		this.matrizEnglobadora = new Casillero[matriz.length + 2][matriz.length+2];
-		//INICIALIZAMOS EN NULA
-		for(int i = 0; i < matrizEnglobadora.length; i++){
-			for(int j = 0; j < matrizEnglobadora[i].length; j++){
-				this.matrizEnglobadora[i][j] = Casillero.NULA;
-			}
-		}
-		for(int i = 0; i < matriz.length; i++){
-			for(int j = 0; j < matriz[i].length; j++){
-				this.matrizEnglobadora[i+1][j+1] = matriz[i][j];
-			}
-		}
-	}
+    private int filas;
+    private int columnas;
 
-	private void armarTablero(int dimension) {
-		this.matrizReversi = new Casillero[dimension][dimension];
-		int mitadDelTablero = matrizReversi.length / 2;
-		// pintamos la matriz de casilleros vacios
-		for (int i = 0; i < this.matrizReversi.length; i++) {
-			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				this.matrizReversi[i][j] = Casillero.LIBRE;
-			}
-		}
-		// pintamos los casilleros blancos y negro para cada jugador
-		this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.NEGRAS;
-		this.matrizReversi[mitadDelTablero - 1][mitadDelTablero] = Casillero.BLANCAS;
-		this.matrizReversi[mitadDelTablero - 1][mitadDelTablero - 1] = Casillero.NEGRAS;
-		this.matrizReversi[mitadDelTablero][mitadDelTablero - 1] = Casillero.BLANCAS;
-	}
+    private String[] jugadores = new String[2];
+    private String jugadorActual;
+    private Casillero casilleroActual = Casillero.NEGRAS;
 
-	/* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
+    private Casillero[][] matrizReversi;
+    private Casillero[][] matrizEnglobadora;
 
-	private void validarJugadores(String fichasNegras, String fichasBlancas) {
-		if (fichasNegras.length() < 1 || fichasBlancas.length() < 1) {
-			throw new Error("Por favor ingrese un nombre para los jugadores");
-		}
-	}
+    /**
+     * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
+     * juego entre el jugador que tiene fichas negras, identificado como
+     * 'fichasNegras' y el jugador que tiene fichas blancas, identificado como
+     * 'fichasBlancas'. El tablero tiene 4 fichas: 2 negras y 2 blancas. Estas
+     * fichas están intercaladas en el centro del tablero.
+     *
+     * @param dimensionTablero : cantidad de filas y columnas que tiene el tablero.
+     * @param fichasNegras     : nombre del jugador con fichas negras.
+     * @param fichasBlancas    : nombre del jugador con fichas blancas.
+     */
 
-	private void validarTablero(int dimensionTablero) {
-		if (dimensionTablero < MINIMO_DEL_TABLERO && dimensionTablero > MAXIMO_DEL_TABLERO) {
-			throw new Error("El tablero debe tener una dimensión minima de 4x4");
-		}
-		if (dimensionTablero % 2 != 0) {
-			throw new Error("El tablero debe ser de un número par");
-		}
-	}
+    public Reversi(int dimensionTablero, String fichasNegras,
+                   String fichasBlancas) {
+        validarTablero(dimensionTablero);
+        validarJugadores(fichasNegras, fichasBlancas);
+        cargarTablero(dimensionTablero);
+        cargarJugadores(fichasNegras, fichasBlancas);
+        armarMatrizGlobalReversi(dimensionTablero);
+        armarMatrizGlobal(this.matrizReversi);
+    }
 
-	/* ------ METODOS DE CARGA DEL TABLERO ---------- */
-	private void cargarTablero(int dimension) {
-		this.filas = dimension;
-		this.columnas = dimension;
-	}
+    private void armarMatrizGlobal(Casillero[][] matriz) {
+        this.matrizEnglobadora = new Casillero[matriz.length + 2][matriz.length + 2];
+        //INICIALIZAMOS EN NULA
+        for (int i = 0; i < matrizEnglobadora.length; i++) {
+            for (int j = 0; j < matrizEnglobadora[i].length; j++) {
+                this.matrizEnglobadora[i][j] = Casillero.NULA;
+            }
+        }
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                this.matrizEnglobadora[i + 1][j + 1] = matriz[i][j];
+            }
+        }
+    }
 
-	private void cargarJugadores(String fichasNegras, String fichasBlancas) {
-		jugadores[0] = fichasNegras;
-		jugadores[1] = fichasBlancas;
-		this.jugadorActual = jugadores[0];
-	}
+    private void armarMatrizGlobalReversi(int dimension) {
+        this.matrizReversi = new Casillero[dimension][dimension];
+        int mitadDelTablero = matrizReversi.length / 2;
+        // pintamos la matriz de casilleros vacios
+        for (int i = 0; i < this.matrizReversi.length; i++) {
+            for (int j = 0; j < this.matrizReversi[i].length; j++) {
+                this.matrizReversi[i][j] = Casillero.LIBRE;
+            }
+        }
+        // pintamos los casilleros blancos y negro para cada jugador
+        this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.NEGRAS;
+        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero] = Casillero.BLANCAS;
+        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero - 1] = Casillero.NEGRAS;
+        this.matrizReversi[mitadDelTablero][mitadDelTablero - 1] = Casillero.BLANCAS;
+    }
 
-	/**
-	 * post: devuelve la cantidad de filas que tiene el tablero.
-	 */
-	public int contarFilas() {
+    /* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
 
-		return this.filas;
-	}
+    private void validarJugadores(String fichasNegras, String fichasBlancas) {
+        if (fichasNegras.length() < 1 || fichasBlancas.length() < 1) {
+            throw new Error("Por favor ingrese un nombre para los jugadores");
+        }
+    }
 
-	/**
-	 * post: devuelve la cantidad de columnas que tiene el tablero.
-	 */
-	public int contarColumnas() {
+    private void validarTablero(int dimensionTablero) {
+        if (dimensionTablero < MINIMO_DEL_TABLERO && dimensionTablero > MAXIMO_DEL_TABLERO) {
+            throw new Error("El tablero debe tener una dimensión minima de 4x4");
+        }
+        if (dimensionTablero % 2 != 0) {
+            throw new Error("El tablero debe ser de un número par");
+        }
+    }
 
-		return this.columnas;
-	}
+    /* ------ METODOS DE CARGA DEL TABLERO ---------- */
+    private void cargarTablero(int dimension) {
+        this.filas = dimension;
+        this.columnas = dimension;
+    }
 
-	/**
-	 * post: devuelve el nombre del jugador que debe colocar una ficha o null si
-	 * terminó el juego.
-	 */
-	public String obtenerJugadorActual() {
+    private void cargarJugadores(String fichasNegras, String fichasBlancas) {
+        jugadores[0] = fichasNegras;
+        jugadores[1] = fichasBlancas;
+        this.jugadorActual = jugadores[0];
+    }
 
-		return jugadorActual;
-	}
+    /**
+     * post: devuelve la cantidad de filas que tiene el tablero.
+     */
+    public int contarFilas() {
 
-	/**
-	 * pre : fila está en el intervalo [1, contarFilas()], columnas está en el
-	 * intervalo [1, contarColumnas()]. post: indica quién tiene la posesión del
-	 * casillero dado por fila y columna.
-	 * 
-	 * @param fila
-	 * @param columna
-	 */
-	public Casillero obtenerCasillero(int fila, int columna) {
-		return this.matrizReversi[fila - 1][columna - 1];
-	}
+        return this.filas;
+    }
 
-	public boolean puedeColocarFicha(int fila, int columna) {
-		boolean sePuedeColocarFicha = false;
-		if (this.matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
-			
-		}
+    /**
+     * post: devuelve la cantidad de columnas que tiene el tablero.
+     */
+    public int contarColumnas() {
 
-		return sePuedeColocarFicha;
-	}
+        return this.columnas;
+    }
 
-	/**
-	 * pre : la posición indicada por (fila, columna) puede ser ocupada por una
-	 * ficha. 'fila' está en el intervalo [1, contarFilas()]. 'columna' está en
-	 * el intervalor [1, contarColumnas()]. y aún queda un Casillero.VACIO en la
-	 * columna indicada. post: coloca una ficha en la posición indicada.
-	 * 
-	 * @param fila
-	 * @param columna
-	 */
+    /**
+     * post: devuelve el nombre del jugador que debe colocar una ficha o null si
+     * terminó el juego.
+     */
+    public String obtenerJugadorActual() {
 
-	// ojo, llegan al revés
-	public void colocarFicha(int fila, int columna) {
-		 System.out.println("Fila:" + fila + "\nColumna: " + columna);
-		switch (casilleroActual) {
-			case NEGRAS:
-				casilleroActual = Casillero.BLANCAS;
-				break;
-			case BLANCAS:
-				casilleroActual = Casillero.NEGRAS;
-				break;
-			default:
-				casilleroActual = Casillero.NEGRAS;
-				break;
-		}
-		this.matrizReversi[fila - 1][columna - 1] = casilleroActual;
+        return jugadorActual;
+    }
 
-	}
+    /**
+     * pre : fila está en el intervalo [1, contarFilas()], columnas está en el
+     * intervalo [1, contarColumnas()]. post: indica quién tiene la posesión del
+     * casillero dado por fila y columna.
+     *
+     * @param fila
+     * @param columna
+     */
+    public Casillero obtenerCasillero(int fila, int columna) {
+        return this.matrizEnglobadora[fila][columna];
+    }
 
-	/**
-	 * post: devuelve la cantidad de fichas negras en el tablero.
-	 */
-	public int contarFichasNegras() {
-		int fichasNegras = 0;
-		for (int i = 0; i < this.matrizReversi.length; i++) {
-			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				if (this.matrizReversi[i][j] == Casillero.NEGRAS) {
-					fichasNegras++;
-				}
-			}
-		}
-		return fichasNegras;
-	}
+    public boolean puedeColocarFicha(int fila, int columna) {
+        boolean sePuedeColocarFicha = false;
+        if (this.matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
 
-	/**
-	 * post: devuelve la cantidad de fichas blancas en el tablero.
-	 */
-	public int contarFichasBlancas() {
+            if(this.matrizEnglobadora[fila][columna +1] == casilleroActual || this.matrizEnglobadora[fila][columna - 1] == casilleroActual){
+                sePuedeColocarFicha = analizarTableroHorizontal(fila, columna);
+            }
 
-		int fichasBlancas = 0;
-		for (int i = 0; i < this.matrizReversi.length; i++) {
-			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				if (this.matrizReversi[i][j] == Casillero.BLANCAS) {
-					fichasBlancas++;
-				}
-			}
-		}
-		return fichasBlancas;
-	}
+            if(this.matrizEnglobadora[fila+1][columna] == casilleroActual || this.matrizEnglobadora[fila-1][columna ] == casilleroActual){
+                sePuedeColocarFicha = analizarTableroVertical(fila,columna);
+            }
 
-	/**
-	 * post: indica si el juego terminó porque no existen casilleros vacíos o
-	 * ninguno de los jugadores puede colocar una ficha.
-	 */
-	public boolean termino() {
-		int fichasOcupadas = 0;
-		for (int i = 0; i < this.matrizReversi.length; i++) {
-			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				if (this.matrizReversi[i][j] != Casillero.LIBRE) {
-					fichasOcupadas++;
-				}
-			}
-		}
-		return (fichasOcupadas == (this.matrizReversi.length * this.matrizReversi.length));
-	}
+            if(this.matrizEnglobadora[fila+1][columna+1] == casilleroActual || this.matrizEnglobadora[fila-1][columna-1] == casilleroActual){
+                sePuedeColocarFicha = analizarTableroDiagonal(fila,columna);
+            }
 
-	/**
-	 * post: indica si el juego terminó y tiene un ganador.
-	 */
-	public boolean hayGanador() {
 
-		return false;
-	}
 
-	/**
-	 * pre : el juego terminó. post: devuelve el nombre del jugador que ganó el
-	 * juego.
-	 */
-	public String obtenerGanador() {
 
-		return null;
-	}
+
+
+        }
+
+        return sePuedeColocarFicha;
+    }
+
+    private boolean analizarTableroDiagonal(int fila, int columna) {
+        boolean sePuedeColocarFicha = false;
+        for (int i = 0; this.matrizEnglobadora[fila+i][columna + i] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila+ i][columna + i] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna + i] != Casillero.NULA; i--) {
+            if (this.matrizEnglobadora[fila + i][columna +i] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+        return sePuedeColocarFicha;
+    }
+
+    private boolean analizarTableroHorizontal(int fila, int columna){
+        boolean sePuedeColocarFicha = false;
+        for (int i = 0; this.matrizEnglobadora[fila][columna + i] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila][columna + i] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+
+        for (int i = 0; this.matrizEnglobadora[fila][columna + i] != Casillero.NULA; i--) {
+            if (this.matrizEnglobadora[fila][columna + i] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+        return sePuedeColocarFicha;
+    }
+
+
+    private boolean analizarTableroVertical(int fila, int columna){
+        boolean sePuedeColocarFicha = false;
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila + i][columna] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna] != Casillero.NULA; i--) {
+            if (this.matrizEnglobadora[fila + i][columna] == Casillero.BLANCAS) {
+                sePuedeColocarFicha = true;
+            }
+        }
+        return sePuedeColocarFicha;
+    }
+    /**
+     * pre : la posición indicada por (fila, columna) puede ser ocupada por una
+     * ficha. 'fila' está en el intervalo [1, contarFilas()]. 'columna' está en
+     * el intervalor [1, contarColumnas()]. y aún queda un Casillero.VACIO en la
+     * columna indicada. post: coloca una ficha en la posición indicada.
+     *
+     * @param fila
+     * @param columna
+     */
+
+    // ojo, llegan al revés
+    public void colocarFicha(int fila, int columna) {
+        System.out.println("Fila:" + fila + "\nColumna: " + columna);
+        switch (casilleroActual) {
+            case NEGRAS:
+                casilleroActual = Casillero.BLANCAS;
+                break;
+            case BLANCAS:
+                casilleroActual = Casillero.NEGRAS;
+                break;
+            default:
+                casilleroActual = Casillero.NEGRAS;
+                break;
+        }
+        this.matrizEnglobadora[fila][columna] = casilleroActual;
+
+    }
+
+    /**
+     * post: devuelve la cantidad de fichas negras en el tablero.
+     */
+    public int contarFichasNegras() {
+        int fichasNegras = 0;
+        for (int i = 0; i < this.matrizReversi.length; i++) {
+            for (int j = 0; j < this.matrizReversi[i].length; j++) {
+                if (this.matrizReversi[i][j] == Casillero.NEGRAS) {
+                    fichasNegras++;
+                }
+            }
+        }
+        return fichasNegras;
+    }
+
+    /**
+     * post: devuelve la cantidad de fichas blancas en el tablero.
+     */
+    public int contarFichasBlancas() {
+
+        int fichasBlancas = 0;
+        for (int i = 0; i < this.matrizReversi.length; i++) {
+            for (int j = 0; j < this.matrizReversi[i].length; j++) {
+                if (this.matrizReversi[i][j] == Casillero.BLANCAS) {
+                    fichasBlancas++;
+                }
+            }
+        }
+        return fichasBlancas;
+    }
+
+    /**
+     * post: indica si el juego terminó porque no existen casilleros vacíos o
+     * ninguno de los jugadores puede colocar una ficha.
+     */
+    public boolean termino() {
+        int fichasOcupadas = 0;
+        for (int i = 0; i < this.matrizReversi.length; i++) {
+            for (int j = 0; j < this.matrizReversi[i].length; j++) {
+                if (this.matrizReversi[i][j] != Casillero.LIBRE) {
+                    fichasOcupadas++;
+                }
+            }
+        }
+        return (fichasOcupadas == (this.matrizReversi.length * this.matrizReversi.length));
+    }
+
+    /**
+     * post: indica si el juego terminó y tiene un ganador.
+     */
+    public boolean hayGanador() {
+
+        return false;
+    }
+
+    /**
+     * pre : el juego terminó. post: devuelve el nombre del jugador que ganó el
+     * juego.
+     */
+    public String obtenerGanador() {
+
+        return null;
+    }
 }

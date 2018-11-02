@@ -4,5 +4,6 @@ public enum Casillero {
 
 	LIBRE,
 	NEGRAS,
-	BLANCAS
+	BLANCAS,
+	NULA
 }
