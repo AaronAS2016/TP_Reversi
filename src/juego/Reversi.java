@@ -227,21 +227,47 @@ public class Reversi {
      * @param columna
      */
 
-    // ojo, llegan al revés
     public void colocarFicha(int fila, int columna) {
-        System.out.println("Fila:" + fila + "\nColumna: " + columna);
+        Casillero pincel;
         switch (casilleroActual) {
             case NEGRAS:
+                pincel = Casillero.BLANCAS;
                 casilleroActual = Casillero.BLANCAS;
                 break;
             case BLANCAS:
+                pincel = Casillero.NEGRAS;
                 casilleroActual = Casillero.NEGRAS;
                 break;
             default:
+                pincel = Casillero.NEGRAS;
                 casilleroActual = Casillero.NEGRAS;
                 break;
         }
-        this.matrizEnglobadora[fila][columna] = casilleroActual;
+        if(puedeColocarFicha(fila,columna)){
+            for(int i = 0; this.matrizEnglobadora[fila][columna+i] != Casillero.NULA ||   this.matrizEnglobadora[fila][columna+i] == pincel;i++){
+                if(this.matrizEnglobadora[fila][columna+i] != pincel){
+                    this.matrizEnglobadora[fila][columna+i] = pincel;
+                }
+            }
+
+            for(int i = 0; this.matrizEnglobadora[fila][columna+i] != Casillero.NULA ||   this.matrizEnglobadora[fila][columna+i] == pincel;i--){
+                if(this.matrizEnglobadora[fila][columna+i] != pincel){
+                    this.matrizEnglobadora[fila][columna+i] = pincel;
+                }
+            }
+
+            for(int i = 0; this.matrizEnglobadora[fila+i][columna] != Casillero.NULA ||   this.matrizEnglobadora[fila+i][columna] == pincel;i++){
+                if(this.matrizEnglobadora[fila+i][columna] != pincel){
+                    this.matrizEnglobadora[fila+i][columna] = pincel;
+                }
+            }
+
+            for(int i = 0; this.matrizEnglobadora[fila+i][columna] != Casillero.NULA ||   this.matrizEnglobadora[fila+i][columna] == pincel;i--){
+                if(this.matrizEnglobadora[fila+i][columna] != pincel){
+                    this.matrizEnglobadora[fila+i][columna] = pincel;
+                }
+            }
+        }
 
     }
 
