@@ -23,6 +23,8 @@ public class Reversi {
 
     private Casillero[][] matrizReversi;
     private Casillero[][] matrizEnglobadora;
+    
+    
 
     /**
      * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -86,7 +88,7 @@ public class Reversi {
     }
 
     private void validarTablero(int dimensionTablero) {
-        if (dimensionTablero < MINIMO_DEL_TABLERO && dimensionTablero > MAXIMO_DEL_TABLERO) {
+        if (dimensionTablero < MINIMO_DEL_TABLERO || dimensionTablero > MAXIMO_DEL_TABLERO) {
             throw new Error("El tablero debe tener una dimensión minima de 4x4");
         }
         if (dimensionTablero % 2 != 0) {
@@ -126,6 +128,10 @@ public class Reversi {
      * post: devuelve el nombre del jugador que debe colocar una ficha o null si
      * terminó el juego.
      */
+    private void cambiarTurno() {
+    	
+    }
+    
     public String obtenerJugadorActual() {
 
         return jugadorActual;
@@ -334,4 +340,5 @@ public class Reversi {
 
         return null;
     }
+    
 }
