@@ -21,8 +21,7 @@ public class Reversi {
 
     private Casillero[][] matrizReversi;
     private Casillero[][] matrizEnglobadora;
-    
-    
+
 
     /**
      * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -122,19 +121,25 @@ public class Reversi {
      * terminó el juego.
      */
     private void cambiarTurno() {
-        switch (tiroActual){
+        switch (tiroActual) {
             case BLANCAS:
                 tiroActual = Casillero.NEGRAS;
                 tiroOponente = Casillero.BLANCAS;
+                jugadorActual = jugadores[0];
                 break;
             case NEGRAS:
                 tiroActual = Casillero.BLANCAS;
                 tiroOponente = Casillero.NEGRAS;
+                jugadorActual = jugadores[1];
                 break;
+            default:
+                tiroActual = Casillero.NEGRAS;
+                tiroOponente = Casillero.BLANCAS;
+                jugadorActual = jugadores[0];
         }
-    	
+
     }
-    
+
     public String obtenerJugadorActual() {
 
         return jugadorActual;
@@ -155,48 +160,50 @@ public class Reversi {
     public boolean puedeColocarFicha(int columna, int fila) {
         boolean sePuedeColocarFicha = false;
         if (this.matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
-            if(this.matrizEnglobadora[fila][columna +1] == tiroOponente || this.matrizEnglobadora[fila][columna - 1] == tiroOponente){
+            if (this.matrizEnglobadora[fila][columna + 1] == tiroOponente || this.matrizEnglobadora[fila][columna - 1] == tiroOponente) {
+                sePuedeColocarFicha = analizarTableroVertical(fila, columna);
+            }
+
+            if (this.matrizEnglobadora[fila + 1][columna] == tiroOponente || this.matrizEnglobadora[fila - 1][columna] == tiroOponente) {
                 sePuedeColocarFicha = analizarTableroHorizontal(fila, columna);
             }
 
-            if(this.matrizEnglobadora[fila+1][columna] == tiroOponente || this.matrizEnglobadora[fila-1][columna ] == tiroOponente){
-                sePuedeColocarFicha = analizarTableroVertical(fila,columna);
-            }
-
-            if(this.matrizEnglobadora[fila+1][columna+1] == tiroOponente || this.matrizEnglobadora[fila-1][columna-1] == tiroOponente){
-                sePuedeColocarFicha = analizarTableroDiagonal(fila,columna);
+            if (this.matrizEnglobadora[fila + 1][columna + 1] == tiroOponente || this.matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
+                sePuedeColocarFicha = analizarTableroDiagonal(fila, columna);
             }
         }
 
         return sePuedeColocarFicha;
     }
 
+    //ANALISIS
+
     private boolean analizarTableroDiagonal(int fila, int columna) {
         boolean sePuedeColocarFicha = false;
-        for (int i = 0; this.matrizEnglobadora[fila+i][columna + i] != Casillero.NULA; i++) {
+        for (int i = 1;this.matrizEnglobadora[fila+i][columna + i] != Casillero.NULA; i++) {
             if (this.matrizEnglobadora[fila+ i][columna + i] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
 
-        for (int i = 0; this.matrizEnglobadora[fila + i][columna + i] != Casillero.NULA; i--) {
-            if (this.matrizEnglobadora[fila + i][columna +i] == tiroActual) {
+        for (int i = 1; this.matrizEnglobadora[fila-i][columna - i] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila- i][columna - i] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
         return sePuedeColocarFicha;
     }
 
-    private boolean analizarTableroHorizontal(int fila, int columna){
+    private boolean analizarTableroHorizontal(int fila, int columna) {
         boolean sePuedeColocarFicha = false;
-        for (int i = 0; this.matrizEnglobadora[fila][columna + i] != Casillero.NULA; i++) {
-            if (this.matrizEnglobadora[fila][columna + i] == tiroActual) {
+        for (int i = 1; this.matrizEnglobadora[fila+i][columna ] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila+i][columna] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
 
-        for (int i = 0; this.matrizEnglobadora[fila][columna + i] != Casillero.NULA; i--) {
-            if (this.matrizEnglobadora[fila][columna + i] == tiroActual) {
+        for (int i = 1; this.matrizEnglobadora[fila-i][columna] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila-i][columna] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
@@ -204,21 +211,22 @@ public class Reversi {
     }
 
 
-    private boolean analizarTableroVertical(int fila, int columna){
+    private boolean analizarTableroVertical(int fila, int columna) {
         boolean sePuedeColocarFicha = false;
-        for (int i = 0; this.matrizEnglobadora[fila + i][columna] != Casillero.NULA; i++) {
-            if (this.matrizEnglobadora[fila + i][columna] == tiroActual) {
+        for (int i = 1; this.matrizEnglobadora[fila][columna+i] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila][columna+i] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
 
-        for (int i = 0; this.matrizEnglobadora[fila + i][columna] != Casillero.NULA; i--) {
-            if (this.matrizEnglobadora[fila + i][columna] == tiroActual) {
+        for (int i = 1; this.matrizEnglobadora[fila][columna -i] != Casillero.NULA; i++) {
+            if (this.matrizEnglobadora[fila ][columna-i] == tiroActual) {
                 sePuedeColocarFicha = true;
             }
         }
         return sePuedeColocarFicha;
     }
+
     /**
      * pre : la posición indicada por (fila, columna) puede ser ocupada por una
      * ficha. 'fila' está en el intervalo [1, contarFilas()]. 'columna' está en
@@ -232,192 +240,216 @@ public class Reversi {
     public void colocarFicha(int columna, int fila) {
 
         //DERECHA IZQUIERDA
-        if(this.matrizEnglobadora[fila][columna+1] == tiroOponente){
-            comprobarDerechaPintarCasillero(fila,columna);
+        if(puedeColocarFicha(columna, fila)){
+            if (this.matrizEnglobadora[fila][columna + 1] == tiroOponente) {
+                comprobarDerechaPintarCasillero(fila, columna+1);
+            }
+        }
+
+        if(puedeColocarFicha(columna, fila)){
+
+            if (this.matrizEnglobadora[fila][columna - 1] == tiroOponente) {
+                comprobarIzquierdaPintarCasillero(fila, columna-1);
+            }
         }
 
 
-        if(this.matrizEnglobadora[fila][columna-1] == tiroOponente){
-            comprobarIzquierdaPintarCasillero( fila, columna);
+        if(puedeColocarFicha(columna, fila)){
+
+            //ARRIBA ABAJO
+
+            if (this.matrizEnglobadora[fila - 1][columna] == tiroOponente) {
+                comprobarArribaPintarCasillero(fila-1, columna);
+            }
+
         }
 
 
-        //ARRIBA ABAJO
+        if(puedeColocarFicha(columna, fila)){
 
-        if(this.matrizEnglobadora[fila-1][columna] == tiroOponente){
-            comprobarArribaPintarCasillero( fila, columna);
+
+            if (this.matrizEnglobadora[fila + 1][columna] == tiroOponente) {
+                comprobarAbajoPintarCasillero(fila+1, columna);
+            }
+
         }
 
-        if(this.matrizEnglobadora[fila+1][columna] == tiroOponente){
-            comprobarAbajoPintarCasillero( fila, columna);
+
+        if(puedeColocarFicha(columna, fila)){
+
+
+            if (this.matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
+                comprobarAbajoDerechaPintarCasillero(fila+1, columna+1);
+            }
+
         }
+
+
+        if(puedeColocarFicha(columna, fila)){
+
+            if (this.matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
+                comprobarArribaIzquierdaPintarCasillero(fila-1, columna-1);
+            }
+
+        }
+
+
+        if(puedeColocarFicha(columna, fila)){
+
+            if (this.matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
+                comprobarAbajoIzquierdaPintarCasillero(fila+1, columna-1);
+            }
+
+
+        }
+
+
+        if(puedeColocarFicha(columna, fila)){
+
+            if (this.matrizEnglobadora[fila - 1][columna + 1] == tiroOponente) {
+                comprobarArribaDerechaPintarCasillero(fila-1, columna-1);
+            }
+
+
+        }
+
+
+
+
 
 
         /* DIAGONALES */
 
-        if(this.matrizEnglobadora[fila+1][columna+1] == tiroOponente){
-            comprobarAbajoDerechaPintarCasillero( fila, columna);
-        }
-
-        if(this.matrizEnglobadora[fila-1][columna-1] == tiroOponente){
-            comprobarArribaIzquierdaPintarCasillero( fila, columna);
-        }
-
-        if(this.matrizEnglobadora[fila+1][columna-1] == tiroOponente){
-            comprobarAbajoIzquierdaPintarCasillero( fila, columna);
-        }
-
-        if(this.matrizEnglobadora[fila-1][columna+1] == tiroOponente){
-            comprobarArribaDerechaPintarCasillero(fila,columna);
-        }
         //pintamos el casillo libre con la ficha
         this.matrizEnglobadora[fila][columna] = tiroActual;
         cambiarTurno();
     }
+
     //DIAGONALES
     private void comprobarArribaIzquierdaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila-i][columna-i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila-i][columna-i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila - i][columna - i] != tiroActual && this.matrizEnglobadora[fila - i][columna - i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaDiagonalArribaIzquierda( fila, columna, casilleroADetenerse);
+        pintarHaciaDiagonalArribaIzquierda(fila, columna, casilleroADetenerse);
     }
 
     private void comprobarArribaDerechaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila-i][columna+i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila-i][columna+i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila - i][columna + i] != tiroActual && this.matrizEnglobadora[fila - i][columna + i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaDiagonalArribaDerecha( fila, columna, casilleroADetenerse);
+        pintarHaciaDiagonalArribaDerecha(fila, columna, casilleroADetenerse);
     }
 
     private void comprobarAbajoIzquierdaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila+i][columna-i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila+i][columna-i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna - i] != tiroActual && this.matrizEnglobadora[fila + i][columna - i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaDiagonalAbajoIzquierda( fila, columna, casilleroADetenerse);
+        pintarHaciaDiagonalAbajoIzquierda(fila, columna, casilleroADetenerse);
     }
 
     private void comprobarAbajoDerechaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila+i][columna+i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila+i][columna+i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna + i] != tiroActual && this.matrizEnglobadora[fila + i][columna + i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaDiagonalAbajoDerecha( fila, columna, casilleroADetenerse);
+        pintarHaciaDiagonalAbajoDerecha(fila, columna, casilleroADetenerse);
     }
 
     //ARRIBA ABAJO
 
     private void comprobarAbajoPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila+i][columna] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila+i][columna] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila + i][columna] != tiroActual && this.matrizEnglobadora[fila + i][columna] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaAbajo( fila, columna, casilleroADetenerse);
+        pintarHaciaAbajo(fila, columna, casilleroADetenerse);
     }
 
     private void comprobarArribaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila-i][columna] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila-i][columna] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila - i][columna] != tiroActual && this.matrizEnglobadora[fila - i][columna] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaArriba( fila, columna, casilleroADetenerse);
+        pintarHaciaArriba(fila, columna, casilleroADetenerse);
     }
 
     //COMPROBAR IZQUIERDA DERECHA
     private void comprobarDerechaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila][columna+i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila][columna+i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila][columna + i] != tiroActual && this.matrizEnglobadora[fila][columna + i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaLaDerecha( fila, columna, casilleroADetenerse);
+        pintarHaciaLaDerecha(fila, columna, casilleroADetenerse);
 
     }
 
 
     private void comprobarIzquierdaPintarCasillero(int fila, int columna) {
         int casilleroADetenerse = 0;
-        for(int i = 0; this.matrizEnglobadora[fila][columna-i] != tiroActual && this.matrizEnglobadora[fila+i][columna+i] != Casillero.NULA; i++){
-            if(this.matrizEnglobadora[fila][columna-i] != tiroActual){
-                casilleroADetenerse++;
-            }
+        for (int i = 0; this.matrizEnglobadora[fila][columna - i] != tiroActual && this.matrizEnglobadora[fila][columna - i] != Casillero.LIBRE; i++) {
+            casilleroADetenerse++;
         }
-        pintarHaciaIzquierda( fila, columna, casilleroADetenerse);
+        pintarHaciaIzquierda(fila, columna, casilleroADetenerse);
     }
-
-
 
 
     //metodos pintar arriba abajo
 
 
     private void pintarHaciaArriba(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila-i][columna] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila - i][columna] = tiroActual;
         }
     }
 
     private void pintarHaciaAbajo(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse; i++){
-            this.matrizEnglobadora[fila+i][columna] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila + i][columna] = tiroActual;
         }
     }
 
     //metodos pintar derecha izquierda
 
     private void pintarHaciaLaDerecha(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila][columna+i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila][columna + i] = tiroActual;
         }
     }
 
     private void pintarHaciaIzquierda(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila][columna-i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila][columna - i] = tiroActual;
         }
     }
 
 
     //METODOS PINTAR DIAGONALES
     private void pintarHaciaDiagonalArribaIzquierda(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila-i][columna-i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila - i][columna - i] = tiroActual;
         }
     }
 
     private void pintarHaciaDiagonalArribaDerecha(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila-i][columna+i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila - i][columna + i] = tiroActual;
         }
     }
 
     private void pintarHaciaDiagonalAbajoIzquierda(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse;i++){
-            this.matrizEnglobadora[fila+i][columna-i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila + i][columna - i] = tiroActual;
         }
     }
 
     private void pintarHaciaDiagonalAbajoDerecha(int fila, int columna, int casilleroADetenerse) {
-        for(int i = 0; i <= casilleroADetenerse ;i++){
-            this.matrizEnglobadora[fila+i][columna+i] = tiroActual;
+        for (int i = 0; i <= casilleroADetenerse; i++) {
+            this.matrizEnglobadora[fila + i][columna + i] = tiroActual;
         }
     }
-
 
 
     /**
@@ -427,7 +459,7 @@ public class Reversi {
         int fichasNegras = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i+1][j+1] == Casillero.NEGRAS) {
+                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.NEGRAS) {
                     fichasNegras++;
                 }
             }
@@ -442,7 +474,7 @@ public class Reversi {
         int fichasBlancas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i+1][j+1] == Casillero.BLANCAS) {
+                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.BLANCAS) {
                     fichasBlancas++;
                 }
             }
@@ -458,7 +490,7 @@ public class Reversi {
         int fichasOcupadas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i+1][j+1] != Casillero.LIBRE) {
+                if (this.matrizEnglobadora[i + 1][j + 1] != Casillero.LIBRE) {
                     fichasOcupadas++;
                 }
             }
@@ -480,5 +512,5 @@ public class Reversi {
     public String obtenerGanador() {
         return null;
     }
-    
+
 }
