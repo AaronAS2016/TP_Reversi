@@ -11,7 +11,7 @@
       <URL value="@styles.css" />
    </stylesheets>
    <children>
-      <Button layoutX="152.0" layoutY="319.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" styleClass="button" text="JUGAR" textFill="#ffbc22">
+      <Button layoutX="152.0" layoutY="319.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" styleClass="button" fx:id="btnIniciar" text="JUGAR" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>

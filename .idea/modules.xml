@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tp-reversi.iml" filepath="$PROJECT_DIR$/tp-reversi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/views/views.iml" filepath="$PROJECT_DIR$/src/views/views.iml" />
     </modules>
   </component>
 </project>
