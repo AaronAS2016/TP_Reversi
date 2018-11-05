@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/juego/AplicacionV2.java" line="38" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83679fa1-0a44-4fe3-a38c-94d6b1826004" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="83679fa1-0a44-4fe3-a38c-94d6b1826004" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/src/views/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -76,11 +74,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/juego/AplicacionV2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
-              <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
+            <state relative-caret-position="313">
+              <caret line="42" column="49" lean-forward="true" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1934#1935#0" expanded="true" />
@@ -100,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/styles.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
@@ -232,7 +230,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.AplicacionV2">
+  <component name="RunManager" selected="Application.Aplicacion">
     <configuration name="Aplicacion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="juego.Aplicacion" />
       <module name="tp-reversi" />
@@ -265,8 +263,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AplicacionV2" />
         <item itemvalue="Application.Aplicacion" />
+        <item itemvalue="Application.AplicacionV2" />
       </list>
     </recent_temporary>
   </component>
@@ -286,12 +284,12 @@
       <workItem from="1541352111233" duration="1771000" />
       <workItem from="1541353932273" duration="2176000" />
       <workItem from="1541412062751" duration="7052000" />
-      <workItem from="1541451214213" duration="1510000" />
+      <workItem from="1541451214213" duration="2466000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39795000" />
+    <option name="totallyTimeSpent" value="40751000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -473,15 +471,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/juego/AplicacionV2.java">
+    <entry file="file://$PROJECT_DIR$/src/views/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1934#1935#0" expanded="true" />
-            <element signature="e#1987#1988#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="34">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -493,10 +486,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/styles.css">
+    <entry file="file://$PROJECT_DIR$/src/juego/AplicacionV2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="33" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="33" />
+        <state relative-caret-position="313">
+          <caret line="42" column="49" lean-forward="true" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1934#1935#0" expanded="true" />
+            <element signature="e#1987#1988#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
