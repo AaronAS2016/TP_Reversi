@@ -154,11 +154,11 @@ public class Reversi {
      * @param fila
      * @param columna
      */
-    public Casillero obtenerCasillero(int columna, int fila) {
+    public Casillero obtenerCasillero(int fila, int columna) {
         return this.matrizEnglobadora[fila][columna];
     }
 
-    public boolean puedeColocarFicha(int columna, int fila) {
+    public boolean puedeColocarFicha(int fila, int columna) {
         boolean sePuedeColocarFicha = false;
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
@@ -215,7 +215,7 @@ public class Reversi {
      * @param columna
      */
 
-    public void colocarFicha(int columna, int fila) {
+    public void colocarFicha(int fila, int columna) {
         //vemos izquierda derecha
         colocarFichas(fila, columna, 0, -1);
         colocarFichas(fila, columna, 0, 1);
@@ -287,7 +287,7 @@ public class Reversi {
         int movimientosPosibles = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (puedeColocarFicha(j+1,i+1)) {
+                if (puedeColocarFicha(i+1,j+1)) {
                     movimientosPosibles++;
                 }
             }

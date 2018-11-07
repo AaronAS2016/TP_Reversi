@@ -43,7 +43,8 @@ public class AplicacionV2 extends Application {
         pantallaMenu = new Scene(menu, 450, 600);
 
         Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
-        btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+       btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+       //btnIniciar.setOnAction();
 
 
         escenarioPrincipal.setScene(pantallaPrincipal);

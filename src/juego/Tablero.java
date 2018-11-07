@@ -190,7 +190,7 @@ public class Tablero {
 		GridPane.setHalignment(elemento, HPos.CENTER);
 		GridPane.setValignment(elemento, VPos.CENTER);
 		
-		grilla.add(elemento, fila - 1, columna - 1);
+		grilla.add(elemento, columna - 1, fila - 1);
 	}
 
 	
