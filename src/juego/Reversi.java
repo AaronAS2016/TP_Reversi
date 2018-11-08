@@ -161,44 +161,48 @@ public class Reversi {
     public boolean puedeColocarFicha(int fila, int columna) {
         boolean sePuedeColocarFicha = false;
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
-            if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 1 , 1);
+            //arriba abajo
+            if (matrizEnglobadora[fila + 1][columna] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, 1, 0);
             }
-            if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 1 , 0);
+            if (matrizEnglobadora[fila - 1][columna] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, -1, 0);
             }
-            if (matrizEnglobadora[fila][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 0 , 1);
+            //izquierda derecha
+            if (matrizEnglobadora[fila][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, 0, 1);
             }
-            if (matrizEnglobadora[fila][columna - 1] == tiroOponente) {
+            if (matrizEnglobadora[fila][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
                 sePuedeColocarFicha = analizarTablero(fila, columna, 0, -1);
             }
-            if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1 , -1);
+
+            //diagonales
+            if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, -1, -1);
             }
-            if (matrizEnglobadora[fila - 1][columna] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1 , 0);
+            if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, 1, 1);
             }
-            if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1, +1);
+            if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, -1, 1);
             }
-            if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, +1, -1);
+            if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = analizarTablero(fila, columna, 1, -1);
             }
         }
         return sePuedeColocarFicha;
     }
 
-    private boolean analizarTablero(int fila, int columna, int direccion_fila, int direccion_columna){
+    private boolean analizarTablero(int fila, int columna, int direccion_fila, int direccion_columna) {
         boolean hayFichaEnMedio = false;
         boolean noSeFueDelTablero = true;
-        while (noSeFueDelTablero && !hayFichaEnMedio){
-            fila+=direccion_fila;
-            columna+=direccion_columna;
-            if(matrizEnglobadora[fila][columna] == tiroActual){
+        while (noSeFueDelTablero && !hayFichaEnMedio) {
+            fila += direccion_fila;
+            columna += direccion_columna;
+            if (matrizEnglobadora[fila][columna] == tiroActual) {
                 hayFichaEnMedio = true;
             }
-            if(matrizEnglobadora[fila][columna] == Casillero.NULA){
+            if (matrizEnglobadora[fila][columna] == Casillero.NULA || matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
                 noSeFueDelTablero = false;
             }
         }
@@ -216,28 +220,70 @@ public class Reversi {
      */
 
     public void colocarFicha(int fila, int columna) {
+        if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
+            if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
+                colocarFichas(fila, columna, 1, 0);
+            }
+            if (matrizEnglobadora[fila - 1][columna] == tiroOponente) {
+                colocarFichas(fila, columna, -1, 0);
+            }
+            if (matrizEnglobadora[fila][columna + 1] == tiroOponente) {
+                colocarFichas(fila, columna, 0, 1);
+            }
+            if (matrizEnglobadora[fila][columna - 1] == tiroOponente) {
+                colocarFichas(fila, columna, 0, -1);
+            }
+            if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
+                colocarFichas(fila, columna, -1, -1);
+            }
+            if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
+                colocarFichas(fila, columna, 1, 1);
+            }
+            if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente) {
+                colocarFichas(fila, columna, -1, 1);
+            }
+            if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
+                colocarFichas(fila, columna, 1, -1);
+            }
+        }
+
+
         //vemos izquierda derecha
-        colocarFichas(fila, columna, 0, -1);
-        colocarFichas(fila, columna, 0, 1);
+
+
         //vemos arriba y abajo
-        colocarFichas(fila, columna, 1,0);
-        colocarFichas(fila, columna, -1, 0);
+
+
         //revisamos las esquinas
-        colocarFichas(fila, columna,  1,1);
-        colocarFichas(fila, columna, -1,1);
-        colocarFichas(fila, columna, -1,-1);
+
+
         this.matrizEnglobadora[fila][columna] = tiroActual;
         cambiarTurno();
     }
 
-    public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna){
-        while(matrizEnglobadora[fila][columna] != Casillero.NULA){
-            if(matrizEnglobadora[fila][columna] != tiroActual && matrizEnglobadora[fila][columna] != Casillero.LIBRE && matrizEnglobadora[fila][columna] == tiroOponente && analizarTablero(fila,columna,direccion_fila,direccion_columna)){
-                matrizEnglobadora[fila][columna] = tiroActual;
+    public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
+        boolean encontroActual = false;
+        if(sePuedePintar(fila,columna, direccion_fila,  direccion_columna)){
+            while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {
+                if (matrizEnglobadora[fila][columna] == tiroActual) {
+                    encontroActual = true;
+                }
+                if (matrizEnglobadora[fila][columna] == tiroOponente) {
+                    matrizEnglobadora[fila][columna] = tiroActual;
+                }
+                fila += direccion_fila;
+                columna += direccion_columna;
             }
-            fila+=direccion_fila;
-            columna+=direccion_columna;
         }
+
+    }
+
+    private boolean sePuedePintar(int fila, int columna, int direccion_fila, int direccion_columna) {
+        boolean sePuedePintar = false;
+        sePuedePintar= analizarTablero(fila, columna,direccion_fila,direccion_columna);
+        return sePuedePintar;
+
+
     }
 
 
@@ -271,28 +317,30 @@ public class Reversi {
         return fichasBlancas;
     }
 
-    public int contarFichasOcupadas(){
+    public int contarFichasOcupadas() {
         int fichasOcupadas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i + 1][j + 1] != Casillero.LIBRE ) {
+                if (this.matrizEnglobadora[i][j] == Casillero.NEGRAS || this.matrizEnglobadora[i][j] == Casillero.BLANCAS) {
                     fichasOcupadas++;
                 }
+                j++;
             }
+            i++;
         }
-        return  fichasOcupadas;
+        return fichasOcupadas;
     }
 
-    public int contarMovimientosPosibles(){
+    public int contarMovimientosPosibles() {
         int movimientosPosibles = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (puedeColocarFicha(i+1,j+1)) {
+                if (puedeColocarFicha(i + 1, j + 1)) {
                     movimientosPosibles++;
                 }
             }
         }
-        return  movimientosPosibles;
+        return movimientosPosibles;
     }
 
     /**
@@ -302,11 +350,11 @@ public class Reversi {
 
     public boolean termino() {
         boolean termino = false;
-        if((contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length))) {
+        if ((contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length))) {
             termino = true;
         }
 
-        if(contarMovimientosPosibles() == 0){
+        if (contarMovimientosPosibles() == 0) {
             termino = true;
         }
 
@@ -318,17 +366,15 @@ public class Reversi {
      * post: indica si el juego terminó y tiene un ganador.
      */
     public boolean hayGanador() {
-        boolean huboEmpate = true;
-        if(contarFichasNegras() > contarFichasBlancas()){
+        boolean huboGanador = false;
+        if (contarFichasNegras() > contarFichasBlancas()) {
             ganador = jugadores[0];
-            huboEmpate = false;
-        }else if (contarFichasNegras() < contarFichasBlancas()){
+            huboGanador = true;
+        } else if (contarFichasNegras() < contarFichasBlancas()) {
             ganador = jugadores[1];
-            huboEmpate = false;
-        }else{
-            huboEmpate = true;
+            huboGanador = true;
         }
-        return huboEmpate;
+        return huboGanador;
     }
 
     /**
