@@ -1,30 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="452.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
    <children>
-      <Button layoutX="152.0" layoutY="319.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" styleClass="button" fx:id="btnIniciar" text="JUGAR" textFill="#ffbc22">
+      <Button fx:id="btnIniciar" layoutX="152.0" layoutY="319.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" styleClass="button" text="JUGAR" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="78.0" prefHeight="223.0" prefWidth="415.0" style="-fx-text-alignment: center;" text="REVERSI" textAlignment="CENTER" textFill="#ffbc22">
-         <font>
-            <Font name="Oswald Bold" size="61.0" />
-         </font>
-      </Label>
-      <Button layoutX="155.0" layoutY="404.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="CREDITOS" textFill="#ffbc22">
+      <Button fx:id="btnCreditos" layoutX="155.0" layoutY="404.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="CREDITOS" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>
       </Button>
+      <ImageView fitHeight="340.0" fitWidth="649.0" layoutX="-84.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/reversi.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="399.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" fx:id="btnCerrar" id="btnCerrar" />
    </children>
 </AnchorPane>
