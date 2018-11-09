@@ -27,11 +27,11 @@
             <Font name="Oswald ExtraLight" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="156.0" layoutY="425.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="Iniciar" textFill="#ffbc22" />
-      <TextField layoutX="118.0" layoutY="186.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
-      <TextField layoutX="118.0" layoutY="334.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
-      <TextField layoutX="118.0" layoutY="260.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
-      <Button layoutX="399.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button"  fx:id="btnCerrar" id="btnCerrar" />
-      <Button layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button"  id="btnVolver" fx:id="btnVolver" />
+      <Button fx:id="btnJugar" layoutX="156.0" layoutY="425.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="Iniciar" textFill="#ffbc22" />
+      <TextField fx:id="txtJugador1" layoutX="118.0" layoutY="186.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
+      <TextField fx:id="txtJugador2" layoutX="118.0" layoutY="260.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
+      <TextField fx:id="txtDimension" layoutX="118.0" layoutY="334.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
+      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="399.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnVolver" fx:id="btnVolver" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
    </children>
 </AnchorPane>

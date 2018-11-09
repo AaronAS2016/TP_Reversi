@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import  javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.Event;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,11 @@ public class MenuController extends Application {
     private  Scene pantallaMenu;
     private Scene pantallaCreditos;
 
+    private TextField campoNombreFichasNegras;
+    private TextField campoNombreFichasBlancas;
+
+    private TextField campoDimension;
+
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
 
@@ -32,7 +38,7 @@ public class MenuController extends Application {
 
         pantallaPrincipal = new Scene(pantallaPrincipalView, 450, 600);
         pantallaMenu = new Scene(menu, 450, 600);
-        pantallaCreditos = new Scene(creditos, 450,600);
+        pantallaCreditos = new Scene(creditos, 450,800);
 
         Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
         Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
@@ -41,6 +47,11 @@ public class MenuController extends Application {
         Button btnCreditos = (Button) pantallaPrincipal.lookup("#btnCreditos");
         Button btnVolverMenu = (Button) pantallaMenu.lookup("#btnVolver");
         Button btnVolverCreditos = (Button) creditos.lookup("#btnVolver");
+        Button btnIniciarPartida = (Button) pantallaMenu.lookup("#btnJugar");
+
+        campoNombreFichasNegras = (TextField) pantallaMenu.lookup("#txtJugador1");
+        campoNombreFichasBlancas = (TextField) pantallaMenu.lookup("#txtJugador2");
+        campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
 
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
         btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
@@ -50,6 +61,7 @@ public class MenuController extends Application {
         btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new VolverAInicio());
         btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new VolverAInicio());
 
+        btnIniciarPartida.addEventHandler(MouseEvent.MOUSE_CLICKED, new IniciarJuego());
 
         escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
         escenarioPrincipal.setScene(pantallaPrincipal);
@@ -62,12 +74,31 @@ public class MenuController extends Application {
 
     }
 
+    public void iniciar() {
+
+        String nombreFichasNegras = campoNombreFichasNegras.getText();
+        String nombreFichasBlancas = campoNombreFichasBlancas.getText();
+        int dimension = Integer.parseInt(campoDimension.getText());
+
+        Reversi juego = new Reversi(dimension, nombreFichasNegras, nombreFichasBlancas);
+
+        Tablero tablero = new Tablero(juego);
+        tablero.mostrar();
+    }
+
 
     public static void main(String[] args) throws IOException {
 
         Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
 
         launch(args);
+    }
+
+    private class IniciarJuego implements EventHandler<Event> {
+        @Override
+        public void handle(Event evt) {
+            iniciar();
+        }
     }
 
     private class AbrirMenu implements EventHandler<Event> {

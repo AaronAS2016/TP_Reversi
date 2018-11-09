@@ -85,8 +85,11 @@ public class Reversi {
     }
 
     private void validarTablero(int dimensionTablero) {
-        if (dimensionTablero < MINIMO_DEL_TABLERO || dimensionTablero > MAXIMO_DEL_TABLERO) {
+        if (dimensionTablero < MINIMO_DEL_TABLERO) {
             throw new Error("El tablero debe tener una dimensión minima de 4x4");
+        }
+        if(dimensionTablero > MAXIMO_DEL_TABLERO){
+            throw new Error("El tablero debe tener una dimensión no mayor a 10x10");
         }
         if (dimensionTablero % 2 != 0) {
             throw new Error("El tablero debe ser de un número par");
