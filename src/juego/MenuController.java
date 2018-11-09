@@ -53,6 +53,11 @@ public class MenuController extends Application {
         campoNombreFichasBlancas = (TextField) pantallaMenu.lookup("#txtJugador2");
         campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
 
+        campoNombreFichasNegras.setText("Negras");
+        campoNombreFichasBlancas.setText("Blancas");
+        campoDimension.setText("8");
+
+
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
         btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
         btnCerrarCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
