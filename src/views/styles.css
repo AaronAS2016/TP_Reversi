@@ -40,6 +40,16 @@
     -fx-border-width: 0;
 }
 
+.grilla{
+    -fx-background-color:#2e2c2d;
+    -fx-border-color: #ffbc22;
+}
+
+.image-view-wrapper{
+    -fx-border-color: #ffbc22;
+    -fx-border-width: 1px;
+}
+
 
 
 .toggle-button:pressed,
