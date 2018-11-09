@@ -21,6 +21,8 @@ public class MenuController extends Application {
     private  Scene pantallaMenu;
     private Scene pantallaCreditos;
 
+    private Parent menu;
+
     private TextField campoNombreFichasNegras;
     private TextField campoNombreFichasBlancas;
 
@@ -33,7 +35,8 @@ public class MenuController extends Application {
 
 
         Parent pantallaPrincipalView =  FXMLLoader.load(getClass().getResource("./../views/pantalla-principal.fxml"));
-        Parent menu =  FXMLLoader.load(getClass().getResource("./../views/menu.fxml"));
+
+        menu = FXMLLoader.load(getClass().getResource("./../views/menu.fxml"));
         Parent creditos = FXMLLoader.load(getClass().getResource("./../views/creditos.fxml"));
 
         pantallaPrincipal = new Scene(pantallaPrincipalView, 450, 600);
@@ -79,20 +82,23 @@ public class MenuController extends Application {
 
     }
 
-    public void iniciar() {
+    public void iniciar() throws IOException {
 
         String nombreFichasNegras = campoNombreFichasNegras.getText();
         String nombreFichasBlancas = campoNombreFichasBlancas.getText();
         int dimension = Integer.parseInt(campoDimension.getText());
 
+
         Reversi juego = new Reversi(dimension, nombreFichasNegras, nombreFichasBlancas);
 
-        Tablero tablero = new Tablero(juego);
+
+        //Tablero tablero = new Tablero(juego);
+        TableroController tablero = new TableroController(juego, window, pantallaMenu);
         tablero.mostrar();
     }
 
 
-    public static void main(String[] args) throws IOException {
+        public static void main(String[] args) throws IOException {
 
         Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
 
@@ -102,7 +108,11 @@ public class MenuController extends Application {
     private class IniciarJuego implements EventHandler<Event> {
         @Override
         public void handle(Event evt) {
-            iniciar();
+            try {
+                iniciar();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -120,7 +130,7 @@ public class MenuController extends Application {
         }
     }
 
-    private class Cerrar implements EventHandler<Event> {
+    public class Cerrar implements EventHandler<Event> {
         @Override
         public void handle(Event evt) {
             Platform.exit();

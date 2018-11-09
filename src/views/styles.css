@@ -2,26 +2,22 @@
     -fx-border-color: #ffbc22;
     -fx-background-color: #2e2c2d;
     -fx-border-radius: 5px;
-    -fx-animated: true;
 }
 
-.button:hover{
+.button:hover,
+.button:pressed:hover,
+.button:focused:hover{
     -fx-border-color: #ffbc22;
     -fx-background-color: #ffbc22;
     -fx-text-fill: #2e2c2d;
 }
-
-.button:selected{
+.button:pressed,
+.button:focused{
     -fx-border-color: #ffbc22;
-    -fx-background-color: #ffbc22;
-    -fx-text-fill: #2e2c2d;
+    -fx-background-color: #2e2c2d;
+    -fx-border-radius: 5px;
 }
 
-.button:pressed {
-    -fx-border-color: #ffbc22;
-    -fx-background-color: #ffbc22;
-    -fx-text-fill: #2e2c2d;
-}
 
 .input{
     -fx-border-color: #2e2c2d;
@@ -44,7 +40,13 @@
     -fx-border-width: 0;
 }
 
-.toggle-button:hover{
+
+
+.toggle-button:pressed,
+.toggle-button:focused,
+.toggle-button:hover,
+.toggle-button:pressed:hover,
+.toggle-button:focused:hover{
     -fx-background-color: #2e2c2d;
     -fx-border-color: #ffbc22;
     -fx-border-width: 1px;

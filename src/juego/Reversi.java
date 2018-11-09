@@ -144,6 +144,10 @@ public class Reversi {
 
     }
 
+    public String obtenerJugadores(int indice){
+        return this.jugadores[indice-1];
+    }
+
     public String obtenerJugadorActual() {
 
         return jugadorActual;
