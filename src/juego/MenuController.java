@@ -38,7 +38,7 @@ public class MenuController extends Application {
 
         pantallaPrincipal = new Scene(pantallaPrincipalView, 450, 600);
         pantallaMenu = new Scene(menu, 450, 600);
-        pantallaCreditos = new Scene(creditos, 450,800);
+        pantallaCreditos = new Scene(creditos, 450,680);
 
         Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
         Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
