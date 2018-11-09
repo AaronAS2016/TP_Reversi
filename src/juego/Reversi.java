@@ -60,6 +60,10 @@ public class Reversi {
         }
     }
 
+    public void reiniciarJuego(){
+        armarMatrizGlobal(this.matrizReversi);
+    }
+
     private void armarMatrizGlobalReversi(int dimension) {
         this.matrizReversi = new Casillero[dimension][dimension];
         int mitadDelTablero = matrizReversi.length / 2;

@@ -21,7 +21,7 @@
             <Image url="@../img/reversi.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnJugar" layoutX="600.0" layoutY="526.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="Reiniciar" textFill="#ffbc22" />
+      <Button fx:id="btnReiniciar" layoutX="600.0" layoutY="526.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" styleClass="button" text="Reiniciar" textFill="#ffbc22" />
       <Label layoutX="563.0" layoutY="114.0" text="PUNTAJES:" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald SemiBold" size="27.0" />

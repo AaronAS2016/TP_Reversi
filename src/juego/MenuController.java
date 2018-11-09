@@ -2,6 +2,8 @@ package juego;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import  javafx.scene.control.Button;
@@ -55,10 +57,9 @@ public class MenuController extends Application {
         campoNombreFichasNegras = (TextField) pantallaMenu.lookup("#txtJugador1");
         campoNombreFichasBlancas = (TextField) pantallaMenu.lookup("#txtJugador2");
         campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
-
-        campoNombreFichasNegras.setText("Negras");
-        campoNombreFichasBlancas.setText("Blancas");
         campoDimension.setText("8");
+        campoNombreFichasNegras.setText("Cruces");
+        campoNombreFichasBlancas.setText("Circulos");
 
 
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new Cerrar());
