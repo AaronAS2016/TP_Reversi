@@ -20,4 +20,11 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/juego/TableroController.java</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/src/TableroController.java</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
