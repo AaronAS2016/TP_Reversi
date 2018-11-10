@@ -57,9 +57,9 @@ public class TableroController{
     public void mostrar() throws IOException {
 
         Parent pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
-        pantallaResultado = FXMLLoader.load(getClass().getResource("./../views/resultado.fxml"));
         tablero = new Scene(pantallaTablero, 800,680);
         escenario.setScene(tablero);
+        escenario.getIcons().add(new Image("./img/icono.png"));
         WindowStyle.allowDrag(pantallaTablero, escenario);
         crearControles();
         dibujar();
@@ -198,8 +198,11 @@ public class TableroController{
     public void mostrarResultado(){
 
         Stage dialogo = new Stage();
-
-
+        try {
+            pantallaResultado = FXMLLoader.load(getClass().getResource("./../views/resultado.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scene resultado = new Scene(pantallaResultado, 700, 400);
         Button btnCerrar = (Button) pantallaResultado.lookup("#btnCerrar");
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
@@ -211,9 +214,14 @@ public class TableroController{
         dialogo.initStyle(StageStyle.UNDECORATED);
         dialogo.setScene(resultado);
         dialogo.setResizable(false);
+        dialogo.getIcons().add(new Image("./img/icono.png"));
+        try {
+            dialogo.setTitle(new String("¡TERMINO!".getBytes("ISO-8859-15"), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         WindowStyle.stageDimension(resultado.getWidth(), resultado.getHeight());
         WindowStyle.allowDrag(pantallaResultado, dialogo);
-        System.out.println(crearMensajeResultado());
         dialogo.show();
 
     }

@@ -32,6 +32,6 @@
       <TextField fx:id="txtJugador2" layoutX="118.0" layoutY="260.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
       <TextField fx:id="txtDimension" layoutX="118.0" layoutY="334.0" prefHeight="27.0" prefWidth="217.0" styleClass="input" />
       <Button id="btnCerrar" fx:id="btnCerrar" layoutX="399.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
-      <Button id="btnVolver" fx:id="btnVolver" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnVolver" fx:id="btnVolver" layoutX="3.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
    </children>
 </AnchorPane>

@@ -1,26 +1,32 @@
 package juego;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import  javafx.scene.control.Button;
+import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.Event;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import sun.plugin.javascript.navig4.Anchor;
+
 import java.io.IOException;
 
 public class MenuController extends Application {
 
     private Stage window;
-    private  Scene pantallaPrincipal;
-    private  Scene pantallaMenu;
+    private Scene pantallaPrincipal;
+    private Scene pantallaMenu;
     private Scene pantallaCreditos;
 
     private Parent menu;
@@ -36,14 +42,14 @@ public class MenuController extends Application {
         window = escenarioPrincipal;
 
 
-        Parent pantallaPrincipalView =  FXMLLoader.load(getClass().getResource("./../views/pantalla-principal.fxml"));
+        Parent pantallaPrincipalView = FXMLLoader.load(getClass().getResource("./../views/pantalla-principal.fxml"));
 
         menu = FXMLLoader.load(getClass().getResource("./../views/menu.fxml"));
         Parent creditos = FXMLLoader.load(getClass().getResource("./../views/creditos.fxml"));
 
         pantallaPrincipal = new Scene(pantallaPrincipalView, 450, 600);
         pantallaMenu = new Scene(menu, 450, 600);
-        pantallaCreditos = new Scene(creditos, 450,680);
+        pantallaCreditos = new Scene(creditos, 450, 680);
 
         Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
         Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
@@ -57,7 +63,7 @@ public class MenuController extends Application {
         campoNombreFichasNegras = (TextField) pantallaMenu.lookup("#txtJugador1");
         campoNombreFichasBlancas = (TextField) pantallaMenu.lookup("#txtJugador2");
         campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
-        campoDimension.setText("8");
+        campoDimension.setText("4");
         campoNombreFichasNegras.setText("Cruces");
         campoNombreFichasBlancas.setText("Circulos");
 
@@ -74,6 +80,8 @@ public class MenuController extends Application {
 
         escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
         escenarioPrincipal.setScene(pantallaPrincipal);
+        escenarioPrincipal.getIcons().add(new Image("./img/icono.png"));
+        escenarioPrincipal.setTitle("REVERSI");
         escenarioPrincipal.setResizable(false);
         escenarioPrincipal.show();
         WindowStyle.allowDrag(pantallaPrincipalView, escenarioPrincipal);
@@ -99,7 +107,7 @@ public class MenuController extends Application {
     }
 
 
-        public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
 
@@ -138,6 +146,7 @@ public class MenuController extends Application {
             System.exit(0);
         }
     }
+
     private class VolverAInicio implements EventHandler<Event> {
         @Override
         public void handle(Event evt) {
