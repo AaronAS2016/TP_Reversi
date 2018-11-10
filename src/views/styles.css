@@ -2,6 +2,7 @@
     -fx-border-color: #ffbc22;
     -fx-background-color: #2e2c2d;
     -fx-border-radius: 5px;
+    -fx-text-fill: #ffbc22;
 }
 
 .button:hover,
@@ -10,12 +11,6 @@
     -fx-border-color: #ffbc22;
     -fx-background-color: #ffbc22;
     -fx-text-fill: #2e2c2d;
-}
-.button:pressed,
-.button:focused{
-    -fx-border-color: #ffbc22;
-    -fx-background-color: #2e2c2d;
-    -fx-border-radius: 5px;
 }
 
 
