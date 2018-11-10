@@ -1,6 +1,7 @@
 package juego;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +10,25 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.animation.RotateTransition;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.animation.TranslateTransition;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -87,14 +97,22 @@ public class TableroController{
     private void dibujarFicha(int fila, int columna){
 
         Casillero casillero = juego.obtenerCasillero(fila, columna);
-
+        int tamanio = new Double(grilla.getWidth() / juego.contarFilas()).intValue();
 
         Image image = crearPintura(casillero);
-        ImageView dibujoCasillero = new ImageView(image);
-        dibujoCasillero.setFitHeight(grilla.getWidth() / juego.contarColumnas() );
-        dibujoCasillero.setFitWidth(grilla.getHeight() / juego.contarFilas());
+        if(image != null){
+            ImageView dibujoCasillero = new ImageView(image);
+            dibujoCasillero.setFitHeight(grilla.getWidth() / juego.contarColumnas() );
+            dibujoCasillero.setFitWidth(grilla.getHeight() / juego.contarFilas());
+            dibujar(dibujoCasillero, fila, columna);
+        }else {
+            Paint pintura = Color.TRANSPARENT;
+            Rectangle dibujoCasillero = new Rectangle(tamanio, tamanio);
+            dibujoCasillero.setFill(pintura);
+            dibujar(dibujoCasillero, fila, columna);
+        }
 
-        dibujar(dibujoCasillero, fila, columna);
+
     }
 
     private Image crearPintura(Casillero casillero) {
@@ -112,7 +130,7 @@ public class TableroController{
                 break;
 
             default:
-                pintura = new Image("./img/vacio.png");
+                pintura = null;
         }
 
         return pintura;
@@ -132,7 +150,7 @@ public class TableroController{
             Button botonColocarFicha = new Button();
             botonColocarFicha.setMinSize(15, 15);
             botonColocarFicha.setMaxSize(15, 15);
-            botonColocarFicha.addEventHandler(MouseEvent.MOUSE_CLICKED, new Pintar(this, juego, fila, columna));
+            botonColocarFicha.addEventHandler(MouseEvent.MOUSE_CLICKED, new Pintar(this, juego, fila, columna, botonColocarFicha));
 
 
             dibujar(botonColocarFicha, fila, columna);
@@ -234,18 +252,21 @@ public class TableroController{
         private Reversi juego;
         private int fila;
         private int columna;
+        private Node btnColocar;
 
         public Pintar(TableroController tableroReversi, Reversi reversi,
-                            int filaSeleccionada, int columnaSeleccionada) {
+                            int filaSeleccionada, int columnaSeleccionada, Button btn) {
 
             tablero = tableroReversi;
             juego = reversi;
             fila = filaSeleccionada;
             columna = columnaSeleccionada;
+            btnColocar = getNodeByRowColumnIndex(fila - 1, columna - 1 , grilla);
         }
         @Override
         public void handle(Event evt) {
             juego.colocarFicha(fila, columna);
+
 
             tablero.dibujar();
 
@@ -260,6 +281,20 @@ public class TableroController{
         public void handle(Event evt) {
             escenario.setScene(menu);
         }
+    }
+
+    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = gridPane.getChildren();
+
+        for (Node node : childrens) {
+            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+
+        return result;
     }
 
 
