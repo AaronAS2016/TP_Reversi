@@ -45,6 +45,10 @@ public class Reversi {
         armarMatrizGlobal(this.matrizReversi);
     }
 
+    public Casillero obtenerTiroActual(){
+        return this.tiroActual;
+    }
+
     private void armarMatrizGlobal(Casillero[][] matriz) {
         this.matrizEnglobadora = new Casillero[matriz.length + 2][matriz.length + 2];
         //INICIALIZAMOS EN NULA

@@ -45,6 +45,7 @@ public class TableroController{
     private Label cantidadFichasNegras;
     private Label cantidadFichasBlancas;
     private Label jugadorActual;
+    private ImageView turnoActual;
 
     private Parent pantallaResultado;
 
@@ -89,6 +90,9 @@ public class TableroController{
         cantidadFichasNegras.setText(String.valueOf(juego.contarFichasNegras()));
         cantidadFichasBlancas.setText(String.valueOf(juego.contarFichasBlancas()));
         jugadorActual.setText(juego.obtenerJugadorActual());
+        Casillero casilleroActual = juego.obtenerTiroActual();
+        Image turno = crearPintura(casilleroActual);
+        turnoActual.setImage(turno);
     }
 
     /**
@@ -185,6 +189,8 @@ public class TableroController{
 
         Label jugador1 = (Label) tablero.lookup("#txtJugador1");
         Label jugador2 = (Label) tablero.lookup("#txtJugador2");
+
+        turnoActual = (ImageView) tablero.lookup("#labelTurno");
 
         jugador1.setText(juego.obtenerJugadores(1) + ":");
         jugador2.setText(juego.obtenerJugadores(2) + ":");

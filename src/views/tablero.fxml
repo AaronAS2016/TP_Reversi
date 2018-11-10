@@ -73,7 +73,7 @@
             <Font name="Oswald Light" size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="36.0" fitWidth="37.0" layoutX="567.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="labelTurno" fitHeight="36.0" fitWidth="37.0" layoutX="567.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/cruz.png" />
          </image>
