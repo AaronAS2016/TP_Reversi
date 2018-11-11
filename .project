@@ -24,7 +24,7 @@
 		<link>
 			<name>src/juego/TableroController.java</name>
 			<type>1</type>
-			<locationURI>PROJECT_LOC/src/TableroController.java</locationURI>
+			<locationURI>PROJECT_LOC/src/juego/TableroController.java</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -14,21 +14,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.animation.RotateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.animation.TranslateTransition;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
-import java.awt.*;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -266,8 +261,6 @@ public class TableroController{
         private Reversi juego;
         private int fila;
         private int columna;
-        private Node btnColocar;
-
         public Pintar(TableroController tableroReversi, Reversi reversi,
                             int filaSeleccionada, int columnaSeleccionada, Button btn) {
 
@@ -275,7 +268,6 @@ public class TableroController{
             juego = reversi;
             fila = filaSeleccionada;
             columna = columnaSeleccionada;
-            btnColocar = getNodeByRowColumnIndex(fila - 1, columna - 1 , grilla);
         }
         @Override
         public void handle(Event evt) {
@@ -297,19 +289,6 @@ public class TableroController{
         }
     }
 
-    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        ObservableList<Node> childrens = gridPane.getChildren();
-
-        for (Node node : childrens) {
-            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-
-        return result;
-    }
 
 
 }

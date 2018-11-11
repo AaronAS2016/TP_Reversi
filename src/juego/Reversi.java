@@ -336,12 +336,10 @@ public class Reversi {
         int fichasOcupadas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i][j] == Casillero.NEGRAS || this.matrizEnglobadora[i][j] == Casillero.BLANCAS) {
+                if (this.matrizEnglobadora[i+1][j+1] == Casillero.NEGRAS || this.matrizEnglobadora[i+1][j+1] == Casillero.BLANCAS) {
                     fichasOcupadas++;
                 }
-                j++;
             }
-            i++;
         }
         return fichasOcupadas;
     }
@@ -365,13 +363,19 @@ public class Reversi {
 
     public boolean termino() {
         boolean termino = false;
+        System.out.println(contarFichasOcupadas());
+        System.out.println(this.matrizReversi.length * this.matrizReversi.length);
         if ((contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length))) {
             termino = true;
         }
 
         if (contarMovimientosPosibles() == 0) {
-            termino = true;
+            cambiarTurno();
+            if(contarMovimientosPosibles() == 0){
+                termino = true;
+            }
         }
+
 
 
         return termino;
