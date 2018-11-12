@@ -149,8 +149,8 @@ public class TableroController{
    private void dibujarBoton(int fila, int columna) {
         int contarCasillerosDisponibles = juego.contarMovimientosPosibles();
         if(contarCasillerosDisponibles == 0 && !juego.termino()){
-            seCambioDeTurno.setVisible(true);
             dibujar();
+            seCambioDeTurno.setVisible(true);
         }
         if (juego.puedeColocarFicha(fila, columna)) {
 
