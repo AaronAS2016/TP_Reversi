@@ -22,9 +22,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src/juego/TableroController.java</name>
+			<name>src/juego/EstilizarVentana.java</name>
 			<type>1</type>
-			<locationURI>PROJECT_LOC/src/juego/TableroController.java</locationURI>
+			<locationURI>PROJECT_LOC/src/juego/EstilizarVentana.java</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
