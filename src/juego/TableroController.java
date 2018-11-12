@@ -40,6 +40,8 @@ public class TableroController{
     private Label cantidadFichasNegras;
     private Label cantidadFichasBlancas;
     private Label jugadorActual;
+
+    private Label seCambioDeTurno;
     private ImageView turnoActual;
 
     private Parent pantallaResultado;
@@ -62,6 +64,8 @@ public class TableroController{
     }
 
     public void dibujar() {
+
+        seCambioDeTurno.setVisible(false);
 
         grilla.getChildren().clear();
 
@@ -143,7 +147,11 @@ public class TableroController{
      * @param columna
      */
    private void dibujarBoton(int fila, int columna) {
-
+        int contarCasillerosDisponibles = juego.contarMovimientosPosibles();
+        if(contarCasillerosDisponibles == 0 && !juego.termino()){
+            seCambioDeTurno.setVisible(true);
+            dibujar();
+        }
         if (juego.puedeColocarFicha(fila, columna)) {
 
             Button botonColocarFicha = new Button();
@@ -184,6 +192,9 @@ public class TableroController{
 
         Label jugador1 = (Label) tablero.lookup("#txtJugador1");
         Label jugador2 = (Label) tablero.lookup("#txtJugador2");
+
+        seCambioDeTurno = (Label) tablero.lookup("#txtCambioDeTurno");
+
 
         turnoActual = (ImageView) tablero.lookup("#labelTurno");
 

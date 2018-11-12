@@ -85,5 +85,10 @@
       </Label>
       <Button id="btnCerrar" fx:id="btnCerrar" layoutX="752.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
       <Button id="btnVolver" fx:id="btnVolver" layoutX="2.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Label fx:id="txtCambioDeTurno" layoutX="570.0" layoutY="405.0" prefHeight="74.0" prefWidth="170.0" text="¡No había ningún movimiento posible, se pasa el turno!" textAlignment="CENTER" textFill="#ffbc22" visible="false" wrapText="true">
+         <font>
+            <Font name="Oswald Light" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

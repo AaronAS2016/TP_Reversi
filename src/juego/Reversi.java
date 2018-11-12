@@ -363,8 +363,6 @@ public class Reversi {
 
     public boolean termino() {
         boolean termino = false;
-        System.out.println(contarFichasOcupadas());
-        System.out.println(this.matrizReversi.length * this.matrizReversi.length);
         if ((contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length))) {
             termino = true;
         }
