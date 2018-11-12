@@ -7,13 +7,13 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
-public class WindowStyle {
+public class EstilizarVentana {
     private static final Rectangle2D SCREEN_BOUNDS= Screen.getPrimary()
             .getVisualBounds();
     private static double[] pref_WH, offset_XY;
     private static String styleSheet;
 
-    private WindowStyle(String css) {
+    private EstilizarVentana(String css) {
         styleSheet= getClass().getResource(css).toString();
     }
 
@@ -40,22 +40,4 @@ public class WindowStyle {
         pref_WH= new double[]{width, height};
     }
 
-    protected static void fullScreen(Stage stage) {
-        stage.setX(SCREEN_BOUNDS.getMinX());
-        stage.setY(SCREEN_BOUNDS.getMinY());
-        stage.setWidth(SCREEN_BOUNDS.getWidth());
-        stage.setHeight(SCREEN_BOUNDS.getHeight());
-    }
-
-    protected static void restoreScreen(Stage stage) {
-        stage.setX((SCREEN_BOUNDS.getMaxX() - pref_WH[0])/2);
-        stage.setY((SCREEN_BOUNDS.getMaxY() - pref_WH[1])/2);
-        stage.setWidth(pref_WH[0]);
-        stage.setHeight(pref_WH[1]);
-    }
-
-    protected static String addStyleSheet(String css) {
-        new WindowStyle(css);
-        return styleSheet;
-    }
 }

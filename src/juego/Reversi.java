@@ -13,6 +13,8 @@ public class Reversi {
     /* Constantes del Tablero */
     private static final int MAXIMO_DEL_TABLERO = 10;
     private static final int MINIMO_DEL_TABLERO = 4;
+    private static final int MAXIMO_DE_CARACTERES = 10;
+    private static final int MINIMO_DE_CARACTERES = 3;
 
     private String[] jugadores = new String[2];
     private String jugadorActual = jugadores[0];
@@ -25,11 +27,11 @@ public class Reversi {
 
 
     /**
-     * pre : 'dimension' es un n˙mero par, mayor o igual a 4. post: empieza el
+     * pre : 'dimension' es un n√∫mero par, mayor o igual a 4. post: empieza el
      * juego entre el jugador que tiene fichas negras, identificado como
      * 'fichasNegras' y el jugador que tiene fichas blancas, identificado como
      * 'fichasBlancas'. El tablero tiene 4 fichas: 2 negras y 2 blancas. Estas
-     * fichas est·n intercaladas en el centro del tablero.
+     * fichas est√°n intercaladas en el centro del tablero.
      *
      * @param dimensionTablero : cantidad de filas y columnas que tiene el tablero.
      * @param fichasNegras     : nombre del jugador con fichas negras.
@@ -51,7 +53,7 @@ public class Reversi {
 
     private void armarMatrizGlobal(Casillero[][] matriz) {
         this.matrizEnglobadora = new Casillero[matriz.length + 2][matriz.length + 2];
-        //INICIALIZAMOS EN NULA
+
         for (int i = 0; i < matrizEnglobadora.length; i++) {
             for (int j = 0; j < matrizEnglobadora[i].length; j++) {
                 this.matrizEnglobadora[i][j] = Casillero.NULA;
@@ -90,17 +92,21 @@ public class Reversi {
         if (fichasNegras.length() < 1 || fichasBlancas.length() < 1) {
             throw new Error("Por favor ingrese un nombre para los jugadores");
         }
+        if(fichasNegras.length() > MAXIMO_DE_CARACTERES || fichasBlancas.length() > MAXIMO_DE_CARACTERES
+        || fichasNegras.length() < MINIMO_DE_CARACTERES|| fichasBlancas.length() < MINIMO_DE_CARACTERES ){
+            throw new Error("El n√∫mero de caracteres no puede superar los 10 ni ser menor a 3");
+        }
     }
 
     private void validarTablero(int dimensionTablero) {
         if (dimensionTablero < MINIMO_DEL_TABLERO) {
-            throw new Error("El tablero debe tener una dimensiÛn minima de 4x4");
+            throw new Error("El tablero debe tener una dimensi√≥n minima de 4x4");
         }
         if(dimensionTablero > MAXIMO_DEL_TABLERO){
-            throw new Error("El tablero debe tener una dimensiÛn no mayor a 10x10");
+            throw new Error("El tablero debe tener una dimensi√≥n no mayor a 10x10");
         }
         if (dimensionTablero % 2 != 0) {
-            throw new Error("El tablero debe ser de un n˙mero par");
+            throw new Error("El tablero debe ser de un n√∫mero par");
         }
     }
 
@@ -119,7 +125,6 @@ public class Reversi {
 
         return this.matrizReversi.length;
     }
-
     /**
      * post: devuelve la cantidad de columnas que tiene el tablero.
      */
@@ -130,7 +135,7 @@ public class Reversi {
 
     /**
      * post: devuelve el nombre del jugador que debe colocar una ficha o null si
-     * terminÛ el juego.
+     * termin√≥ el juego.
      */
     private void cambiarTurno() {
         switch (tiroActual) {
@@ -160,10 +165,9 @@ public class Reversi {
 
         return jugadorActual;
     }
-
     /**
-     * pre : fila est· en el intervalo [1, contarFilas()], columnas est· en el
-     * intervalo [1, contarColumnas()]. post: indica quiÈn tiene la posesiÛn del
+     * pre : fila est√° en el intervalo [1, contarFilas()], columnas est√° en el
+     * intervalo [1, contarColumnas()]. post: indica qui√©n tiene la posesi√≥n del
      * casillero dado por fila y columna.
      *
      * @param fila
@@ -178,37 +182,37 @@ public class Reversi {
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             //arriba abajo
             if (matrizEnglobadora[fila + 1][columna] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 1, 0);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 0);
             }
             if (matrizEnglobadora[fila - 1][columna] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1, 0);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 0);
             }
             //izquierda derecha
             if (matrizEnglobadora[fila][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 0, 1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, 1);
             }
             if (matrizEnglobadora[fila][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 0, -1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, -1);
             }
 
             //diagonales
             if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1, -1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, -1);
             }
             if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 1, 1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 1);
             }
             if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, -1, 1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 1);
             }
             if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
-                sePuedeColocarFicha = analizarTablero(fila, columna, 1, -1);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, -1);
             }
         }
         return sePuedeColocarFicha;
     }
 
-    private boolean analizarTablero(int fila, int columna, int direccion_fila, int direccion_columna) {
+    private boolean hayFichaEnElMedio(int fila, int columna, int direccion_fila, int direccion_columna) {
         boolean hayFichaEnMedio = false;
         boolean noSeFueDelTablero = true;
         while (noSeFueDelTablero && !hayFichaEnMedio) {
@@ -225,10 +229,10 @@ public class Reversi {
     }
 
     /**
-     * pre : la posiciÛn indicada por (fila, columna) puede ser ocupada por una
-     * ficha. 'fila' est· en el intervalo [1, contarFilas()]. 'columna' est· en
-     * el intervalor [1, contarColumnas()]. y a˙n queda un Casillero.VACIO en la
-     * columna indicada. post: coloca una ficha en la posiciÛn indicada.
+     * pre : la posici√≥n indicada por (fila, columna) puede ser ocupada por una
+     * ficha. 'fila' est√° en el intervalo [1, contarFilas()]. 'columna' est√° en
+     * el intervalor [1, contarColumnas()]. y a√∫n queda un Casillero.VACIO en la
+     * columna indicada. post: coloca una ficha en la posici√≥n indicada.
      *
      * @param fila
      * @param columna
@@ -260,25 +264,14 @@ public class Reversi {
             if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
                 colocarFichas(fila, columna, 1, -1);
             }
+            this.matrizEnglobadora[fila][columna] = tiroActual;
+            cambiarTurno();
         }
-
-
-        //vemos izquierda derecha
-
-
-        //vemos arriba y abajo
-
-
-        //revisamos las esquinas
-
-
-        this.matrizEnglobadora[fila][columna] = tiroActual;
-        cambiarTurno();
     }
 
     public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
         boolean encontroActual = false;
-        if(sePuedePintar(fila,columna, direccion_fila,  direccion_columna)){
+        if(hayFichaEnElMedio(fila,columna, direccion_fila,  direccion_columna)){
             while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {
                 if (matrizEnglobadora[fila][columna] == tiroActual) {
                     encontroActual = true;
@@ -292,16 +285,6 @@ public class Reversi {
         }
 
     }
-
-    private boolean sePuedePintar(int fila, int columna, int direccion_fila, int direccion_columna) {
-        boolean sePuedePintar = false;
-        sePuedePintar= analizarTablero(fila, columna,direccion_fila,direccion_columna);
-        return sePuedePintar;
-
-
-    }
-
-
     /**
      * post: devuelve la cantidad de fichas negras en el tablero.
      */
@@ -357,7 +340,7 @@ public class Reversi {
     }
 
     /**
-     * post: indica si el juego terminÛ porque no existen casilleros vacÌos o
+     * post: indica si el juego termin√≥ porque no existen casilleros vac√≠os o
      * ninguno de los jugadores puede colocar una ficha.
      */
 
@@ -373,14 +356,11 @@ public class Reversi {
                 termino = true;
             }
         }
-
-
-
         return termino;
     }
 
     /**
-     * post: indica si el juego terminÛ y tiene un ganador.
+     * post: indica si el juego termin√≥ y tiene un ganador.
      */
     public boolean hayGanador() {
         boolean huboGanador = false;
@@ -395,7 +375,7 @@ public class Reversi {
     }
 
     /**
-     * pre : el juego terminÛ. post: devuelve el nombre del jugador que ganÛ el
+     * pre : el juego termin√≥. post: devuelve el nombre del jugador que gan√≥ el
      * juego.
      */
     public String obtenerGanador() {

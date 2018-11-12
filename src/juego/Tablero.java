@@ -1,274 +1,257 @@
 package juego;
 
+
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-/**
- * Representación gráfica del Tablero del Juego Reversi.
- * 
- */
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 public class Tablero {
-	
-	private static final int TAMANIO_FICHA = 80;
-	private static final double DIMENSION_BOTON = 20;
-	
-	private Reversi juego;
-	private BorderPane panel;
-	private GridPane grilla;
-	private Stage escenario;
-	
-	private Label cantidadFichasNegras;
-	private Label cantidadFichasBlancas;
-	private Label jugadorActual;
-	
-	/**
-	 * post: asocia el Tablero a 'nuevoJuego' y lo inicializa a partir de su estado. 
-	 * 
-	 * @param nuevoJuego
-	 */
-	public Tablero(Reversi nuevoJuego) {
-		
-		juego = nuevoJuego;
-		escenario = new Stage();
-		panel = new BorderPane();
-		grilla = new GridPane();
-	}
-	
-	/**
-	 * post: muestra el Tablero en pantalla.
-	 */
-	public void mostrar() {
-		
-		dibujarFondo();
-		dibujarMarcador();
-		
-		Scene escena = new Scene(panel, panel.getPrefWidth(), panel.getPrefHeight());
 
-		escenario.setScene(escena);
-		escenario.setResizable(false);
-		escenario.setTitle(Aplicacion.TITULO);
-		
-		dibujar();
 
-		escenario.show();
-	}
-	
-	/**
-	 * post: agrega el fondo del Tablero.
-	 */
-	private void dibujarFondo() {
-		
-		grilla.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, null, null)));
-		grilla.setBorder(crearBorde());
-		grilla.setPadding(new Insets(10));
-		grilla.setCenterShape(true);
-		
-		panel.setCenter(grilla);
-	}
+    private Reversi juego;
+    private GridPane grilla;
+    private Stage escenario;
 
-	/**
-	 * post: agrega el marcador al Tablero.
-	 */
-	private void dibujarMarcador() {
+    private Scene tablero;
+    private Scene menu;
 
-		Text tituloMarcador = new Text("Marcador");
-		tituloMarcador.setFont(new Font(16));
+    private Label cantidadFichasNegras;
+    private Label cantidadFichasBlancas;
+    private Label jugadorActual;
 
-		Text tituloJuega = new Text("Juega");
-		tituloJuega.setFont(new Font(16));
-		
-		cantidadFichasNegras = new Label();
-		cantidadFichasBlancas = new Label();
-		jugadorActual = new Label();
+    private Label seCambioDeTurno;
+    private ImageView turnoActual;
 
-		GridPane marcador = new GridPane();
-		marcador.setAlignment(Pos.TOP_CENTER);
-		marcador.setHgap(20);
-		marcador.setVgap(20);
-		marcador.setPadding(new Insets(20));
-		marcador.add(tituloMarcador, 0, 0, 2, 1);
-		marcador.add(new Label("Negras  :"), 0, 1);
-		marcador.add(cantidadFichasNegras, 1, 1);
-		marcador.add(new Label("Blancas :"), 0, 2);
-		marcador.add(cantidadFichasBlancas, 1, 2);
-		marcador.add(tituloJuega, 0, 3, 2, 1);
-		marcador.add(jugadorActual, 0, 4, 2, 1);
+    private Parent pantallaResultado;
 
-		panel.setPadding(new Insets(5));
-		panel.setRight(marcador);
-	}
-	
-	/**
-	 * post: actualiza el Tablero a partir del estado del juego asociado.
-	 */
-	public void dibujar() {
-		
-		grilla.getChildren().clear();
-		
-		for (int fila = 1; fila <= juego.contarFilas(); fila++) {
+    public Tablero(Reversi juego, Stage ventana, Scene menu){
+        this.juego = juego;
+        this.escenario = ventana;
+        this.menu = menu;
+    }
 
-			for (int columna = 1; columna <= juego.contarColumnas(); columna++) {
+    public void mostrar() throws IOException {
+        configuramosVentana();
+        crearControles();
+        dibujar();
+    }
 
-				dibujarFicha(fila, columna);
-				dibujarBoton(fila, columna);
-			}
-		}
-		
-		dibujarEstado();
-	}
+    private void configuramosVentana() throws IOException {
+        Parent pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
+        tablero = new Scene(pantallaTablero, 800,680);
+        escenario.setScene(tablero);
+        escenario.getIcons().add(new Image("./img/icono.png"));
+        EstilizarVentana.allowDrag(pantallaTablero, escenario);
+    }
 
-	/**
-	 * post: actualiza el estado del juego del en Tablero.
-	 */
-	private void dibujarEstado() {
+    public void dibujar() {
 
-		cantidadFichasNegras.setText(String.valueOf(juego.contarFichasNegras()));
-		cantidadFichasBlancas.setText(String.valueOf(juego.contarFichasBlancas()));
-		jugadorActual.setText(juego.obtenerJugadorActual());
-	}
+        seCambioDeTurno.setVisible(false);
 
-	/**
-	 * post: dibuja la ficha en la posición indicada por fila y columna.
-	 */
-	private void dibujarFicha(int fila, int columna) {
+        grilla.getChildren().clear();
 
-		Casillero casillero = juego.obtenerCasillero(fila, columna);
-		
-		Circle dibujoCasillero = new Circle(TAMANIO_FICHA / 2);
-		dibujoCasillero.setFill(crearPintura(casillero));
-		dibujoCasillero.setStroke(new Color(0.5, 0.5, 0.5, 0.8));
-		dibujoCasillero.setScaleX(0.95);
-		dibujoCasillero.setScaleY(0.95);
-		
-		dibujar(dibujoCasillero, fila, columna);
-	}
+        for (int fila = 1; fila <= juego.contarFilas(); fila++) {
 
-	/**
-	 * post: dibuja el boton en el casillero indicado por fila y columna,
-	 *       si es que se puede colocar una ficha.
-	 * 
-	 * @param fila
-	 * @param columna
-	 */
-	private void dibujarBoton(int fila, int columna) {
+            for (int columna = 1; columna <= juego.contarColumnas(); columna++) {
 
-		if (juego.puedeColocarFicha(fila, columna)) {
-			
-			Button botonColocarFicha = new Button();
-			botonColocarFicha.setMinSize(DIMENSION_BOTON, DIMENSION_BOTON);
-			botonColocarFicha.setMaxSize(DIMENSION_BOTON, DIMENSION_BOTON);
-			botonColocarFicha.setOnAction(new ColocarFicha(this, juego, fila, columna));
+                dibujarFicha(fila, columna);
+                dibujarBoton(fila, columna);
+            }
+        }
+        dibujarEstado();
+    }
 
-			dibujar(botonColocarFicha, fila, columna);
-		}
-	}
+    /**
+     * post: actualiza el estado del juego del en Tablero.
+     */
+    private void dibujarEstado() {
 
-	private void dibujar(Node elemento, int fila, int columna) {
-		
-		GridPane.setHalignment(elemento, HPos.CENTER);
-		GridPane.setValignment(elemento, VPos.CENTER);
-		
-		grilla.add(elemento, columna - 1, fila - 1);
-	}
+        cantidadFichasNegras.setText(String.valueOf(juego.contarFichasNegras()));
+        cantidadFichasBlancas.setText(String.valueOf(juego.contarFichasBlancas()));
+        jugadorActual.setText(juego.obtenerJugadorActual());
+        Casillero casilleroActual = juego.obtenerTiroActual();
+        Image turno = crearPintura(casilleroActual);
+        turnoActual.setImage(turno);
+    }
 
-	
-	/**
-	 * post: determina la pintura a utilizar para 'casillero'.
+    /**
+     * post: dibuja la ficha en la posiciÃ³n indicada por fila y columna.
+     */
+    private void dibujarFicha(int fila, int columna){
 
-	 * @param casillero
-	 * @return pintura a utilizar para identificar el Casillero.
-	 */
-	private Paint crearPintura(Casillero casillero) {
+        Casillero casillero = juego.obtenerCasillero(fila, columna);
+        int tamanio = new Double(grilla.getWidth() / juego.contarFilas()).intValue();
 
-		Paint pintura;
+        Image image = crearPintura(casillero);
+        if(image != null){
+            ImageView dibujoCasillero = new ImageView(image);
+            dibujoCasillero.setFitHeight(grilla.getWidth() / juego.contarColumnas() );
+            dibujoCasillero.setFitWidth(grilla.getHeight() / juego.contarFilas());
+            dibujar(dibujoCasillero, fila, columna);
+        }else {
+            Paint pintura = Color.TRANSPARENT;
+            Rectangle dibujoCasillero = new Rectangle(tamanio, tamanio);
+            dibujoCasillero.setFill(pintura);
+            dibujar(dibujoCasillero, fila, columna);
+        }
+    }
 
-		switch (casillero) {
-		
-			case BLANCAS:
-				pintura = Color.WHITE;
-				break;
-				
-			case NEGRAS:
-				pintura = Color.BLACK;
-				break;
-				
-			default:
-				pintura = Color.TRANSPARENT;
-		}
+    private Image crearPintura(Casillero casillero) {
 
-		return pintura;
-	}
+        Image pintura;
 
-	private Border crearBorde() {
-		
-		BorderStroke trazo = new BorderStroke(Color.DARKGRAY, 
-												BorderStrokeStyle.SOLID, 
-												new CornerRadii(0), 
-												new BorderWidths(1));
-		
-		return new Border(trazo);
-	}
-	
-	/**
-	 * pre : el juego asociado terminó.
-	 * post: muestra un mensaje indicando el resultado del juego.
-	 */
-	public void mostrarResultado() {
+        switch (casillero) {
 
-		Stage dialogo = new Stage();
-		
-		BorderPane panelGanador = new BorderPane();
-		panelGanador.setPadding(new Insets(10.0));
-		
-		Text textoResultado = new Text(crearMensajeResultado());
-		textoResultado.setFont(new Font(40.0));
-		panelGanador.setCenter(textoResultado);
-		
-		Scene escenaGanador = new Scene(panelGanador);
-		
-		dialogo.setTitle("Resultado");
-		dialogo.setScene(escenaGanador);
-		dialogo.initOwner(escenario);
-		dialogo.initModality(Modality.WINDOW_MODAL);
-		dialogo.setResizable(false);
-		
-		dialogo.showAndWait();
-	}
-	
-	private String crearMensajeResultado() {
-		
-		String mensajeResultado;
-		if (juego.hayGanador()) {
-			
-			mensajeResultado = "Ganó el jugador " + juego.obtenerGanador();
-			
-		} else {
-			
-			mensajeResultado = "Empataron";
-		}
-		
-		return mensajeResultado;
-	}
+            case BLANCAS:
+                pintura = new Image("./img/circulo.png");
+                break;
+
+            case NEGRAS:
+                pintura = new Image("./img/cruz.png");
+                break;
+
+            default:
+                pintura = null;
+        }
+
+        return pintura;
+    }
+
+    /**
+     * post: dibuja el boton en el casillero indicado por fila y columna,
+     *       si es que se puede colocar una ficha.
+     *
+     * @param fila
+     * @param columna
+     */
+   private void dibujarBoton(int fila, int columna) {
+        int contarCasillerosDisponibles = juego.contarMovimientosPosibles();
+        if(contarCasillerosDisponibles == 0 && !juego.termino()){
+            dibujar();
+            seCambioDeTurno.setVisible(true);
+        }
+        if (juego.puedeColocarFicha(fila, columna)) {
+
+            Button botonColocarFicha = new Button();
+            botonColocarFicha.setMinSize(15, 15);
+            botonColocarFicha.setMaxSize(15, 15);
+            botonColocarFicha.addEventHandler(MouseEvent.MOUSE_CLICKED, new ColocarFicha(this, juego, fila, columna, botonColocarFicha));
+
+            dibujar(botonColocarFicha, fila, columna);
+        }
+    }
+
+    private void dibujar(Node elemento, int fila, int columna) {
+
+        GridPane.setHalignment(elemento, HPos.CENTER);
+        GridPane.setValignment(elemento, VPos.CENTER);
+        grilla.add(elemento, columna - 1, fila - 1);
+    }
+
+    public void crearControles(){
+        Button btnCerrar = (Button) tablero.lookup("#btnCerrar");
+        Button btnVolverMenu = (Button) tablero.lookup("#btnVolver");
+        Button btnReiniciar = (Button) tablero.lookup("#btnReiniciar");
+
+        btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(menu, escenario));
+        btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
+        btnReiniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+            juego.reiniciarJuego();
+            dibujar();
+        });
+
+
+        cantidadFichasNegras = (Label) tablero.lookup("#txtPuntajeJugador1");
+        cantidadFichasBlancas = (Label) tablero.lookup("#txtPuntajeJugador2");
+        cantidadFichasNegras.setText(Integer.toString(juego.contarFichasNegras()));
+        cantidadFichasBlancas.setText(Integer.toString(juego.contarFichasBlancas()));
+
+        Label jugador1 = (Label) tablero.lookup("#txtJugador1");
+        Label jugador2 = (Label) tablero.lookup("#txtJugador2");
+
+        seCambioDeTurno = (Label) tablero.lookup("#txtCambioDeTurno");
+
+        turnoActual = (ImageView) tablero.lookup("#labelTurno");
+
+        jugador1.setText(juego.obtenerJugadores(1) + ":");
+        jugador2.setText(juego.obtenerJugadores(2) + ":");
+
+        jugadorActual = (Label) tablero.lookup("#txtJugadorActual");
+        jugadorActual.setText(juego.obtenerJugadorActual());
+
+        grilla = (GridPane) tablero.lookup("#grillaTablero");
+    }
+
+    public void mostrarResultado(){
+
+        Stage dialogo = new Stage();
+        try {
+            pantallaResultado = FXMLLoader.load(getClass().getResource("./../views/resultado.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene resultado = new Scene(pantallaResultado, 650, 230);
+        Button btnCerrar = (Button) pantallaResultado.lookup("#btnCerrar");
+        btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+            dialogo.close();
+        });
+        String textoResultado = crearMensajeResultado();
+        Label labelResultado = (Label) pantallaResultado.lookup("#labelResultado");
+        labelResultado.setText(textoResultado);
+        dialogo.initStyle(StageStyle.UNDECORATED);
+        dialogo.setScene(resultado);
+        dialogo.setResizable(false);
+        dialogo.getIcons().add(new Image("./img/icono.png"));
+        try {
+            dialogo.setTitle(new String("Â¡TERMINO!".getBytes("ISO-8859-15"), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        EstilizarVentana.stageDimension(resultado.getWidth(), resultado.getHeight());
+        EstilizarVentana.allowDrag(pantallaResultado, dialogo);
+        dialogo.show();
+
+    }
+
+    private String crearMensajeResultado() {
+
+        String mensajeResultado;
+
+        if (juego.hayGanador()) {
+            String ganador = juego.obtenerGanador();
+
+
+
+            mensajeResultado = "Â¡GanÃ³ " + ganador + "!";
+
+        } else {
+
+            mensajeResultado = "Â¡Empataron! O:";
+        }
+
+
+
+        return mensajeResultado;
+    }
+
+
 }

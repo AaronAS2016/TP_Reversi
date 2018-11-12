@@ -1,9 +1,11 @@
 package juego;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 
-public class IniciarJuego implements EventHandler<ActionEvent> {
+import java.io.IOException;
+
+public class IniciarJuego implements EventHandler<Event> {
 
 	private Aplicacion aplicacion;
 	
@@ -13,9 +15,13 @@ public class IniciarJuego implements EventHandler<ActionEvent> {
 	}
 
 	@Override
-	public void handle(ActionEvent event) {
+	public void handle(Event event) {
 
-		aplicacion.iniciar();
+		try {
+			aplicacion.iniciar();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
