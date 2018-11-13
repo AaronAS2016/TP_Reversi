@@ -1,15 +1,23 @@
 package juego;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class Aplicacion extends Application {
@@ -21,6 +29,7 @@ public class Aplicacion extends Application {
 	private Scene pantallaPrincipal;
 	private Scene pantallaMenu;
 	private Scene pantallaCreditos;
+	private Scene stackScene;
 
 	/*Declaramos las vistas*/
 
@@ -34,6 +43,12 @@ public class Aplicacion extends Application {
 	private TextField campoNombreFichasBlancas;
 	private TextField campoDimension;
 
+	private StackPane containerPrincipal;
+
+	private AnchorPane anchorPanePrincipal;
+	private AnchorPane anchorPaneMenu;
+	private AnchorPane anchorPaneCredito;
+
 	@Override
 	public void start(Stage escenarioPrincipal) throws Exception {
 
@@ -43,17 +58,51 @@ public class Aplicacion extends Application {
 
 		cargarEscenas();
 
+		cargamosElemntosDeLaVista();
+
 		cargarBotones();
 
 		configuramosTextos();
 
 		personalizamosLaVentana();
 
+
+		armarAnimacion();
+
+	}
+
+	private void cargamosElemntosDeLaVista() {
+		anchorPanePrincipal = (AnchorPane) pantallaPrincipal.lookup("#anchorPanePrincipal");
+
+		anchorPaneMenu = (AnchorPane) pantallaMenu.lookup("#anchorPaneMenu");
+
+		anchorPaneCredito = (AnchorPane) pantallaCreditos.lookup("#anchorPaneCredtitos");
+
+		containerPrincipal = new StackPane();
+
+		containerPrincipal.getChildren().add(anchorPanePrincipal);
+
+		stackScene = new Scene(containerPrincipal, 450, 600);
+
+
+	}
+
+	private void armarAnimacion() {
+		ImageView titulo = (ImageView) principalView.lookup("#imageTitulo");
+		titulo.toFront();
+		TranslateTransition transition = new TranslateTransition();
+		transition.setDuration(Duration.seconds(1));
+		transition.setNode(titulo);
+		transition.setToY(230);
+		transition.setOnFinished(e->{
+			titulo.toBack();
+		});
+		transition.play();
 	}
 
 	private void personalizamosLaVentana() {
 		escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
-		escenarioPrincipal.setScene(pantallaPrincipal);
+		escenarioPrincipal.setScene(stackScene);
 		escenarioPrincipal.getIcons().add(new Image("./img/icono.png"));
 		escenarioPrincipal.setTitle("REVERSI");
 		escenarioPrincipal.setResizable(false);
@@ -78,6 +127,9 @@ public class Aplicacion extends Application {
 	}
 
 	private void cargarBotones() {
+
+
+
 		Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
 		Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
 		Button btnCerrarMenu = (Button) pantallaMenu.lookup("#btnCerrar");
@@ -92,11 +144,13 @@ public class Aplicacion extends Application {
 		btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 		btnCerrarCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 
-		btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal));
+		btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal, true));
 
-		btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaMenu, escenarioPrincipal));
-		btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED,  new CambiarEscena(pantallaPrincipal, escenarioPrincipal));
-		btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal));
+		btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaMenu, escenarioPrincipal, menuView, containerPrincipal, 1, anchorPanePrincipal));
+
+		btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED,  new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneMenu));
+
+		btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneCredito, true));
 
 		btnIniciarPartida.addEventHandler(MouseEvent.MOUSE_CLICKED, new IniciarJuego(this));
 	}
@@ -109,6 +163,8 @@ public class Aplicacion extends Application {
 	}
 
 	private void cargarVistas() throws IOException {
+
+
 		/*Cargamos las vistas*/
 		principalView = FXMLLoader.load(getClass().getResource(
 				"./../views/pantalla-principal.fxml"));

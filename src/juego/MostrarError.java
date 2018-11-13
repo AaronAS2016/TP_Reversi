@@ -57,6 +57,8 @@ public class MostrarError implements UncaughtExceptionHandler {
 	private void configuramosEscena(  Throwable error){
 		String mensaje = new String(error.getMessage());
 
+		System.out.println(mensaje);
+
 		escena = new Scene(pantallaError, 450,130);
 
 		Label errorText = (Label) pantallaError.lookup("#labelError");

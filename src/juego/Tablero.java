@@ -59,6 +59,7 @@ public class Tablero {
         Parent pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
         tablero = new Scene(pantallaTablero, 800,680);
         escenario.setScene(tablero);
+        escenario.setHeight(680);
         escenario.getIcons().add(new Image("./img/icono.png"));
         EstilizarVentana.allowDrag(pantallaTablero, escenario);
     }
