@@ -94,7 +94,7 @@ public class Tablero {
     }
 
     /**
-     * post: dibuja la ficha en la posiciÃ³n indicada por fila y columna.
+     * post: dibuja la ficha en la posici?n indicada por fila y columna.
      */
     private void dibujarFicha(int fila, int columna){
 
@@ -221,11 +221,8 @@ public class Tablero {
         dialogo.setScene(resultado);
         dialogo.setResizable(false);
         dialogo.getIcons().add(new Image("./img/icono.png"));
-        try {
-            dialogo.setTitle(new String("Â¡TERMINO!".getBytes("ISO-8859-15"), "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        dialogo.setTitle("¡Termino!");
+
         EstilizarVentana.stageDimension(resultado.getWidth(), resultado.getHeight());
         EstilizarVentana.allowDrag(pantallaResultado, dialogo);
         dialogo.show();
@@ -241,11 +238,11 @@ public class Tablero {
 
 
 
-            mensajeResultado = "Â¡GanÃ³ " + ganador + "!";
+            mensajeResultado = "¡Ganó " + ganador + "!";
 
         } else {
 
-            mensajeResultado = "Â¡Empataron! O:";
+            mensajeResultado = "¡Empataron! O:";
         }
 
 

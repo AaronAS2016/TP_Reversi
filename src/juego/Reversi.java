@@ -27,11 +27,11 @@ public class Reversi {
 
 
     /**
-     * pre : 'dimension' es un n√∫mero par, mayor o igual a 4. post: empieza el
+     * pre : 'dimension' es un n˙mero par, mayor o igual a 4. post: empieza el
      * juego entre el jugador que tiene fichas negras, identificado como
      * 'fichasNegras' y el jugador que tiene fichas blancas, identificado como
      * 'fichasBlancas'. El tablero tiene 4 fichas: 2 negras y 2 blancas. Estas
-     * fichas est√°n intercaladas en el centro del tablero.
+     * fichas est·n intercaladas en el centro del tablero.
      *
      * @param dimensionTablero : cantidad de filas y columnas que tiene el tablero.
      * @param fichasNegras     : nombre del jugador con fichas negras.
@@ -94,19 +94,19 @@ public class Reversi {
         }
         if(fichasNegras.length() > MAXIMO_DE_CARACTERES || fichasBlancas.length() > MAXIMO_DE_CARACTERES
         || fichasNegras.length() < MINIMO_DE_CARACTERES|| fichasBlancas.length() < MINIMO_DE_CARACTERES ){
-            throw new Error("El n√∫mero de caracteres no puede superar los 10 ni ser menor a 3");
+            throw new Error("El n˙mero de caracteres no puede superar los 10 ni ser menor a 3");
         }
     }
 
     private void validarTablero(int dimensionTablero) {
         if (dimensionTablero < MINIMO_DEL_TABLERO) {
-            throw new Error("El tablero debe tener una dimensi√≥n minima de 4x4");
+            throw new Error("El tablero debe tener una dimensiÛn minima de 4x4");
         }
         if(dimensionTablero > MAXIMO_DEL_TABLERO){
-            throw new Error("El tablero debe tener una dimensi√≥n no mayor a 10x10");
+            throw new Error("El tablero debe tener una dimensiÛn no mayor a 10x10");
         }
         if (dimensionTablero % 2 != 0) {
-            throw new Error("El tablero debe ser de un n√∫mero par");
+            throw new Error("El tablero debe ser de un n˙mero par");
         }
     }
 
@@ -135,7 +135,7 @@ public class Reversi {
 
     /**
      * post: devuelve el nombre del jugador que debe colocar una ficha o null si
-     * termin√≥ el juego.
+     * terminÛ el juego.
      */
     private void cambiarTurno() {
         switch (tiroActual) {
@@ -166,18 +166,26 @@ public class Reversi {
         return jugadorActual;
     }
     /**
-     * pre : fila est√° en el intervalo [1, contarFilas()], columnas est√° en el
-     * intervalo [1, contarColumnas()]. post: indica qui√©n tiene la posesi√≥n del
+     * pre : fila est· en el intervalo [1, contarFilas()], columnas est· en el
+     * intervalo [1, contarColumnas()]. post: indica quiÈn tiene la posesiÛn del
      * casillero dado por fila y columna.
      *
      * @param fila
      * @param columna
      */
     public Casillero obtenerCasillero(int fila, int columna) {
+        validarPosicion(fila,columna);
         return this.matrizEnglobadora[fila][columna];
     }
 
+    private void validarPosicion(int fila, int columna) {
+        if(fila < 1 || columna < 1 || fila > this.matrizReversi.length || columna > this.matrizReversi.length){
+            throw new Error("PosiciÛn fuera del tablero");
+        }
+    }
+
     public boolean puedeColocarFicha(int fila, int columna) {
+        validarPosicion(fila,columna);
         boolean sePuedeColocarFicha = false;
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             //arriba abajo
@@ -229,16 +237,17 @@ public class Reversi {
     }
 
     /**
-     * pre : la posici√≥n indicada por (fila, columna) puede ser ocupada por una
-     * ficha. 'fila' est√° en el intervalo [1, contarFilas()]. 'columna' est√° en
-     * el intervalor [1, contarColumnas()]. y a√∫n queda un Casillero.VACIO en la
-     * columna indicada. post: coloca una ficha en la posici√≥n indicada.
+     * pre : la posiciÛn indicada por (fila, columna) puede ser ocupada por una
+     * ficha. 'fila' est· en el intervalo [1, contarFilas()]. 'columna' est· en
+     * el intervalor [1, contarColumnas()]. y a˙n queda un Casillero.VACIO en la
+     * columna indicada. post: coloca una ficha en la posiciÛn indicada.
      *
      * @param fila
      * @param columna
      */
 
     public void colocarFicha(int fila, int columna) {
+        validarPosicion(fila,columna);
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
                 colocarFichas(fila, columna, 1, 0);
@@ -340,7 +349,7 @@ public class Reversi {
     }
 
     /**
-     * post: indica si el juego termin√≥ porque no existen casilleros vac√≠os o
+     * post: indica si el juego terminÛ porque no existen casilleros vacÌos o
      * ninguno de los jugadores puede colocar una ficha.
      */
 
@@ -360,7 +369,7 @@ public class Reversi {
     }
 
     /**
-     * post: indica si el juego termin√≥ y tiene un ganador.
+     * post: indica si el juego terminÛ y tiene un ganador.
      */
     public boolean hayGanador() {
         boolean huboGanador = false;
@@ -375,7 +384,7 @@ public class Reversi {
     }
 
     /**
-     * pre : el juego termin√≥. post: devuelve el nombre del jugador que gan√≥ el
+     * pre : el juego terminÛ. post: devuelve el nombre del jugador que ganÛ el
      * juego.
      */
     public String obtenerGanador() {
