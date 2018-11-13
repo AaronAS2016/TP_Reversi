@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
    <children>
-      <Button fx:id="btnIniciar" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="152.0" layoutY="319.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" scaleShape="false" styleClass="button" text="JUGAR" textFill="#ffbc22">
+      <Button fx:id="btnIniciar" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="327.0" layoutY="377.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="148.0" scaleShape="false" styleClass="button" text="JUGAR" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCreditos" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="155.0" layoutY="404.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" scaleShape="false" styleClass="button" text="CREDITOS" textFill="#ffbc22">
+      <Button fx:id="btnCreditos" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" scaleShape="false" styleClass="button" text="CREDITOS" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>
       </Button>
-      <ImageView fx:id="imageTitulo" fitHeight="340.0" fitWidth="649.0" layoutX="-82.0" layoutY="-208.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageTitulo" fitHeight="340.0" fitWidth="649.0" layoutX="76.0" layoutY="-198.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/reversi.png" />
          </image>
       </ImageView>
-      <Button id="btnCerrar" fx:id="btnCerrar" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="399.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" scaleShape="false" styleClass="toggle-button" />
+      <Button id="btnCerrar" fx:id="btnCerrar" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" scaleShape="false" styleClass="toggle-button" />
    </children>
 </AnchorPane>

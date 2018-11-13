@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
@@ -27,10 +27,10 @@
             <Font name="Oswald SemiBold" size="27.0" />
          </font>
       </Label>
-      <GridPane fx:id="grillaTablero" alignment="CENTER" layoutX="33.0" layoutY="82.0" prefHeight="522.0" prefWidth="508.0" styleClass="grilla">
+      <GridPane fx:id="grillaTablero" alignment="CENTER" layoutX="37.0" layoutY="108.0" prefHeight="500.0" prefWidth="500.0" styleClass="grilla">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="249.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="249.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -83,8 +83,8 @@
             <Font name="Oswald Light" size="18.0" />
          </font>
       </Label>
-      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="752.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
-      <Button id="btnVolver" fx:id="btnVolver" layoutX="2.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="740.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnVolver" fx:id="btnVolver" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
       <Label fx:id="txtCambioDeTurno" layoutX="570.0" layoutY="405.0" prefHeight="74.0" prefWidth="170.0" text="¡No había ningún movimiento posible, se pasa el turno!" textAlignment="CENTER" textFill="#ffbc22" visible="false" wrapText="true">
          <font>
             <Font name="Oswald Light" size="15.0" />

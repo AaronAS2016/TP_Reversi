@@ -7,6 +7,8 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,10 +45,20 @@ public class Tablero {
 
     private Parent pantallaResultado;
 
-    public Tablero(Reversi juego, Stage ventana, Scene menu){
+    private StackPane containerPrincipal;
+
+    private AnchorPane anchorPaneMenu;
+
+    private Parent pantallaTablero;
+    private Parent menuView;
+
+    public Tablero(Reversi juego, Stage ventana, Scene menu, StackPane containerPrincipal, AnchorPane anchorPaneMenu, Parent menuView){
         this.juego = juego;
         this.escenario = ventana;
         this.menu = menu;
+        this.containerPrincipal = containerPrincipal;
+        this.anchorPaneMenu = anchorPaneMenu;
+        this.menuView = menuView;
     }
 
     public void mostrar() throws IOException {
@@ -56,12 +68,13 @@ public class Tablero {
     }
 
     private void configuramosVentana() throws IOException {
-        Parent pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
+        pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
         tablero = new Scene(pantallaTablero, 800,680);
-        escenario.setScene(tablero);
-        escenario.setHeight(680);
-        escenario.getIcons().add(new Image("./img/icono.png"));
-        EstilizarVentana.allowDrag(pantallaTablero, escenario);
+        CambiarEscena cambiarEscena = new CambiarEscena(tablero, escenario, pantallaTablero, containerPrincipal, 1, anchorPaneMenu );
+        cambiarEscena.cambiarEscena();
+        //escenario.setScene(tablero);
+        //escenario.getIcons().add(new Image("./img/icono.png"));
+        //EstilizarVentana.allowDrag(pantallaTablero, escenario);
     }
 
     public void dibujar() {
@@ -100,13 +113,13 @@ public class Tablero {
     private void dibujarFicha(int fila, int columna){
 
         Casillero casillero = juego.obtenerCasillero(fila, columna);
-        int tamanio = new Double(grilla.getWidth() / juego.contarFilas()).intValue();
+        int tamanio = new Double(500 / juego.contarFilas()).intValue();
 
         Image image = crearPintura(casillero);
         if(image != null){
             ImageView dibujoCasillero = new ImageView(image);
-            dibujoCasillero.setFitHeight(grilla.getWidth() / juego.contarColumnas() );
-            dibujoCasillero.setFitWidth(grilla.getHeight() / juego.contarFilas());
+            dibujoCasillero.setFitHeight(500 / juego.contarColumnas() );
+            dibujoCasillero.setFitWidth(500 / juego.contarFilas());
             dibujar(dibujoCasillero, fila, columna);
         }else {
             Paint pintura = Color.TRANSPARENT;
@@ -173,7 +186,9 @@ public class Tablero {
         Button btnVolverMenu = (Button) tablero.lookup("#btnVolver");
         Button btnReiniciar = (Button) tablero.lookup("#btnReiniciar");
 
-        btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(menu, escenario));
+        AnchorPane anchorPaneTablero = (AnchorPane) tablero.lookup("#anchorPaneTablero");
+
+        btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(menu, escenario, menuView, containerPrincipal, -1, anchorPaneTablero));
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
         btnReiniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             juego.reiniciarJuego();

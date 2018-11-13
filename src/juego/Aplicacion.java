@@ -82,7 +82,7 @@ public class Aplicacion extends Application {
 
 		containerPrincipal.getChildren().add(anchorPanePrincipal);
 
-		stackScene = new Scene(containerPrincipal, 450, 600);
+		stackScene = new Scene(containerPrincipal, 800, 680);
 
 
 	}
@@ -91,7 +91,7 @@ public class Aplicacion extends Application {
 		ImageView titulo = (ImageView) principalView.lookup("#imageTitulo");
 		titulo.toFront();
 		TranslateTransition transition = new TranslateTransition();
-		transition.setDuration(Duration.seconds(1));
+		transition.setDuration(Duration.millis(500));
 		transition.setNode(titulo);
 		transition.setToY(230);
 		transition.setOnFinished(e->{
@@ -144,22 +144,22 @@ public class Aplicacion extends Application {
 		btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 		btnCerrarCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 
-		btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal, true));
+		btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal));
 
 		btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaMenu, escenarioPrincipal, menuView, containerPrincipal, 1, anchorPanePrincipal));
 
 		btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED,  new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneMenu));
 
-		btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneCredito, true));
+		btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneCredito));
 
 		btnIniciarPartida.addEventHandler(MouseEvent.MOUSE_CLICKED, new IniciarJuego(this));
 	}
 
 	private void cargarEscenas() {
 		/*Creamos las escenas*/
-		pantallaPrincipal = new Scene(principalView, 450, 600);
-		pantallaMenu = new Scene(menuView, 450, 600);
-		pantallaCreditos = new Scene(creditosView, 450, 680);
+		pantallaPrincipal = new Scene(principalView, 800, 680);
+		pantallaMenu = new Scene(menuView, 800, 680);
+		pantallaCreditos = new Scene(creditosView, 800, 680);
 	}
 
 	private void cargarVistas() throws IOException {
@@ -183,7 +183,7 @@ public class Aplicacion extends Application {
 				nombreFichasBlancas);
 
 		Tablero tablero = new Tablero(juego, escenarioPrincipal,
-				pantallaMenu);
+				pantallaMenu, containerPrincipal, anchorPaneMenu, menuView);
 		tablero.mostrar();
 	}
 
