@@ -18,9 +18,9 @@ public class Reversi {
 
     private String[] jugadores = new String[2];
     private String jugadorActual = jugadores[0];
-    private Casillero tiroActual = Casillero.NEGRAS;
+    private Casillero tiroActual = Casillero.CRUZ;
     private String ganador = jugadorActual;
-    private Casillero tiroOponente = Casillero.BLANCAS;
+    private Casillero tiroOponente = Casillero.CIRCULO;
 
     private Casillero[][] matrizReversi;
     private Casillero[][] matrizEnglobadora;
@@ -80,10 +80,10 @@ public class Reversi {
             }
         }
         // pintamos los casilleros blancos y negro para cada jugador
-        this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.NEGRAS;
-        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero] = Casillero.BLANCAS;
-        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero - 1] = Casillero.NEGRAS;
-        this.matrizReversi[mitadDelTablero][mitadDelTablero - 1] = Casillero.BLANCAS;
+        this.matrizReversi[mitadDelTablero][mitadDelTablero] = Casillero.CRUZ;
+        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero] = Casillero.CIRCULO;
+        this.matrizReversi[mitadDelTablero - 1][mitadDelTablero - 1] = Casillero.CRUZ;
+        this.matrizReversi[mitadDelTablero][mitadDelTablero - 1] = Casillero.CIRCULO;
     }
 
     /* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
@@ -139,19 +139,19 @@ public class Reversi {
      */
     private void cambiarTurno() {
         switch (tiroActual) {
-            case BLANCAS:
-                tiroActual = Casillero.NEGRAS;
-                tiroOponente = Casillero.BLANCAS;
+            case CIRCULO:
+                tiroActual = Casillero.CRUZ;
+                tiroOponente = Casillero.CIRCULO;
                 jugadorActual = jugadores[0];
                 break;
-            case NEGRAS:
-                tiroActual = Casillero.BLANCAS;
-                tiroOponente = Casillero.NEGRAS;
+            case CRUZ:
+                tiroActual = Casillero.CIRCULO;
+                tiroOponente = Casillero.CRUZ;
                 jugadorActual = jugadores[1];
                 break;
             default:
-                tiroActual = Casillero.NEGRAS;
-                tiroOponente = Casillero.BLANCAS;
+                tiroActual = Casillero.CRUZ;
+                tiroOponente = Casillero.CIRCULO;
                 jugadorActual = jugadores[0];
         }
 
@@ -275,6 +275,8 @@ public class Reversi {
             }
             this.matrizEnglobadora[fila][columna] = tiroActual;
             cambiarTurno();
+        }else{
+        	throw new Error("El casillero esta ocupado");
         }
     }
 
@@ -301,7 +303,7 @@ public class Reversi {
         int fichasNegras = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.NEGRAS) {
+                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.CRUZ) {
                     fichasNegras++;
                 }
             }
@@ -316,7 +318,7 @@ public class Reversi {
         int fichasBlancas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.BLANCAS) {
+                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.CIRCULO) {
                     fichasBlancas++;
                 }
             }
@@ -328,7 +330,7 @@ public class Reversi {
         int fichasOcupadas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i+1][j+1] == Casillero.NEGRAS || this.matrizEnglobadora[i+1][j+1] == Casillero.BLANCAS) {
+                if (this.matrizEnglobadora[i+1][j+1] == Casillero.CRUZ || this.matrizEnglobadora[i+1][j+1] == Casillero.CIRCULO) {
                     fichasOcupadas++;
                 }
             }

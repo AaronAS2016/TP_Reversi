@@ -24,7 +24,6 @@ import javafx.scene.image.ImageView;
 
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class Tablero {
 
@@ -135,11 +134,11 @@ public class Tablero {
 
         switch (casillero) {
 
-            case BLANCAS:
+            case CIRCULO:
                 pintura = new Image("./img/circulo.png");
                 break;
 
-            case NEGRAS:
+            case CRUZ:
                 pintura = new Image("./img/cruz.png");
                 break;
 

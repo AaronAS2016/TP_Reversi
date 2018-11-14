@@ -91,7 +91,7 @@ public class Aplicacion extends Application {
 		ImageView titulo = (ImageView) principalView.lookup("#imageTitulo");
 		titulo.toFront();
 		TranslateTransition transition = new TranslateTransition();
-		transition.setDuration(Duration.millis(500));
+		transition.setDuration(Duration.millis(1000));
 		transition.setNode(titulo);
 		transition.setToY(230);
 		transition.setOnFinished(e->{
