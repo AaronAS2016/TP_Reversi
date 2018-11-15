@@ -1,5 +1,6 @@
 package juego;
 
+
 /**
  * Juego Reversi
  * <p>
@@ -25,6 +26,8 @@ public class Reversi {
     private Casillero[][] matrizReversi;
     private Casillero[][] matrizEnglobadora;
 
+    private int[][] animaciones;
+
 
     /**
      * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -46,6 +49,7 @@ public class Reversi {
         armarMatrizGlobalReversi(dimensionTablero);
         armarMatrizGlobal(this.matrizReversi);
     }
+
 
     public Casillero obtenerTiroActual(){
         return this.tiroActual;
@@ -274,6 +278,7 @@ public class Reversi {
                 colocarFichas(fila, columna, 1, -1);
             }
             this.matrizEnglobadora[fila][columna] = tiroActual;
+            this.animaciones[fila][columna] = 1;
             cambiarTurno();
         }else{
         	throw new Error("El casillero esta ocupado");
@@ -281,6 +286,7 @@ public class Reversi {
     }
 
     public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
+        animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
         boolean encontroActual = false;
         if(hayFichaEnElMedio(fila,columna, direccion_fila,  direccion_columna)){
             while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {
@@ -289,12 +295,17 @@ public class Reversi {
                 }
                 if (matrizEnglobadora[fila][columna] == tiroOponente) {
                     matrizEnglobadora[fila][columna] = tiroActual;
+                    animaciones[fila][columna] = 1;
                 }
                 fila += direccion_fila;
                 columna += direccion_columna;
             }
         }
 
+    }
+
+    public int obtenerAnimaciones(int fila, int columna){
+        return this.animaciones[fila][columna];
     }
     /**
      * post: devuelve la cantidad de fichas negras en el tablero.

@@ -1,6 +1,8 @@
 package juego;
 
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
@@ -21,6 +24,7 @@ import javafx.scene.paint.Paint;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -51,13 +55,19 @@ public class Tablero {
     private Parent pantallaTablero;
     private Parent menuView;
 
-    public Tablero(Reversi juego, Stage ventana, Scene menu, StackPane containerPrincipal, AnchorPane anchorPaneMenu, Parent menuView){
+    private RotateTransition[][] animaciones;
+
+    private boolean seModificoELTablero = false;
+    private int vecesDibujado = 0;
+
+    public Tablero(Reversi juego, Stage ventana, Scene menu, StackPane containerPrincipal, AnchorPane anchorPaneMenu, Parent menuView) {
         this.juego = juego;
         this.escenario = ventana;
         this.menu = menu;
         this.containerPrincipal = containerPrincipal;
         this.anchorPaneMenu = anchorPaneMenu;
         this.menuView = menuView;
+        this.animaciones = new RotateTransition[this.juego.contarFilas()+ 2 ][this.juego.contarColumnas() + 2];
     }
 
     public void mostrar() throws IOException {
@@ -66,17 +76,21 @@ public class Tablero {
         dibujar();
     }
 
+    public void reproducirAnimacion(int fila, int columna){
+        animaciones[fila-1][columna-1].play();
+    }
+
+
     private void configuramosVentana() throws IOException {
-        pantallaTablero =  FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
-        tablero = new Scene(pantallaTablero, 800,680);
-        CambiarEscena cambiarEscena = new CambiarEscena(tablero, escenario, pantallaTablero, containerPrincipal, 1, anchorPaneMenu );
+        pantallaTablero = FXMLLoader.load(getClass().getResource("./../views/tablero.fxml"));
+        tablero = new Scene(pantallaTablero, 800, 680);
+        CambiarEscena cambiarEscena = new CambiarEscena(tablero, escenario, pantallaTablero, containerPrincipal, 1, anchorPaneMenu);
         cambiarEscena.cambiarEscena();
-        //escenario.setScene(tablero);
-        //escenario.getIcons().add(new Image("./img/icono.png"));
-        //EstilizarVentana.allowDrag(pantallaTablero, escenario);
     }
 
     public void dibujar() {
+
+        vecesDibujado++;
 
         seCambioDeTurno.setVisible(false);
 
@@ -109,18 +123,25 @@ public class Tablero {
     /**
      * post: dibuja la ficha en la posici?n indicada por fila y columna.
      */
-    private void dibujarFicha(int fila, int columna){
+    private void dibujarFicha(int fila, int columna) {
 
         Casillero casillero = juego.obtenerCasillero(fila, columna);
         int tamanio = new Double(500 / juego.contarFilas()).intValue();
 
         Image image = crearPintura(casillero);
-        if(image != null){
+        if (image != null) {
             ImageView dibujoCasillero = new ImageView(image);
-            dibujoCasillero.setFitHeight(500 / juego.contarColumnas() );
+            RotateTransition rt = new RotateTransition(Duration.millis(500), dibujoCasillero);
+            rt.setAxis(Rotate.Y_AXIS);
+            rt.setFromAngle(0);
+            rt.setToAngle(180);
+            rt.setInterpolator(Interpolator.LINEAR);
+            rt.setCycleCount(1);
+            animaciones[fila ][columna] = rt;
+            dibujoCasillero.setFitHeight(500 / juego.contarColumnas());
             dibujoCasillero.setFitWidth(500 / juego.contarFilas());
             dibujar(dibujoCasillero, fila, columna);
-        }else {
+        } else {
             Paint pintura = Color.TRANSPARENT;
             Rectangle dibujoCasillero = new Rectangle(tamanio, tamanio);
             dibujoCasillero.setFill(pintura);
@@ -151,14 +172,14 @@ public class Tablero {
 
     /**
      * post: dibuja el boton en el casillero indicado por fila y columna,
-     *       si es que se puede colocar una ficha.
+     * si es que se puede colocar una ficha.
      *
      * @param fila
      * @param columna
      */
-   private void dibujarBoton(int fila, int columna) {
+    private void dibujarBoton(int fila, int columna) {
         int contarCasillerosDisponibles = juego.contarMovimientosPosibles();
-        if(contarCasillerosDisponibles == 0 && !juego.termino()){
+        if (contarCasillerosDisponibles == 0 && !juego.termino()) {
             dibujar();
             seCambioDeTurno.setVisible(true);
         }
@@ -167,7 +188,7 @@ public class Tablero {
             Button botonColocarFicha = new Button();
             botonColocarFicha.setMinSize(15, 15);
             botonColocarFicha.setMaxSize(15, 15);
-            botonColocarFicha.addEventHandler(MouseEvent.MOUSE_CLICKED, new ColocarFicha(this, juego, fila, columna, botonColocarFicha));
+            botonColocarFicha.addEventHandler(MouseEvent.MOUSE_CLICKED, new ColocarFicha(this, juego, fila, columna));
 
             dibujar(botonColocarFicha, fila, columna);
         }
@@ -175,12 +196,22 @@ public class Tablero {
 
     private void dibujar(Node elemento, int fila, int columna) {
 
+
+
         GridPane.setHalignment(elemento, HPos.CENTER);
         GridPane.setValignment(elemento, VPos.CENTER);
         grilla.add(elemento, columna - 1, fila - 1);
+
+        if(vecesDibujado > 1){
+            int estadoAnimacion = juego.obtenerAnimaciones(fila,columna);
+            if(estadoAnimacion == 1){
+                this.animaciones[fila][columna].play();
+            }
+        }
+
     }
 
-    public void crearControles(){
+    public void crearControles() {
         Button btnCerrar = (Button) tablero.lookup("#btnCerrar");
         Button btnVolverMenu = (Button) tablero.lookup("#btnVolver");
         Button btnReiniciar = (Button) tablero.lookup("#btnReiniciar");
@@ -189,7 +220,7 @@ public class Tablero {
 
         btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(menu, escenario, menuView, containerPrincipal, -1, anchorPaneTablero));
         btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
-        btnReiniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+        btnReiniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             juego.reiniciarJuego();
             dibujar();
         });
@@ -216,7 +247,7 @@ public class Tablero {
         grilla = (GridPane) tablero.lookup("#grillaTablero");
     }
 
-    public void mostrarResultado(){
+    public void mostrarResultado() {
 
         Stage dialogo = new Stage();
         try {
@@ -226,7 +257,7 @@ public class Tablero {
         }
         Scene resultado = new Scene(pantallaResultado, 650, 230);
         Button btnCerrar = (Button) pantallaResultado.lookup("#btnCerrar");
-        btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+        btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             dialogo.close();
         });
         String textoResultado = crearMensajeResultado();
@@ -251,16 +282,10 @@ public class Tablero {
         if (juego.hayGanador()) {
             String ganador = juego.obtenerGanador();
 
-
-
             mensajeResultado = "¡Ganó " + ganador + "!";
-
         } else {
-
             mensajeResultado = "¡Empataron! O:";
         }
-
-
 
         return mensajeResultado;
     }

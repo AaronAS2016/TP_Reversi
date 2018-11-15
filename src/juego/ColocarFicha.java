@@ -15,7 +15,7 @@ public class ColocarFicha implements EventHandler<Event> {
 	private int fila;
 	private int columna;
 	public ColocarFicha(Tablero tableroReversi, Reversi reversi,
-						int filaSeleccionada, int columnaSeleccionada, Button btn) {
+						int filaSeleccionada, int columnaSeleccionada) {
 
 		tablero = tableroReversi;
 		juego = reversi;
