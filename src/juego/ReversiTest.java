@@ -246,10 +246,7 @@ public class ReversiTest {
 		juego.obtenerJugadores (-1);
 	}
 	
-	@Test
-	public void obtenerCasillero (  ){
-		
-	}
+
 	
 	
 	

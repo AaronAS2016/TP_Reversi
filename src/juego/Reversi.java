@@ -48,6 +48,19 @@ public class Reversi {
         cargarJugadores(fichasNegras, fichasBlancas);
         armarMatrizGlobalReversi(dimensionTablero);
         armarMatrizGlobal(this.matrizReversi);
+        armarAnimaciones();
+    }
+
+    private void armarAnimaciones() {
+        animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
+    }
+
+    private void reiniciarAnimaciones(){
+        for(int i = 0; i < animaciones.length;i++){
+            for(int j = 0; j < animaciones[i].length;j++){
+                animaciones[i][j] = 0;
+            }
+        }
     }
 
 
@@ -252,6 +265,7 @@ public class Reversi {
 
     public void colocarFicha(int fila, int columna) {
         validarPosicion(fila,columna);
+        reiniciarAnimaciones();
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
                 colocarFichas(fila, columna, 1, 0);
@@ -278,7 +292,6 @@ public class Reversi {
                 colocarFichas(fila, columna, 1, -1);
             }
             this.matrizEnglobadora[fila][columna] = tiroActual;
-            this.animaciones[fila][columna] = 1;
             cambiarTurno();
         }else{
         	throw new Error("El casillero esta ocupado");
@@ -286,7 +299,7 @@ public class Reversi {
     }
 
     public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
-        animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
+
         boolean encontroActual = false;
         if(hayFichaEnElMedio(fila,columna, direccion_fila,  direccion_columna)){
             while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {

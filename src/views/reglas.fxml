@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneTablero" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+   <children>
+      <ImageView fitHeight="91.0" fitWidth="178.0" layoutX="311.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/reversi.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnReiniciar" layoutX="60.0" layoutY="479.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="149.0" styleClass="button" text="MÁS INFORMACION" textFill="#ffbc22" wrapText="true" />
+      <Label fx:id="txtJugador1" layoutX="60.0" layoutY="97.0" text="REGLAS" textFill="#ffbc22" wrapText="true">
+         <font>
+            <Font name="Oswald Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtJugador2" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="60.0" layoutY="171.0" prefHeight="234.0" prefWidth="727.0" text="En el othello, al igual que en el reversi, se emplea un tablero de 8 filas por 8 columnas y 64 fichas idénticas, redondas, blancas por una cara y negras por la otra (u otros colores). Las casillas se denotan numerando las columnas, comenzando por la esquina superior izquierda del tablero, con letras de la A a la H, e igual con las filas, pero con números del uno al ocho. A un jugador se le asigna un color y se dice que lleva las fichas de ese color, lo mismo para el adversario con el otro color.En el otelo, de inicio, se colocan cuatro fichas tal como se ve en el diagrama de la izquierda: dos fichas blancas en D4 y E5, y dos negras en E4 y D5. En el reversi estas cuatro casillas comenzarían vacías y se irían ocupando alternativamente, típicamente comenzando por el jugador que lleva las fichas negras. Ésta es la primera diferencia entre las reglas del reversi y del otelo: una única restricción en la apertura (los diagramas de abajo muestran las dos posibles aperturas, no siendo posible la segunda en el otelo)." textFill="#ffbc22" wrapText="true">
+         <font>
+            <Font name="Oswald Light" size="16.0" />
+         </font>
+      </Label>
+      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="740.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnVolver" fx:id="btnVolver" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Label fx:id="txtCambioDeTurno" layoutX="570.0" layoutY="405.0" prefHeight="74.0" prefWidth="170.0" text="¡No había ningún movimiento posible, se pasa el turno!" textAlignment="CENTER" textFill="#ffbc22" visible="false" wrapText="true">
+         <font>
+            <Font name="Oswald Light" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
