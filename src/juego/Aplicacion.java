@@ -22,176 +22,193 @@ import java.io.IOException;
 
 public class Aplicacion extends Application {
 
-	/*Se declara la ventana*/
-	private Stage escenarioPrincipal;
+    /*Se declara la ventana*/
+    private Stage escenarioPrincipal;
 
-	/*Se declara las escenas que va a controlar el Aplicacion*/
-	private Scene pantallaPrincipal;
-	private Scene pantallaMenu;
-	private Scene pantallaCreditos;
-	private Scene stackScene;
+    /*Se declara las escenas que va a controlar el Aplicacion*/
+    private Scene pantallaPrincipal;
+    private Scene pantallaMenu;
+    private Scene pantallaCreditos;
+    private Scene stackScene;
+    private Scene pantallaReglas;
 
-	/*Declaramos las vistas*/
+    /*Declaramos las vistas*/
 
-	private Parent menuView;
-	private Parent creditosView;
-	private Parent principalView;
+    private Parent menuView;
+    private Parent creditosView;
+    private Parent principalView;
+    private Parent reglasView;
 
-	/*Declaramos los campos de textos para empezar la partida*/
+    /*Declaramos los campos de textos para empezar la partida*/
 
-	private TextField campoNombreFichasNegras;
-	private TextField campoNombreFichasBlancas;
-	private TextField campoDimension;
+    private TextField campoNombreFichasNegras;
+    private TextField campoNombreFichasBlancas;
+    private TextField campoDimension;
 
-	private StackPane containerPrincipal;
+    private StackPane containerPrincipal;
 
-	private AnchorPane anchorPanePrincipal;
-	private AnchorPane anchorPaneMenu;
-	private AnchorPane anchorPaneCredito;
+    private AnchorPane anchorPanePrincipal;
+    private AnchorPane anchorPaneMenu;
+    private AnchorPane anchorPaneCredito;
+    private AnchorPane anchorPaneReglas;
 
-	@Override
-	public void start(Stage escenarioPrincipal) throws Exception {
+    @Override
+    public void start(Stage escenarioPrincipal) throws Exception {
 
-		this.escenarioPrincipal = escenarioPrincipal;
+        this.escenarioPrincipal = escenarioPrincipal;
 
-		cargarVistas();
+        cargarVistas();
 
-		cargarEscenas();
+        cargarEscenas();
 
-		cargamosElemntosDeLaVista();
+        cargamosElemntosDeLaVista();
 
-		cargarBotones();
+        cargarBotones();
 
-		configuramosTextos();
+        configuramosTextos();
 
-		personalizamosLaVentana();
+        personalizamosLaVentana();
 
+        armarAnimacion();
 
-		armarAnimacion();
+    }
 
-	}
+    private void cargamosElemntosDeLaVista() {
+        anchorPanePrincipal = (AnchorPane) pantallaPrincipal.lookup("#anchorPanePrincipal");
 
-	private void cargamosElemntosDeLaVista() {
-		anchorPanePrincipal = (AnchorPane) pantallaPrincipal.lookup("#anchorPanePrincipal");
+        anchorPaneMenu = (AnchorPane) pantallaMenu.lookup("#anchorPaneMenu");
 
-		anchorPaneMenu = (AnchorPane) pantallaMenu.lookup("#anchorPaneMenu");
+        anchorPaneCredito = (AnchorPane) pantallaCreditos.lookup("#anchorPaneCredtitos");
 
-		anchorPaneCredito = (AnchorPane) pantallaCreditos.lookup("#anchorPaneCredtitos");
+        anchorPaneReglas = (AnchorPane) pantallaReglas.lookup("#anchorPaneReglas");
 
-		containerPrincipal = new StackPane();
+        containerPrincipal = new StackPane();
 
-		containerPrincipal.getChildren().add(anchorPanePrincipal);
+        containerPrincipal.getChildren().add(anchorPanePrincipal);
 
-		stackScene = new Scene(containerPrincipal, 800, 680);
-
-
-	}
-
-	private void armarAnimacion() {
-		ImageView titulo = (ImageView) principalView.lookup("#imageTitulo");
-		titulo.toFront();
-		TranslateTransition transition = new TranslateTransition();
-		transition.setDuration(Duration.millis(1000));
-		transition.setNode(titulo);
-		transition.setToY(230);
-		transition.setOnFinished(e->{
-			titulo.toBack();
-		});
-		transition.play();
-	}
-
-	private void personalizamosLaVentana() {
-		escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
-		escenarioPrincipal.setScene(stackScene);
-		escenarioPrincipal.getIcons().add(new Image("./img/icono.png"));
-		escenarioPrincipal.setTitle("REVERSI");
-		escenarioPrincipal.setResizable(false);
-		escenarioPrincipal.show();
-
-		EstilizarVentana.allowDrag(principalView, escenarioPrincipal);
-		EstilizarVentana.allowDrag(menuView, escenarioPrincipal);
-		EstilizarVentana.allowDrag(creditosView, escenarioPrincipal);
-		EstilizarVentana.stageDimension(escenarioPrincipal.getWidth(),
-				escenarioPrincipal.getHeight());
-	}
-
-	private void configuramosTextos() {
-		campoNombreFichasNegras = (TextField) pantallaMenu
-				.lookup("#txtJugador1");
-		campoNombreFichasBlancas = (TextField) pantallaMenu
-				.lookup("#txtJugador2");
-		campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
-		campoDimension.setText("4");
-		campoNombreFichasNegras.setText("Cruces");
-		campoNombreFichasBlancas.setText("Circulos");
-	}
-
-	private void cargarBotones() {
+        stackScene = new Scene(containerPrincipal, 800, 680);
 
 
+    }
 
-		Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
-		Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
-		Button btnCerrarMenu = (Button) pantallaMenu.lookup("#btnCerrar");
-		Button btnCerrarCreditos = (Button) pantallaCreditos
-				.lookup("#btnCerrar");
-		Button btnCreditos = (Button) pantallaPrincipal.lookup("#btnCreditos");
-		Button btnVolverMenu = (Button) pantallaMenu.lookup("#btnVolver");
-		Button btnVolverCreditos = (Button) creditosView.lookup("#btnVolver");
-		Button btnIniciarPartida = (Button) pantallaMenu.lookup("#btnJugar");
+    private void armarAnimacion() {
+        ImageView titulo = (ImageView) principalView.lookup("#imageTitulo");
+        titulo.toFront();
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.millis(1000));
+        transition.setNode(titulo);
+        transition.setToY(230);
+        transition.setOnFinished(e -> {
+            titulo.toBack();
+        });
+        transition.play();
+    }
 
-		btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
-		btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
-		btnCerrarCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
+    private void personalizamosLaVentana() {
+        escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
+        escenarioPrincipal.setScene(stackScene);
+        escenarioPrincipal.getIcons().add(new Image("./img/icono.png"));
+        escenarioPrincipal.setTitle("REVERSI");
+        escenarioPrincipal.setResizable(false);
+        escenarioPrincipal.show();
 
-		btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal));
+        EstilizarVentana.allowDrag(principalView, escenarioPrincipal);
+        EstilizarVentana.allowDrag(menuView, escenarioPrincipal);
+        EstilizarVentana.allowDrag(creditosView, escenarioPrincipal);
+        EstilizarVentana.stageDimension(escenarioPrincipal.getWidth(),
+                escenarioPrincipal.getHeight());
+    }
 
-		btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaMenu, escenarioPrincipal, menuView, containerPrincipal, 1, anchorPanePrincipal));
+    private void configuramosTextos() {
+        campoNombreFichasNegras = (TextField) pantallaMenu
+                .lookup("#txtJugador1");
+        campoNombreFichasBlancas = (TextField) pantallaMenu
+                .lookup("#txtJugador2");
+        campoDimension = (TextField) pantallaMenu.lookup("#txtDimension");
+        campoDimension.setText("4");
+        campoNombreFichasNegras.setText("Cruces");
+        campoNombreFichasBlancas.setText("Circulos");
+    }
 
-		btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED,  new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneMenu));
-
-		btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneCredito));
-
-		btnIniciarPartida.addEventHandler(MouseEvent.MOUSE_CLICKED, new IniciarJuego(this));
-	}
-
-	private void cargarEscenas() {
-		/*Creamos las escenas*/
-		pantallaPrincipal = new Scene(principalView, 800, 680);
-		pantallaMenu = new Scene(menuView, 800, 680);
-		pantallaCreditos = new Scene(creditosView, 800, 680);
-	}
-
-	private void cargarVistas() throws IOException {
+    private void cargarBotones() {
 
 
-		/*Cargamos las vistas*/
-		principalView = FXMLLoader.load(getClass().getResource(
-				"./../views/pantalla-principal.fxml"));
-		menuView = FXMLLoader.load(getClass().getResource("./../views/menu.fxml"));
-		creditosView = FXMLLoader.load(getClass().getResource(
-				"./../views/creditos.fxml"));
-	}
+        Button btnIniciar = (Button) pantallaPrincipal.lookup("#btnIniciar");
+        Button btnCerrar = (Button) pantallaPrincipal.lookup("#btnCerrar");
+        Button btnCerrarMenu = (Button) pantallaMenu.lookup("#btnCerrar");
+        Button btnCerrarCreditos = (Button) pantallaCreditos
+                .lookup("#btnCerrar");
+        Button btnCerrarReglas = (Button) reglasView.lookup("#btnCerrar");
+        Button btnCreditos = (Button) pantallaPrincipal.lookup("#btnCreditos");
+        Button btnVolverMenu = (Button) pantallaMenu.lookup("#btnVolver");
+        Button btnVolverCreditos = (Button) creditosView.lookup("#btnVolver");
+        Button btnVolverReglas = (Button) reglasView.lookup("#btnVolver");
+        Button btnIniciarPartida = (Button) pantallaMenu.lookup("#btnJugar");
+        Button btnReglas = (Button) pantallaPrincipal.lookup("#btnReglas");
 
-	public void iniciar() throws IOException {
+        btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
+        btnCerrarMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
+        btnCerrarCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
+        btnCerrarReglas.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 
-		String nombreFichasNegras = campoNombreFichasNegras.getText();
-		String nombreFichasBlancas = campoNombreFichasBlancas.getText();
-		int dimension = Integer.parseInt(campoDimension.getText());
 
-		Reversi juego = new Reversi(dimension, nombreFichasNegras,
-				nombreFichasBlancas);
 
-		Tablero tablero = new Tablero(juego, escenarioPrincipal,
-				pantallaMenu, containerPrincipal, anchorPaneMenu, menuView);
-		tablero.mostrar();
-	}
+        btnReglas.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaReglas, escenarioPrincipal, reglasView, containerPrincipal, 1, anchorPanePrincipal));
 
-	public static void main(String[] args) {
+        btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal));
 
-		Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
+        btnIniciar.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaMenu, escenarioPrincipal, menuView, containerPrincipal, 1, anchorPanePrincipal));
 
-		launch(args);
-	}
+        btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneMenu));
+
+
+        btnVolverReglas.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneReglas));
+
+        btnVolverCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaPrincipal, escenarioPrincipal, principalView, containerPrincipal, -1, anchorPaneCredito));
+
+        btnIniciarPartida.addEventHandler(MouseEvent.MOUSE_CLICKED, new IniciarJuego(this));
+    }
+
+    private void cargarEscenas() {
+
+        /*Creamos las escenas*/
+        pantallaPrincipal = new Scene(principalView, 800, 680);
+        pantallaMenu = new Scene(menuView, 800, 680);
+        pantallaCreditos = new Scene(creditosView, 800, 680);
+        pantallaReglas = new Scene(reglasView, 800, 680);
+    }
+
+    private void cargarVistas() throws IOException {
+
+
+        /*Cargamos las vistas*/
+        principalView = FXMLLoader.load(getClass().getResource(
+                "./../views/pantalla-principal.fxml"));
+        menuView = FXMLLoader.load(getClass().getResource("./../views/menu.fxml"));
+        creditosView = FXMLLoader.load(getClass().getResource(
+                "./../views/creditos.fxml"));
+        reglasView = FXMLLoader.load(getClass().getResource("./../views/reglas.fxml"));
+    }
+
+    public void iniciar() throws IOException {
+
+        String nombreFichasNegras = campoNombreFichasNegras.getText();
+        String nombreFichasBlancas = campoNombreFichasBlancas.getText();
+        int dimension = Integer.parseInt(campoDimension.getText());
+
+        Reversi juego = new Reversi(dimension, nombreFichasNegras,
+                nombreFichasBlancas);
+
+        Tablero tablero = new Tablero(juego, escenarioPrincipal,
+                pantallaMenu, containerPrincipal, anchorPaneMenu, menuView);
+        tablero.mostrar();
+    }
+
+    public static void main(String[] args) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new MostrarError());
+
+        launch(args);
+    }
 
 }

@@ -55,16 +55,16 @@ public class Reversi {
         animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
     }
 
-    private void reiniciarAnimaciones(){
-        for(int i = 0; i < animaciones.length;i++){
-            for(int j = 0; j < animaciones[i].length;j++){
+    private void reiniciarAnimaciones() {
+        for (int i = 0; i < animaciones.length; i++) {
+            for (int j = 0; j < animaciones[i].length; j++) {
                 animaciones[i][j] = 0;
             }
         }
     }
 
 
-    public Casillero obtenerTiroActual(){
+    public Casillero obtenerTiroActual() {
         return this.tiroActual;
     }
 
@@ -83,7 +83,7 @@ public class Reversi {
         }
     }
 
-    public void reiniciarJuego(){
+    public void reiniciarJuego() {
         armarMatrizGlobal(this.matrizReversi);
     }
 
@@ -109,8 +109,8 @@ public class Reversi {
         if (fichasNegras.length() < 1 || fichasBlancas.length() < 1) {
             throw new Error("Por favor ingrese un nombre para los jugadores");
         }
-        if(fichasNegras.length() > MAXIMO_DE_CARACTERES || fichasBlancas.length() > MAXIMO_DE_CARACTERES
-        || fichasNegras.length() < MINIMO_DE_CARACTERES|| fichasBlancas.length() < MINIMO_DE_CARACTERES ){
+        if (fichasNegras.length() > MAXIMO_DE_CARACTERES || fichasBlancas.length() > MAXIMO_DE_CARACTERES
+                || fichasNegras.length() < MINIMO_DE_CARACTERES || fichasBlancas.length() < MINIMO_DE_CARACTERES) {
             throw new Error("El número de caracteres no puede superar los 10 ni ser menor a 3");
         }
     }
@@ -119,7 +119,7 @@ public class Reversi {
         if (dimensionTablero < MINIMO_DEL_TABLERO) {
             throw new Error("El tablero debe tener una dimensión minima de 4x4");
         }
-        if(dimensionTablero > MAXIMO_DEL_TABLERO){
+        if (dimensionTablero > MAXIMO_DEL_TABLERO) {
             throw new Error("El tablero debe tener una dimensión no mayor a 10x10");
         }
         if (dimensionTablero % 2 != 0) {
@@ -142,6 +142,7 @@ public class Reversi {
 
         return this.matrizReversi.length;
     }
+
     /**
      * post: devuelve la cantidad de columnas que tiene el tablero.
      */
@@ -166,22 +167,18 @@ public class Reversi {
                 tiroOponente = Casillero.CRUZ;
                 jugadorActual = jugadores[1];
                 break;
-            default:
-                tiroActual = Casillero.CRUZ;
-                tiroOponente = Casillero.CIRCULO;
-                jugadorActual = jugadores[0];
         }
-
     }
 
-    public String obtenerJugadores(int indice){
-        return this.jugadores[indice-1];
+    public String obtenerJugadores(int indice) {
+        return this.jugadores[indice - 1];
     }
 
     public String obtenerJugadorActual() {
 
         return jugadorActual;
     }
+
     /**
      * pre : fila está en el intervalo [1, contarFilas()], columnas está en el
      * intervalo [1, contarColumnas()]. post: indica quién tiene la posesión del
@@ -191,18 +188,18 @@ public class Reversi {
      * @param columna
      */
     public Casillero obtenerCasillero(int fila, int columna) {
-        validarPosicion(fila,columna);
+        validarPosicion(fila, columna);
         return this.matrizEnglobadora[fila][columna];
     }
 
     private void validarPosicion(int fila, int columna) {
-        if(fila < 1 || columna < 1 || fila > this.matrizReversi.length || columna > this.matrizReversi.length){
+        if (fila < 1 || columna < 1 || fila > this.matrizReversi.length || columna > this.matrizReversi.length) {
             throw new Error("Posición fuera del tablero");
         }
     }
 
     public boolean puedeColocarFicha(int fila, int columna) {
-        validarPosicion(fila,columna);
+        validarPosicion(fila, columna);
         boolean sePuedeColocarFicha = false;
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             //arriba abajo
@@ -264,7 +261,7 @@ public class Reversi {
      */
 
     public void colocarFicha(int fila, int columna) {
-        validarPosicion(fila,columna);
+        validarPosicion(fila, columna);
         reiniciarAnimaciones();
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
@@ -293,15 +290,14 @@ public class Reversi {
             }
             this.matrizEnglobadora[fila][columna] = tiroActual;
             cambiarTurno();
-        }else{
-        	throw new Error("El casillero esta ocupado");
+        } else {
+            throw new Error("El casillero esta ocupado");
         }
     }
 
     public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
-
         boolean encontroActual = false;
-        if(hayFichaEnElMedio(fila,columna, direccion_fila,  direccion_columna)){
+        if (hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna)) {
             while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {
                 if (matrizEnglobadora[fila][columna] == tiroActual) {
                     encontroActual = true;
@@ -317,9 +313,10 @@ public class Reversi {
 
     }
 
-    public int obtenerAnimaciones(int fila, int columna){
+    public int obtenerAnimaciones(int fila, int columna) {
         return this.animaciones[fila][columna];
     }
+
     /**
      * post: devuelve la cantidad de fichas negras en el tablero.
      */
@@ -354,7 +351,7 @@ public class Reversi {
         int fichasOcupadas = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (this.matrizEnglobadora[i+1][j+1] == Casillero.CRUZ || this.matrizEnglobadora[i+1][j+1] == Casillero.CIRCULO) {
+                if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.CRUZ || this.matrizEnglobadora[i + 1][j + 1] == Casillero.CIRCULO) {
                     fichasOcupadas++;
                 }
             }
@@ -387,7 +384,7 @@ public class Reversi {
 
         if (contarMovimientosPosibles() == 0) {
             cambiarTurno();
-            if(contarMovimientosPosibles() == 0){
+            if (contarMovimientosPosibles() == 0) {
                 termino = true;
             }
         }

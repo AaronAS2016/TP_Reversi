@@ -17,7 +17,7 @@
             <Font name="Oswald Light" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCreditos" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="329.0" layoutY="460.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" scaleShape="false" styleClass="button" text="CREDITOS" textFill="#ffbc22">
+      <Button fx:id="btnCreditos" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="330.0" layoutY="528.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" scaleShape="false" styleClass="button" text="CREDITOS" textFill="#ffbc22">
          <font>
             <Font name="Oswald Light" size="12.0" />
          </font>
@@ -28,5 +28,10 @@
          </image>
       </ImageView>
       <Button id="btnCerrar" fx:id="btnCerrar" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="740.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" scaleShape="false" styleClass="toggle-button" />
+      <Button fx:id="btnReglas" cacheShape="false" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="329.0" layoutY="456.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="142.0" scaleShape="false" styleClass="button" text="COMO JUGAR" textFill="#ffbc22">
+         <font>
+            <Font name="Oswald Light" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
