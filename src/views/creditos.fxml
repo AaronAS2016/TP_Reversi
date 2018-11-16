@@ -28,7 +28,7 @@
             <Font name="Oswald Medium" size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="355.0" prefHeight="63.0" prefWidth="165.0" text="DISEÑO" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="355.0" prefHeight="63.0" prefWidth="165.0" text="TESTEO/DISEÑO" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald Medium" size="15.0" />
          </font>

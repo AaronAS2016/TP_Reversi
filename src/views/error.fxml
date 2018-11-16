@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="450.0" style="-fx-background-color: #2e2c2d; -fx-border-color: #ffbc22; -fx-border-width: 1px;" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="450.0" style="-fx-background-color: #2e2c2d; -fx-border-color: #ffbc22; -fx-border-width: 1px;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
@@ -21,6 +21,6 @@
             <Font name="Oswald Light" size="16.0" />
          </font>
       </Label>
-      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="401.0" layoutY="5.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
+      <Button id="btnCerrar" fx:id="btnCerrar" layoutX="390.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
    </children>
 </AnchorPane>
