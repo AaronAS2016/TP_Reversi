@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class Aplicacion extends Application {
 
@@ -152,7 +153,6 @@ public class Aplicacion extends Application {
         btnCerrarReglas.addEventHandler(MouseEvent.MOUSE_CLICKED, new CerrarJuego());
 
 
-
         btnReglas.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaReglas, escenarioPrincipal, reglasView, containerPrincipal, 1, anchorPanePrincipal));
 
         btnCreditos.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(pantallaCreditos, escenarioPrincipal, creditosView, containerPrincipal, 1, anchorPanePrincipal));
@@ -194,7 +194,12 @@ public class Aplicacion extends Application {
 
         String nombreFichasNegras = campoNombreFichasNegras.getText();
         String nombreFichasBlancas = campoNombreFichasBlancas.getText();
-        int dimension = Integer.parseInt(campoDimension.getText());
+        int dimension;
+        try {
+            dimension = Integer.parseInt(campoDimension.getText());
+        } catch (NumberFormatException e) {
+            throw new Error("La dimensión debe ser un número entero");
+        }
 
         Reversi juego = new Reversi(dimension, nombreFichasNegras,
                 nombreFichasBlancas);
