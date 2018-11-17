@@ -85,6 +85,9 @@ public class Reversi {
 
     public void reiniciarJuego() {
         armarMatrizGlobal(this.matrizReversi);
+        tiroActual = Casillero.CRUZ;
+        tiroOponente = Casillero.CIRCULO;
+        jugadorActual = jugadores[0];
     }
 
     private void armarMatrizGlobalReversi(int dimension) {
@@ -279,28 +282,28 @@ public class Reversi {
         reiniciarAnimaciones();
         if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
             if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
-                colocarFichas(fila, columna, 1, 0);
+                pintarCasilleros(fila, columna, 1, 0);
             }
             if (matrizEnglobadora[fila - 1][columna] == tiroOponente) {
-                colocarFichas(fila, columna, -1, 0);
+                pintarCasilleros(fila, columna, -1, 0);
             }
             if (matrizEnglobadora[fila][columna + 1] == tiroOponente) {
-                colocarFichas(fila, columna, 0, 1);
+                pintarCasilleros(fila, columna, 0, 1);
             }
             if (matrizEnglobadora[fila][columna - 1] == tiroOponente) {
-                colocarFichas(fila, columna, 0, -1);
+                pintarCasilleros(fila, columna, 0, -1);
             }
             if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
-                colocarFichas(fila, columna, -1, -1);
+                pintarCasilleros(fila, columna, -1, -1);
             }
             if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
-                colocarFichas(fila, columna, 1, 1);
+                pintarCasilleros(fila, columna, 1, 1);
             }
             if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente) {
-                colocarFichas(fila, columna, -1, 1);
+                pintarCasilleros(fila, columna, -1, 1);
             }
             if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
-                colocarFichas(fila, columna, 1, -1);
+                pintarCasilleros(fila, columna, 1, -1);
             }
             this.matrizEnglobadora[fila][columna] = tiroActual;
             cambiarTurno();
@@ -309,7 +312,7 @@ public class Reversi {
         }
     }
 
-    public void colocarFichas(int fila, int columna, int direccion_fila, int direccion_columna) {
+    private void pintarCasilleros(int fila, int columna, int direccion_fila, int direccion_columna) {
         boolean encontroActual = false;
         if (hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna)) {
             while (matrizEnglobadora[fila][columna] != Casillero.NULA && !encontroActual) {
