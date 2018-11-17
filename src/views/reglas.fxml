@@ -13,14 +13,19 @@
       <URL value="@styles.css" />
    </stylesheets>
    <children>
-      <ImageView fitHeight="91.0" fitWidth="178.0" layoutX="304.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="91.0" fitWidth="178.0" layoutX="311.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/reversi.png" />
          </image>
       </ImageView>
-      <Label fx:id="txtJugador1" layoutX="347.0" layoutY="62.0" text="REGLAS" textFill="#ffbc22" wrapText="true">
+      <Label fx:id="txtJugador1" layoutX="60.0" layoutY="97.0" text="REGLAS" textFill="#ffbc22" wrapText="true">
          <font>
-            <Font name="System Bold" size="25.0" />
+            <Font name="Oswald Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtJugador2" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="60.0" layoutY="171.0" prefHeight="234.0" prefWidth="727.0" text="En el othello, al igual que en el reversi, se emplea un tablero de 8 filas por 8 columnas y 64 fichas idénticas, redondas, blancas por una cara y negras por la otra (u otros colores). Las casillas se denotan numerando las columnas, comenzando por la esquina superior izquierda del tablero, con letras de la A a la H, e igual con las filas, pero con números del uno al ocho. A un jugador se le asigna un color y se dice que lleva las fichas de ese color, lo mismo para el adversario con el otro color.En el otelo, de inicio, se colocan cuatro fichas tal como se ve en el diagrama de la izquierda: dos fichas blancas en D4 y E5, y dos negras en E4 y D5. En el reversi estas cuatro casillas comenzarían vacías y se irían ocupando alternativamente, típicamente comenzando por el jugador que lleva las fichas negras. Ésta es la primera diferencia entre las reglas del reversi y del otelo: una única restricción en la apertura (los diagramas de abajo muestran las dos posibles aperturas, no siendo posible la segunda en el otelo)." textFill="#ffbc22" wrapText="true">
+         <font>
+            <Font name="Oswald Light" size="16.0" />
          </font>
       </Label>
       <Button id="btnCerrar" fx:id="btnCerrar" layoutX="740.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
@@ -30,80 +35,5 @@
             <Font name="Oswald Light" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="58.0" layoutY="138.0" prefHeight="74.0" prefWidth="670.0" text="   El objetivo del juego para cada jugador es acabar la partida con un número de fichas de su color sobre el tablero superior al de su oponente." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="60.0" layoutY="111.0" text="Objetivo del juego:" textFill="#ffbc22">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="55.0" layoutY="212.0" prefHeight="35.0" prefWidth="170.0" text="Movimientos:" textFill="#ffbc22">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="59.0" layoutY="247.0" prefHeight="88.0" prefWidth="710.0" text="   Los movimientos consisten en incorporar fichas al tablero a razón de una por turno, nunca en desplazar fichas de las que ya estuvieran sobre el tablero." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="59.0" layoutY="278.0" prefHeight="88.0" prefWidth="710.0" text="   Las incorporaciones deberán hacerse en orden a las siguientes normas:" textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="106.0" layoutY="356.0" text="   Sólo podrá incorporarse una ficha flanquendo a una o varias fichas contrarias." textFill="#ffbc22">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="106.0" layoutY="382.0" prefHeight="88.0" prefWidth="630.0" text="   Por flanquear se entiende el hecho de colocar la nueva ficha en un extremo de una hilera de fichas del color del contrario (una o más fichas) en cuyo extremo opuesto hay una ficha del color de la que se incorpora, sin que existan casillas libres entre ninguna de ellas. Esta hilera puede ser indistintamente vertical, horizontal o diagonal. De este modo, las fichas del contrincante quedan encerradas entre una que ya estaba en el tablero y la nueva ficha." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="106.0" layoutY="470.0" prefHeight="58.0" prefWidth="630.0" text="   Cada vez que un jugador incorpora una ficha, y por lo tanto encierra a otras del contrario, debe dar la vuelta a las fichas encerradas convirtiéndolas así en propias." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="105.0" layoutY="528.0" prefHeight="50.0" prefWidth="630.0" text="   Si en una sola incorporación se provocase esta situación de flanqueo en más de una línea, se voltearán todas las fichas contrarias que estuvieran implicadas en cada un de los flanqueos." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="105.0" layoutY="578.0" prefHeight="50.0" prefWidth="630.0" text="   Si no fuera posible para un jugador encerrar a ninguna ficha, deberá pasar en su turno, volviendo el mismo a su oponente." textFill="#ffbc22" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="20.0" fitWidth="37.0" layoutX="80.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/cruz.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="37.0" layoutX="80.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/cruz.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="37.0" layoutX="80.0" layoutY="578.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/cruz.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="37.0" layoutX="80.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/circulo.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="37.0" layoutX="80.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/circulo.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
