@@ -34,7 +34,6 @@ public class CambiarEscena implements EventHandler<Event> {
 
     private double direccion;
 
-    private boolean cambiarAncho;
 
 
     /**
