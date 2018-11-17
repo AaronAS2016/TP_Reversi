@@ -96,25 +96,6 @@ public class ReversiTest {
 		assertEquals(4, juego.contarColumnas());
 	}
 
-	//Metodo termino
-	
-	@Test
-	public void terminarPartidaCuandoAmbosJugadoresSeQuedanSinMovimientosPosiblesConUnTablero4x4() {
-		Reversi juego = new Reversi(4, "blancas", "negras");
-		juego.colocarFicha(2, 4);
-		juego.colocarFicha(3, 4);
-		juego.colocarFicha(4, 3);
-		juego.colocarFicha(1, 4);
-		juego.colocarFicha(4, 2);
-		juego.colocarFicha(2, 1);
-		juego.colocarFicha(1, 1);
-		juego.colocarFicha(3, 1);
-		juego.colocarFicha(4, 1);
-		juego.colocarFicha(1, 2);
-		juego.colocarFicha(1, 3);
-		assertTrue(juego.termino());
-	}
-
 	@Test(expected = Error.class)
 	public void colocarFichaEnCasilleroOcupado() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -720,8 +701,6 @@ public class ReversiTest {
 		assertEquals ( "negras", juego.obtenerJugadorActual() );
 	}
 	
-	//corregir reinicio del juego >:c
-	
 	@Test
 	public void obtenerJugadorLuegoDeReiniciar () {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -729,5 +708,27 @@ public class ReversiTest {
 		juego.reiniciarJuego();
 		assertEquals ( "blancas", juego.obtenerJugadorActual() );
 	}
+	
+	public void obtener_fichas(){
+		
+	}
+	@Test
+	public void juego4x4_2_4__3_4__4_3__1_4__4_2__2_1__1_1__3_1__4_1__1_2__1_3() {
+		Reversi juego = new Reversi(4, "blancas", "negras");
+		juego.colocarFicha(2, 4);
+		juego.colocarFicha(3, 4);
+		juego.colocarFicha(4, 3);
+		juego.colocarFicha(1, 4);
+		juego.colocarFicha(4, 2);
+		juego.colocarFicha(2, 1);
+		juego.colocarFicha(1, 1);
+		juego.colocarFicha(3, 1);
+		juego.colocarFicha(4, 1);
+		juego.colocarFicha(1, 2);
+		juego.colocarFicha(1, 3);
+		assertTrue(juego.termino());
+	}
+	
+	
 
 }
