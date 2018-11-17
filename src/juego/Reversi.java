@@ -106,11 +106,13 @@ public class Reversi {
     /* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
 
     private void validarJugadores(String fichasNegras, String fichasBlancas) {
-        if (fichasNegras.length() < 1 || fichasBlancas.length() < 1) {
+    	String nombreCruces = fichasBlancas.replaceAll("\\s","");
+    	String nombreCirculo = fichasNegras.replaceAll("\\s","");
+        if (nombreCruces.length() == 0 || nombreCirculo.length() == 0) {
             throw new Error("Por favor ingrese un nombre para los jugadores");
         }
-        if (fichasNegras.length() > MAXIMO_DE_CARACTERES || fichasBlancas.length() > MAXIMO_DE_CARACTERES
-                || fichasNegras.length() < MINIMO_DE_CARACTERES || fichasBlancas.length() < MINIMO_DE_CARACTERES) {
+        if (nombreCruces.length() > MAXIMO_DE_CARACTERES || nombreCirculo.length() > MAXIMO_DE_CARACTERES
+                || nombreCruces.length() < MINIMO_DE_CARACTERES || nombreCirculo.length() < MINIMO_DE_CARACTERES) {
             throw new Error("El número de caracteres no puede superar los 10 ni ser menor a 3");
         }
     }
@@ -130,8 +132,12 @@ public class Reversi {
     /* ------ METODOS DE CARGA DEL TABLERO ---------- */
 
     private void cargarJugadores(String fichasNegras, String fichasBlancas) {
-        jugadores[0] = fichasNegras;
-        jugadores[1] = fichasBlancas;
+        
+    	String nombreCruces = fichasBlancas.replaceAll("\\s","");
+    	String nombreCirculo = fichasNegras.replaceAll("\\s","");
+    	
+    	jugadores[0] = nombreCirculo;
+        jugadores[1] = nombreCruces;
         this.jugadorActual = jugadores[0];
     }
 
@@ -167,10 +173,18 @@ public class Reversi {
                 tiroOponente = Casillero.CRUZ;
                 jugadorActual = jugadores[1];
                 break;
+		default:
+            tiroActual = Casillero.CRUZ;
+            tiroOponente = Casillero.CIRCULO;
+            jugadorActual = jugadores[0];
+			break;
         }
     }
 
     public String obtenerJugadores(int indice) {
+    	if(indice < 1 || indice > 2){
+    		throw new Error("No existe jugador");
+    	}
         return this.jugadores[indice - 1];
     }
 

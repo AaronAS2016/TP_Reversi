@@ -186,9 +186,10 @@ public class ReversiTest {
 		new Reversi(10, "blancas", "negras");
 	}
 
-	@Test(expected = Error.class)
+	@Test
 	public void iniciarPartidaConNombresConEspacio() {
-		new Reversi(6, "blancas", "neg ras");
+		Reversi juego = new Reversi(6, "blancas", "n egras");
+		assertEquals("negras", juego.obtenerJugadores(2));
 	}
 
 	@Test(expected = Error.class)

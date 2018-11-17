@@ -1,7 +1,6 @@
 package juego;
 
 
-import com.sun.org.apache.bcel.internal.generic.FMUL;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +38,7 @@ public class Tablero {
 
     private Scene tablero;
     private Scene menu;
-    private Scene reglas;
-
+    
     private Label cantidadFichasNegras;
     private Label cantidadFichasBlancas;
     private Label jugadorActual;
@@ -56,7 +54,6 @@ public class Tablero {
 
     private Parent pantallaTablero;
     private Parent menuView;
-    private Parent reglasView;
 
     private RotateTransition[][] animaciones;
 
@@ -83,8 +80,6 @@ public class Tablero {
         tablero = new Scene(pantallaTablero, 800, 680);
         CambiarEscena cambiarEscena = new CambiarEscena(tablero, escenario, pantallaTablero, containerPrincipal, 1, anchorPaneMenu);
         cambiarEscena.cambiarEscena();
-        reglasView = FXMLLoader.load(getClass().getResource("./../views/creditos.fxml"));
-        reglas = new Scene(reglasView, 800, 680);
     }
 
     public void dibujar() {
@@ -213,8 +208,7 @@ public class Tablero {
         Button btnCerrar = (Button) tablero.lookup("#btnCerrar");
         Button btnVolverMenu = (Button) tablero.lookup("#btnVolver");
         Button btnReiniciar = (Button) tablero.lookup("#btnReiniciar");
-        Button btnMostrarReglas = (Button) tablero.lookup("#btnReglas");
-
+ 
         AnchorPane anchorPaneTablero = (AnchorPane) tablero.lookup("#anchorPaneTablero");
 
         btnVolverMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, new CambiarEscena(menu, escenario, menuView, containerPrincipal, -1, anchorPaneTablero));
