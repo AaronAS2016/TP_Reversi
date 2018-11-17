@@ -713,7 +713,7 @@ public class ReversiTest {
 		
 	}
 	@Test
-	public void juego4x4_2_4__3_4__4_3__1_4__4_2__2_1__1_1__3_1__4_1__1_2__1_3() {
+	public void obtenerJuegoTerminadoCuandoNingunJugadorTieneMovimientosPosibles() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(2, 4);
 		juego.colocarFicha(3, 4);
