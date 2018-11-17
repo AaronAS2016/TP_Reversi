@@ -684,10 +684,7 @@ public class ReversiTest {
 		juego.colocarFicha(1, 1);
 		assertEquals( true , juego.hayGanador());
 	}
-	
-	//Metodo obtener jugador actual
-	
-	
+		
 	@Test
 	public void obtenerJugadorCuandoEsTurnoDeLasBlancas () {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -709,9 +706,7 @@ public class ReversiTest {
 		assertEquals ( "blancas", juego.obtenerJugadorActual() );
 	}
 	
-	public void obtener_fichas(){
-		
-	}
+
 	@Test
 	public void obtenerJuegoTerminadoCuandoNingunJugadorTieneMovimientosPosibles() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -729,6 +724,4 @@ public class ReversiTest {
 		assertTrue(juego.termino());
 	}
 	
-	
-
 }

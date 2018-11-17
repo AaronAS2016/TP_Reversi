@@ -320,7 +320,7 @@ public class Reversi {
                     encontroActual = true;
                 }
                 if (matrizEnglobadora[fila][columna] == tiroOponente) {
-                    matrizEnglobadora[fila][columna] = tiroActual;
+                	matrizEnglobadora[fila][columna] = tiroActual;
                     animaciones[fila][columna] = 1;
                 }
                 fila += direccion_fila;

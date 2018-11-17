@@ -85,7 +85,6 @@ public class Aplicacion extends Application {
 
         stackScene = new Scene(containerPrincipal, 800, 680);
 
-
     }
 
     private void armarAnimacion() {
