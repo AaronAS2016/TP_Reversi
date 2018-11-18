@@ -8,7 +8,7 @@ import java.io.IOException;
 public class IniciarJuego implements EventHandler<Event> {
 
 	private Aplicacion aplicacion;
-	
+
 	public IniciarJuego(Aplicacion aplicacion) {
 
 		this.aplicacion = aplicacion;
@@ -16,7 +16,6 @@ public class IniciarJuego implements EventHandler<Event> {
 
 	@Override
 	public void handle(Event event) {
-
 		try {
 			aplicacion.iniciar();
 		} catch (IOException e) {

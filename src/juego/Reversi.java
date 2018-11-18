@@ -80,8 +80,9 @@ public class Reversi {
 	}
 
 	/**
-	 * post: arma la matriz global que encierra a la matriz reversi agregandole
-	 * un casillero en cada esquina con valores de NULA
+	 * pre: matriz reversi haya sido inicializada post: arma la matriz global
+	 * que encierra a la matriz reversi agregandole un casillero en cada esquina
+	 * con valores de NULA
 	 */
 	private void armarMatrizGlobal() {
 		this.matrizEnglobadora = new Casillero[matrizReversi.length + 2][matrizReversi.length + 2];
@@ -464,7 +465,7 @@ public class Reversi {
 		}
 		return fichasBlancas;
 	}
-	
+
 	/**
 	 * post: devuelve la cantidad de fichas ocupadas en el tablero.
 	 */
@@ -481,7 +482,7 @@ public class Reversi {
 		}
 		return fichasOcupadas;
 	}
-	
+
 	/**
 	 * post: devuelve la cantidad de movimientos posibles en el tablero.
 	 */
@@ -541,9 +542,18 @@ public class Reversi {
 		return ganador;
 	}
 
+	/**
+	 * post: crea el arreglo donde se almacenan el estado de las animaciones de
+	 * los casilleros
+	 */
+
 	private void armarAnimaciones() {
 		animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
 	}
+
+	/**
+	 * post: restablece el estado de las animaciones
+	 */
 
 	private void reiniciarAnimaciones() {
 		for (int i = 0; i < animaciones.length; i++) {
@@ -552,6 +562,12 @@ public class Reversi {
 			}
 		}
 	}
+
+	/**
+	 * @param fila
+	 * @param columna
+	 *            post: devuelve el estado de animacion del casillero
+	 */
 
 	public int obtenerAnimaciones(int fila, int columna) {
 		return this.animaciones[fila][columna];

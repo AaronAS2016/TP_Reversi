@@ -20,7 +20,7 @@ public class MostrarError implements UncaughtExceptionHandler {
 	private Parent pantallaError;
 	private Stage escenario;
 	private Scene escena;
-	
+
 	@Override
 	public void uncaughtException(Thread hilo, Throwable error) {
 
@@ -45,29 +45,31 @@ public class MostrarError implements UncaughtExceptionHandler {
 
 	}
 
-	private void configuramosBotones(){
+	private void configuramosBotones() {
 
 		Button btnCerrar = (Button) pantallaError.lookup("#btnCerrar");
-		btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+		btnCerrar.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			escenario.close();
 		});
 
-
 	}
-	private void configuramosEscena(  Throwable error){
+
+	private void configuramosEscena(Throwable error) {
 		String mensaje = new String(error.getMessage());
 
 		System.out.println(mensaje);
 
-		escena = new Scene(pantallaError, 450,130);
+		escena = new Scene(pantallaError, 450, 130);
 
 		Label errorText = (Label) pantallaError.lookup("#labelError");
 
 		errorText.setText(mensaje);
 	}
-	private void configurarVentana(){
+
+	private void configurarVentana() {
 		EstilizarVentana.allowDrag(pantallaError, escenario);
-		EstilizarVentana.stageDimension(escenario.getWidth(), escenario.getHeight());
+		EstilizarVentana.stageDimension(escenario.getWidth(),
+				escenario.getHeight());
 
 		escenario.initStyle(StageStyle.UNDECORATED);
 		escenario.getIcons().add(new Image("./img/icono.png"));
