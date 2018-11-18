@@ -11,10 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class Aplicacion extends Application {
@@ -68,9 +70,21 @@ public class Aplicacion extends Application {
 
         armarAnimacion();
 
+        cargarFuentes();
     }
 
-    private void cargamosElemntosDeLaVista() {
+    private void cargarFuentes() {
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-Bold.ttf").toExternalForm(), 10);
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-ExtraLight.ttf").toExternalForm(), 10);
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-Light.ttf").toExternalForm(), 10);
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-Medium.ttf").toExternalForm(), 10);
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-Regular.ttf").toExternalForm(), 10);
+    	Font.loadFont(getClass().getResource("./../fonts/Oswald-SemiBold.ttf").toExternalForm(), 10);
+
+		
+	}
+
+	private void cargamosElemntosDeLaVista() {
         anchorPanePrincipal = (AnchorPane) pantallaPrincipal.lookup("#anchorPanePrincipal");
 
         anchorPaneMenu = (AnchorPane) pantallaMenu.lookup("#anchorPaneMenu");

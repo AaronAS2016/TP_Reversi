@@ -6,8 +6,6 @@ import org.junit.Test;
 
 public class ReversiTest {
 
-	//Metodo obtener fila / columna
-	
 	@Test
 	public void obtenerFilaConUnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -110,57 +108,57 @@ public class ReversiTest {
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimensionNegativa() {
+	public void crearTableroDimensionNegativa() {
 		new Reversi(-4, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension0() {
+	public void crearTableroDimension0() {
 		new Reversi(0, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension3x3() {
+	public void crearTableroDimension3x3() {
 		new Reversi(3, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension7x7() {
+	public void crearTableroDimension7x7() {
 		new Reversi(7, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension5x5() {
+	public void crearTableroDimension5x5() {
 		new Reversi(5, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension11x11() {
+	public void crearTableroDimension11x11() {
 		new Reversi(11, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension12x12() {
+	public void crearTableroDimension12x12() {
 		new Reversi(12, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)
-	public void validarTableroDimension2x2() {
+	public void crearTableroDimension2x2() {
 		new Reversi(2, "blancas", "negras");
 	}
 
 	@Test
-	public void validarTableroDimension6x6() {
+	public void crearTableroDimension6x6() {
 		new Reversi(6, "blancas", "negras");
 	}
 
 	@Test
-	public void validarTableroDimension8x8() {
+	public void crearTableroDimension8x8() {
 		new Reversi(8, "blancas", "negras");
 	}
 
 	@Test
-	public void validarTableroDimension10x10() {
+	public void crearTableroDimension10x10() {
 		new Reversi(10, "blancas", "negras");
 	}
 
@@ -225,8 +223,6 @@ public class ReversiTest {
 		juego.obtenerJugadores(-1);
 	}
 
-	// Metodo contarFichas Negras/Blancas/Ocupadas
-
 	@Test
 	public void contarFichasNegrasAlInicioDeLaPartidaConTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -251,7 +247,7 @@ public class ReversiTest {
 		juego.colocarFicha(2, 4);
 		assertEquals(5, juego.contarFichasOcupadas());
 	}
-	
+
 	@Test
 	public void contarFichasOcupadasEnTablero4x4Sumando2Fichas() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -259,7 +255,7 @@ public class ReversiTest {
 		juego.colocarFicha(1, 2);
 		assertEquals(6, juego.contarFichasOcupadas());
 	}
-	
+
 	@Test
 	public void contarFichasNegrasEnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -267,6 +263,7 @@ public class ReversiTest {
 		juego.colocarFicha(3, 4);
 		assertEquals(3, juego.contarFichasNegras());
 	}
+
 	@Test
 	public void contarFichasBlancasEnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -274,7 +271,7 @@ public class ReversiTest {
 		juego.colocarFicha(3, 4);
 		assertEquals(3, juego.contarFichasBlancas());
 	}
-	
+
 	@Test
 	public void contarFichasOcupadasEnTablero4x4Sumando3Fichas() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -283,32 +280,30 @@ public class ReversiTest {
 		juego.colocarFicha(4, 1);
 		assertEquals(7, juego.contarFichasOcupadas());
 	}
-	
-	//metodo contarMovimientosPosibles
-	
+
 	@Test
 	public void contarMovimientosPosiblesAlInicioDeLaPartida() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals( 4, juego .contarMovimientosPosibles());
+		assertEquals(4, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
 	public void contarMovimientosPosiblesAlInicioDelTurnoDelSegundoJugador() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(2, 4);
-		assertEquals( 3, juego .contarMovimientosPosibles());
+		assertEquals(3, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
 	public void contarMovimientosPosiblesEnCon6FichasNegrasY6Blancas() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(4, 2);
 		juego.colocarFicha(4, 3);
-		assertEquals( 4, juego .contarMovimientosPosibles());
+		assertEquals(4, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
-	public void contarMovimientosPosiblesConTableroLleno () {
+	public void contarMovimientosPosiblesConTableroLleno() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 2);
@@ -322,9 +317,9 @@ public class ReversiTest {
 		juego.colocarFicha(4, 1);
 		juego.colocarFicha(4, 2);
 		juego.colocarFicha(4, 3);
-		assertEquals( 0, juego .contarMovimientosPosibles());
+		assertEquals(0, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
 	public void contarMovimientosPosiblesCuandoAmbosJugadoresSeQuedanSinMovimientos() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
@@ -339,281 +334,278 @@ public class ReversiTest {
 		juego.colocarFicha(4, 1);
 		juego.colocarFicha(1, 2);
 		juego.colocarFicha(1, 3);
-		assertEquals( 0, juego .contarMovimientosPosibles());
+		assertEquals(0, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
-	public void contarMovimientosPosiblesParaCrucesSinPosibilidad () {
+	public void contarMovimientosPosiblesParaCrucesSinPosibilidad() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 2);
 		juego.colocarFicha(3, 1);
 		juego.colocarFicha(1, 4);
-		assertEquals( 0, juego .contarMovimientosPosibles());
+		assertEquals(0, juego.contarMovimientosPosibles());
 	}
-	
+
 	@Test
-	public void contarMovimientosPosiblesParaCirculosSinPosibilidad () {
+	public void contarMovimientosPosiblesParaCirculosSinPosibilidad() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 2);
 		juego.colocarFicha(3, 1);
 		juego.colocarFicha(1, 4);
+		juego.termino();
 		juego.colocarFicha(3, 4);
 		juego.colocarFicha(2, 4);
 		juego.colocarFicha(4, 3);
 		juego.colocarFicha(4, 4);
 		juego.colocarFicha(2, 1);
 		juego.colocarFicha(1, 1);
-		assertEquals( 0, juego .contarMovimientosPosibles());
-	}
-	
-	// metodo colocarFicha
-	
-	@Test
-	public void verificarColocarFichaEnFila2Columna4() {
-		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(true, juego.puedeColocarFicha(2, 4));
+		assertEquals(0, juego.contarMovimientosPosibles());
 	}
 
 	@Test
-	public void verificarColocarFichaEnFila1Columna3() {
+	public void colocarFichaEnFila2Columna4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(true, juego.puedeColocarFicha(1, 3));
+		assertTrue( juego.puedeColocarFicha(2, 4));
 	}
 
 	@Test
-	public void verificarColocarFichaEnFila3Columna1() {
+	public void colocarFichaEnFila1Columna3() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(true, juego.puedeColocarFicha(3, 1));
+		assertTrue( juego.puedeColocarFicha(1, 3));
 	}
 
 	@Test
-	public void verificarColocarFichaEnFila4Columna2() {
+	public void colocarFichaEnFila3Columna1() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(true, juego.puedeColocarFicha(4, 2));
+		assertTrue( juego.puedeColocarFicha(3, 1));
+	}
+
+	@Test
+	public void colocarFichaEnFila4Columna2() {
+		Reversi juego = new Reversi(4, "blancas", "negras");
+		assertTrue( juego.puedeColocarFicha(4, 2));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila5Columna1EnTablero4x4() {
+	public void colocarFichaEnFila5Columna1EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(5, 1));
+		assertFalse( juego.puedeColocarFicha(5, 1));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila1Columna5EnTablero4x4() {
+	public void colocarFichaEnFila1Columna5EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 5));
+		assertFalse( juego.puedeColocarFicha(1, 5));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila5Columna5EnTablero4x4() {
+	public void colocarFichaEnFila5Columna5EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(5, 5));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila1Columna0EnTablero4x4 () {
-		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 0));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna1EnTablero4x4 () {
-		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 1));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila1Co0umna0EnTablero4x4 () {
-		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 0));
+		assertFalse( juego.puedeColocarFicha(5, 5));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila7Columna1EnTablero6x6() {
+	public void colocarFichaEnFila1Columna0EnTablero4x4() {
+		Reversi juego = new Reversi(4, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(1, 0));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila0Columna1EnTablero4x4() {
+		Reversi juego = new Reversi(4, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 1));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila1Co0umna0EnTablero4x4() {
+		Reversi juego = new Reversi(4, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 0));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila7Columna1EnTablero6x6() {
 		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(7, 1));
+		assertFalse(juego.puedeColocarFicha(7, 1));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila1Columna7EnTablero6x6() {
+	public void colocarFichaEnFila1Columna7EnTablero6x6() {
 		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 7));
+		assertFalse(juego.puedeColocarFicha(1, 7));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila7Columna7EnTablero6x6() {
+	public void colocarFichaEnFila7Columna7EnTablero6x6() {
 		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(7, 7));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila1Columna0EnTablero6x6 () {
-		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 1));
-	}
-
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna1EnTablero6x6 () {
-		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 1));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna0EnTablero6x6 () {
-		Reversi juego = new Reversi(6, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 0));
-	}
-	
-	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila9Columna1EnTablero8x8() {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(9, 1));
+		assertFalse(juego.puedeColocarFicha(7, 7));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila1Columna9EnTablero8x8() {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 9));
+	public void colocarFichaEnFila1Columna0EnTablero6x6() {
+		Reversi juego = new Reversi(6, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 1));
 	}
 
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila9Columna9EnTablero8x8() {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(9, 9));
+	public void colocarFichaEnFila0Columna1EnTablero6x6() {
+		Reversi juego = new Reversi(6, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 1));
 	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna1EnTablero8x8 () {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 1));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila1Columna0EnTablero8x8 () {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 0));
-	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna0EnTablero8x8 () {
-		Reversi juego = new Reversi(8, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 0));
-	}
-	
+
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila11Columna1EnTablero10x10() {
-		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(11, 1));
+	public void colocarFichaEnFila0Columna0EnTablero6x6() {
+		Reversi juego = new Reversi(6, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 0));
 	}
-	
+
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila1Columna11EnTablero10x10() {
-		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 11));
+	public void colocarFichaEnFila9Columna1EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(9, 1));
 	}
-	
+
 	@Test(expected = Error.class)
-	public void verificarColocarFichaEnFila11Columna11EnTablero10x10() {
+	public void colocarFichaEnFila1Columna9EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(1, 9));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila9Columna9EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(9, 9));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila0Columna1EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 1));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila1Columna0EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(1, 0));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila0Columna0EnTablero8x8() {
+		Reversi juego = new Reversi(8, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 0));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila11Columna1EnTablero10x10() {
 		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(11, 11));
+		assertFalse(juego.puedeColocarFicha(11, 1));
 	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna1EnTablero10x10 () {
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila1Columna11EnTablero10x10() {
 		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 1));
+		assertFalse(juego.puedeColocarFicha(1, 11));
 	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila1Columna0EnTablero10x10 () {
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila11Columna11EnTablero10x10() {
 		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 0));
+		assertFalse(juego.puedeColocarFicha(11, 11));
 	}
-	
-	@Test ( expected = Error.class )
-	public void verificarColocarFichaEnFila0Columna0EnTablero10x10 () {
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila0Columna1EnTablero10x10() {
 		Reversi juego = new Reversi(10, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(0, 0));
+		assertFalse(juego.puedeColocarFicha(0, 1));
 	}
-	
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila1Columna0EnTablero10x10() {
+		Reversi juego = new Reversi(10, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(1, 0));
+	}
+
+	@Test(expected = Error.class)
+	public void colocarFichaEnFila0Columna0EnTablero10x10() {
+		Reversi juego = new Reversi(10, "blancas", "negras");
+		assertFalse(juego.puedeColocarFicha(0, 0));
+	}
+
 	@Test
-	public void verificarColocarFichaEnFila1Columna1EnTablero4x4() {
+	public void colocarFichaEnFila1Columna1EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 1));
+		assertFalse(juego.puedeColocarFicha(1, 1));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila1Columna3EnTablero4x4() {
+	public void colocarFichaEnFila1Columna3EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 2));
+		assertFalse(juego.puedeColocarFicha(1, 2));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila1Columna4EnTablero4x4() {
+	public void colocarFichaEnFila1Columna4EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(1, 4));
+		assertFalse(juego.puedeColocarFicha(1, 4));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila2Columna1EnTablero4x4() {
+	public void colocarFichaEnFila2Columna1EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(2, 1));
+		assertFalse(juego.puedeColocarFicha(2, 1));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila2Columna2EnTablero4x4() {
+	public void colocarFichaEnFila2Columna2EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(2, 2));
+		assertFalse(juego.puedeColocarFicha(2, 2));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila2Columna3EnTablero4x4() {
+	public void colocarFichaEnFila2Columna3EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(2, 3));
+		assertFalse(juego.puedeColocarFicha(2, 3));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila3Columna2EnTablero4x4() {
+	public void colocarFichaEnFila3Columna2EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(3, 2));
+		assertFalse(juego.puedeColocarFicha(3, 2));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila3Columna3EnTablero4x4() {
+	public void colocarFichaEnFila3Columna3EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(3, 3));
+		assertFalse(juego.puedeColocarFicha(3, 3));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila3Columna4EnTablero4x4() {
+	public void colocarFichaEnFila3Columna4EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(3, 4));
+		assertFalse(juego.puedeColocarFicha(3, 4));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila4Columna1EnTablero4x4() {
+	public void colocarFichaEnFila4Columna1EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(4, 1));
+		assertFalse(juego.puedeColocarFicha(4, 1));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila4Columna3EnTablero4x4() {
+	public void colocarFichaEnFila4Columna3EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(4, 3));
+		assertFalse(juego.puedeColocarFicha(4, 3));
 	}
-	
+
 	@Test
-	public void verificarColocarFichaEnFila4Columna4EnTablero4x4() {
+	public void colocarFichaEnFila4Columna4EnTablero4x4() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals(false, juego.puedeColocarFicha(4, 4));
+		assertFalse(juego.puedeColocarFicha(4, 4));
 	}
-	
-	// Metodo hayGanador
-	
+
 	@Test
-	public void verificarEmpate () {
+	public void partidaEmpate() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 2);
@@ -627,10 +619,11 @@ public class ReversiTest {
 		juego.colocarFicha(4, 1);
 		juego.colocarFicha(4, 2);
 		juego.colocarFicha(4, 3);
-		assertEquals( false , juego.hayGanador());
+		assertFalse(juego.hayGanador());
 	}
+
 	@Test
-	public void verificarEmpate2 () {
+	public void partidaEmpate2() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(3, 4);
@@ -644,31 +637,33 @@ public class ReversiTest {
 		juego.colocarFicha(2, 4);
 		juego.colocarFicha(4, 4);
 		juego.colocarFicha(4, 1);
-		assertEquals( false , juego.hayGanador());
-	}	
-	
+		assertFalse(juego.hayGanador());
+	}
+
 	@Test
-	public void verificarSiHayGanadorCuandoGananLasFichasBlancas () {
+	public void obtenerSiHayGanadorCuandoGananLasFichasBlancas() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 2);
 		juego.colocarFicha(3, 1);
 		juego.colocarFicha(1, 4);
-		//No hubo movimiento posible para cruces
+		// No hubo movimiento posible para cruces
+		juego.termino();
 		juego.colocarFicha(3, 4);
 		juego.colocarFicha(2, 4);
 		juego.colocarFicha(4, 3);
 		juego.colocarFicha(4, 4);
 		juego.colocarFicha(2, 1);
 		juego.colocarFicha(1, 1);
-		//No hubo moviemiento posible para circulos
+		// No hubo moviemiento posible para circulos
+		juego.termino();
 		juego.colocarFicha(4, 2);
 		juego.colocarFicha(4, 1);
-		assertEquals( true , juego.hayGanador());
+		assertTrue(juego.hayGanador());
 	}
-	
+
 	@Test
-	public void verificarSiHayGanadorCuandoGananLasFichasNegras () {
+	public void obtenerSiHaySiHayGanadorCuandoGananLasFichasNegras() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.colocarFicha(1, 4);
@@ -680,32 +675,33 @@ public class ReversiTest {
 		juego.colocarFicha(4, 1);
 		juego.colocarFicha(4, 2);
 		juego.colocarFicha(1, 2);
+		juego.termino();
 		juego.colocarFicha(4, 4);
+		juego.termino();
 		juego.colocarFicha(1, 1);
-		assertEquals( true , juego.hayGanador());
+		assertTrue(juego.hayGanador());
 	}
-		
+
 	@Test
-	public void obtenerJugadorCuandoEsTurnoDeLasBlancas () {
+	public void obtenerJugadorCuandoEsTurnoDeLasBlancas() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
-		assertEquals ( "blancas", juego.obtenerJugadorActual() );
+		assertEquals("blancas", juego.obtenerJugadorActual());
 	}
-	
+
 	@Test
-	public void obtenerJugadorCuandoEsTurnoDeLasNegras () {
+	public void obtenerJugadorCuandoEsTurnoDeLasNegras() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
-		assertEquals ( "negras", juego.obtenerJugadorActual() );
+		assertEquals("negras", juego.obtenerJugadorActual());
 	}
-	
+
 	@Test
-	public void obtenerJugadorLuegoDeReiniciar () {
+	public void obtenerJugadorLuegoDeReiniciar() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(1, 3);
 		juego.reiniciarJuego();
-		assertEquals ( "blancas", juego.obtenerJugadorActual() );
+		assertEquals("blancas", juego.obtenerJugadorActual());
 	}
-	
 
 	@Test
 	public void obtenerJuegoTerminadoCuandoNingunJugadorTieneMovimientosPosibles() {
@@ -723,5 +719,5 @@ public class ReversiTest {
 		juego.colocarFicha(1, 3);
 		assertTrue(juego.termino());
 	}
-	
+
 }
