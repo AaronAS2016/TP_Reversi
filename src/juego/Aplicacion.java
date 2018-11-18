@@ -63,6 +63,8 @@ public class Aplicacion extends Application {
 
 		this.escenarioPrincipal = escenarioPrincipal;
 
+		cargarFuentes();
+
 		cargarVistas();
 
 		cargarEscenas();
@@ -77,7 +79,6 @@ public class Aplicacion extends Application {
 
 		armarAnimacion();
 
-		cargarFuentes();
 	}
 
 	private void cargarVistas() throws IOException {
@@ -216,6 +217,7 @@ public class Aplicacion extends Application {
 	}
 
 	private void cargarFuentes() {
+		
 		Font.loadFont(getClass().getResource("./../fonts/Oswald-Bold.ttf")
 				.toExternalForm(), 10);
 		Font.loadFont(getClass()
