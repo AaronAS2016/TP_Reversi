@@ -8,11 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneCredtitos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/8.0.20" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneCredtitos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
    <children>
+      <ImageView fitHeight="152.0" fitWidth="152.0" layoutX="611.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo.png" />
+         </image>
+      </ImageView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" layoutY="30.0" prefHeight="108.0" prefWidth="262.0" text="CREDITOS" textAlignment="CENTER" textFill="#ffbc22">
          <font>
             <Font name="Oswald SemiBold" size="48.0" />
@@ -38,7 +43,7 @@
             <Font name="Oswald ExtraLight" size="13.0" />
          </font>
       </Label>
-      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="284.0" layoutY="252.0" prefHeight="63.0" prefWidth="175.0" text="Fer  Juares" textAlignment="CENTER" textFill="#ffbc22">
+      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="284.0" layoutY="254.0" prefHeight="63.0" prefWidth="175.0" text="Fer  Juares" textAlignment="CENTER" textFill="#ffbc22">
          <font>
             <Font name="Oswald ExtraLight" size="13.0" />
          </font>
