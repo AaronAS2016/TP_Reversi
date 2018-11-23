@@ -232,6 +232,11 @@ public class Reversi {
 		tiroActual = Casillero.CRUZ;
 		tiroOponente = Casillero.CIRCULO;
 		jugadorActual = jugadores[0];
+		int mitadDelTablero = matrizEnglobadora.length / 2;
+		this.animaciones[mitadDelTablero][mitadDelTablero] = 1;
+		this.animaciones[mitadDelTablero - 1][mitadDelTablero] = 1;
+		this.animaciones[mitadDelTablero - 1][mitadDelTablero - 1] = 1;
+		this.animaciones[mitadDelTablero][mitadDelTablero - 1] = 1;
 	}
 
 	/**

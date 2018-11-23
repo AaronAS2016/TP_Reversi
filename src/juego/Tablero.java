@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -82,6 +81,7 @@ public class Tablero {
 		CambiarEscena cambiarEscena = new CambiarEscena(tablero, escenario,
 				pantallaTablero, containerPrincipal, 1, anchorPaneMenu);
 		cambiarEscena.cambiarEscena();
+		EstilizarVentana.allowDrag(pantallaTablero, escenario);
 	}
 
 	public void dibujar() {
