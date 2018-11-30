@@ -23,8 +23,9 @@ public class Reversi {
 
 	private Casillero[][] matrizReversi;
 	private Casillero[][] matrizEnglobadora;
+	
+	private Animacion animaciones;
 
-	private int[][] animaciones;
 
 	/**
 	 * pre : 'dimension' es un número par, mayor o igual a 4. post: empieza el
@@ -233,10 +234,10 @@ public class Reversi {
 		tiroOponente = Casillero.CIRCULO;
 		jugadorActual = jugadores[0];
 		int mitadDelTablero = matrizEnglobadora.length / 2;
-		this.animaciones[mitadDelTablero][mitadDelTablero] = 1;
-		this.animaciones[mitadDelTablero - 1][mitadDelTablero] = 1;
-		this.animaciones[mitadDelTablero - 1][mitadDelTablero - 1] = 1;
-		this.animaciones[mitadDelTablero][mitadDelTablero - 1] = 1;
+		animaciones.agregarAnimaciones(mitadDelTablero,mitadDelTablero);
+		animaciones.agregarAnimaciones(mitadDelTablero-1,mitadDelTablero);
+		animaciones.agregarAnimaciones(mitadDelTablero-1,mitadDelTablero-1);
+		animaciones.agregarAnimaciones(mitadDelTablero,mitadDelTablero-1);
 	}
 
 	/**
@@ -374,7 +375,7 @@ public class Reversi {
 	public void colocarFicha(int fila, int columna) {
 		validarPosicion(fila, columna);
 		validarPuedeColocar(fila, columna);
-		reiniciarAnimaciones();
+		animaciones.reiniciarAnimaciones();
 		if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
 			if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
 				pintarCasilleros(fila, columna, 1, 0);
@@ -432,7 +433,7 @@ public class Reversi {
 					&& !(matrizEnglobadora[fila][columna] == tiroActual)) {
 				if (matrizEnglobadora[fila][columna] == tiroOponente) {
 					matrizEnglobadora[fila][columna] = tiroActual;
-					animaciones[fila][columna] = 1;
+					animaciones.agregarAnimaciones(fila, columna);
 				}
 				fila += direccion_fila;
 				columna += direccion_columna;
@@ -510,18 +511,10 @@ public class Reversi {
 	 */
 
 	public boolean termino() {
-		boolean termino = false;
-		if ((contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length))) {
-			termino = true;
-		}
-
 		if (contarMovimientosPosibles() == 0) {
 			cambiarTurno();
-			if (contarMovimientosPosibles() == 0) {
-				termino = true;
-			}
 		}
-		return termino;
+		return (contarFichasOcupadas() == (this.matrizReversi.length * this.matrizReversi.length)) || (contarMovimientosPosibles() == 0);
 	}
 
 	/**
@@ -553,29 +546,22 @@ public class Reversi {
 	 */
 
 	private void armarAnimaciones() {
-		animaciones = new int[matrizEnglobadora.length][matrizEnglobadora.length];
+		animaciones = new Animacion(matrizEnglobadora.length);
 	}
 
 	/**
 	 * post: restablece el estado de las animaciones
 	 */
 
-	private void reiniciarAnimaciones() {
-		for (int i = 0; i < animaciones.length; i++) {
-			for (int j = 0; j < animaciones[i].length; j++) {
-				animaciones[i][j] = 0;
-			}
-		}
-	}
+
 
 	/**
 	 * @param fila
 	 * @param columna
 	 *            post: devuelve el estado de animacion del casillero
 	 */
-
 	public int obtenerAnimaciones(int fila, int columna) {
-		return this.animaciones[fila][columna];
+		return animaciones.obtenerAnimaciones(fila, columna);
 	}
 
 }
