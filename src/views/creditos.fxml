@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneCredtitos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPaneCredtitos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #2e2c2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
@@ -62,17 +62,17 @@
       <Button id="btnVolver" fx:id="btnVolver" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
       <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="475.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/TYCA2.jpg" />
+            <Image url="@../img/User.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="472.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/TYCF.jpg" />
+            <Image url="@../img/User.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="472.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/TYCM.jpg" />
+            <Image url="@../img/User.png" />
          </image>
       </ImageView>
    </children>
