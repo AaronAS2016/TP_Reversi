@@ -9,11 +9,7 @@ package juego;
  */
 public class Reversi {
 
-	/* Constantes del Tablero */
-	private static final int MAXIMO_DEL_TABLERO = 10;
-	private static final int MINIMO_DEL_TABLERO = 4;
-	private static final int MAXIMO_DE_CARACTERES = 10;
-	private static final int MINIMO_DE_CARACTERES = 3;
+
 
 	private String[] jugadores = new String[2];
 	private String jugadorActual = jugadores[0];
@@ -25,6 +21,9 @@ public class Reversi {
 	private Casillero[][] matrizEnglobadora;
 	
 	private Animacion animaciones;
+	private Examinador examinador;
+	private Pincel pincel;
+	private Validador validador;
 
 
 	/**
@@ -44,12 +43,15 @@ public class Reversi {
 
 	public Reversi(int dimensionTablero, String fichasNegras,
 			String fichasBlancas) {
-		validarTablero(dimensionTablero);
-		validarJugadores(fichasNegras, fichasBlancas);
 		cargarJugadores(fichasNegras, fichasBlancas);
 		armarMatrizReversi(dimensionTablero);
 		armarMatrizGlobal();
 		armarAnimaciones();
+		examinador = new Examinador(matrizEnglobadora);
+		pincel = new Pincel(matrizEnglobadora, examinador, animaciones);
+		validador = new Validador(this);
+		validador.validarTablero(dimensionTablero);
+		validador.validarJugadores(fichasNegras, fichasBlancas);
 	}
 
 	/**
@@ -100,76 +102,7 @@ public class Reversi {
 		}
 	}
 
-	/* ----- METODOS DE VALIDACION DE ENTRADA DE DATOS ------ */
-	/**
-	 * @param fichasNegras
-	 *            : nombre del jugador con fichas negras.
-	 * @param fichasBlancas
-	 *            : nombre del jugador con fichas blancas. post: ejecuta una
-	 *            error en caso que los nombres no esten entre el maximo y
-	 *            minimo de caracteres permitidos y minimo
-	 */
 
-	private void validarJugadores(String fichasNegras, String fichasBlancas) {
-		String nombreCruces = fichasBlancas.replaceAll("\\s", "");
-		String nombreCirculo = fichasNegras.replaceAll("\\s", "");
-		if (nombreCruces.length() == 0 || nombreCirculo.length() == 0) {
-			throw new Error("Por favor ingrese un nombre para los jugadores");
-		}
-		if (nombreCruces.length() > MAXIMO_DE_CARACTERES
-				|| nombreCirculo.length() > MAXIMO_DE_CARACTERES
-				|| nombreCruces.length() < MINIMO_DE_CARACTERES
-				|| nombreCirculo.length() < MINIMO_DE_CARACTERES) {
-			throw new Error(
-					"El número de caracteres no puede superar los 10 ni ser menor a 3");
-		}
-	}
-
-	/**
-	 * @param dimensionTablero
-	 *            : cantidad de filas y columnas que tiene el tablero. post:
-	 *            ejecuta una error en caso que el tablero no esten entre el
-	 *            maximo y minimo de dimensiones permitidas y si la dimension no
-	 *            es par
-	 */
-
-	private void validarTablero(int dimensionTablero) {
-		if (dimensionTablero < MINIMO_DEL_TABLERO) {
-			throw new Error("El tablero debe tener una dimensión minima de 4x4");
-		}
-		if (dimensionTablero > MAXIMO_DEL_TABLERO) {
-			throw new Error(
-					"El tablero debe tener una dimensión no mayor a 10x10");
-		}
-		if (dimensionTablero % 2 != 0) {
-			throw new Error("El tablero debe ser de un número par");
-		}
-	}
-
-	/**
-	 * @param fila
-	 * @param columna
-	 *            post: ejecuta una error en caso que el tablero no esten entre
-	 *            los limites del tablero
-	 */
-	private void validarPosicion(int fila, int columna) {
-		if (fila < 1 || columna < 1 || fila > this.matrizReversi.length
-				|| columna > this.matrizReversi.length) {
-			throw new Error("Posición fuera del tablero");
-		}
-	}
-
-	/**
-	 * @param fila
-	 * @param columna
-	 *            post: ejecuta una error en caso de no poder colocar ficha en
-	 *            el casillero
-	 */
-	private void validarPuedeColocar(int fila, int columna) {
-		if (!puedeColocarFicha(fila, columna)) {
-			throw new Error("No se puede colocar ficha en este casillero");
-		}
-	}
 
 	/* ------ METODOS DE CARGA DEL TABLERO ---------- */
 	/**
@@ -269,7 +202,7 @@ public class Reversi {
 	 * @param columna
 	 */
 	public Casillero obtenerCasillero(int fila, int columna) {
-		validarPosicion(fila, columna);
+		validador.validarPosicion(fila, columna, matrizReversi);
 		return this.matrizEnglobadora[fila][columna];
 	}
 
@@ -284,83 +217,49 @@ public class Reversi {
 	 *            el casillero
 	 */
 	public boolean puedeColocarFicha(int fila, int columna) {
-		validarPosicion(fila, columna);
+		validador.validarPosicion(fila, columna, matrizReversi);
 		boolean sePuedeColocarFicha = false;
 		if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
 			// arriba abajo
 			if (matrizEnglobadora[fila + 1][columna] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 0);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, 1, 0, tiroActual);
 			}
 			if (matrizEnglobadora[fila - 1][columna] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 0);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, -1, 0, tiroActual);
 			}
 			// izquierda derecha
 			if (matrizEnglobadora[fila][columna + 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, 1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, 0, 1, tiroActual);
 			}
 			if (matrizEnglobadora[fila][columna - 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, -1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, 0, -1, tiroActual);
 			}
 
 			// diagonales
 			if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, -1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, -1, -1, tiroActual);
 			}
 			if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, 1, 1, tiroActual);
 			}
 			if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, -1, 1, tiroActual);
 			}
 			if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente
 					&& !sePuedeColocarFicha) {
-				sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, -1);
+				sePuedeColocarFicha = examinador.hayFichaEnElMedio(fila, columna, 1, -1, tiroActual);
 			}
 		}
 		return sePuedeColocarFicha;
 	}
 
-	/**
-	 * pre : fila está en el intervalo [1, contarFilas()], columnas está en el
-	 * intervalo [1, contarColumnas()]
-	 *
-	 * @param fila
-	 * @param columna
-	 * @param direccion_fila
-	 *            :recibe valores entre 1 y -1, para indicar para que lado
-	 *            realiza el analisis, en caso de ser 1 sera para abajo y en
-	 *            viceversa para arriba
-	 * @param direccion_columna
-	 *            :valores entre 1 y -1, para indicar para que lado realiza el
-	 *            analisis, en caso de ser 1 sera para la derecha y en viceversa
-	 *            para izquierda post: devuelve si hay una ficha del turno
-	 *            actual contiguos al casillero
-	 */
-
-	private boolean hayFichaEnElMedio(int fila, int columna,
-			int direccion_fila, int direccion_columna) {
-		boolean hayFichaEnMedio = false;
-		boolean noSeFueDelTablero = true;
-		while (noSeFueDelTablero && !hayFichaEnMedio) {
-			fila += direccion_fila;
-			columna += direccion_columna;
-			if (matrizEnglobadora[fila][columna] == tiroActual) {
-				hayFichaEnMedio = true;
-			}
-			if (matrizEnglobadora[fila][columna] == Casillero.NULA
-					|| matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
-				noSeFueDelTablero = false;
-			}
-		}
-		return hayFichaEnMedio;
-	}
 
 	/**
 	 * pre : la posición indicada por (fila, columna) puede ser ocupada por una
@@ -373,33 +272,33 @@ public class Reversi {
 	 */
 
 	public void colocarFicha(int fila, int columna) {
-		validarPosicion(fila, columna);
-		validarPuedeColocar(fila, columna);
+		validador.validarPosicion(fila, columna, matrizReversi);
+		validador.validarPuedeColocar(fila, columna);
 		animaciones.reiniciarAnimaciones();
 		if (matrizEnglobadora[fila][columna] == Casillero.LIBRE) {
 			if (matrizEnglobadora[fila + 1][columna] == tiroOponente) {
-				pintarCasilleros(fila, columna, 1, 0);
+				pincel.pintarCasilleros(fila, columna, 1, 0, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila - 1][columna] == tiroOponente) {
-				pintarCasilleros(fila, columna, -1, 0);
+				pincel.pintarCasilleros(fila, columna, -1, 0, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila][columna + 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, 0, 1);
+				pincel.pintarCasilleros(fila, columna, 0, 1, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila][columna - 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, 0, -1);
+				pincel.pintarCasilleros(fila, columna, 0, -1, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila - 1][columna - 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, -1, -1);
+				pincel.pintarCasilleros(fila, columna, -1, -1, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila + 1][columna + 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, 1, 1);
+				pincel.pintarCasilleros(fila, columna, 1, 1, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila - 1][columna + 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, -1, 1);
+				pincel.pintarCasilleros(fila, columna, -1, 1, tiroActual, tiroOponente);
 			}
 			if (matrizEnglobadora[fila + 1][columna - 1] == tiroOponente) {
-				pintarCasilleros(fila, columna, 1, -1);
+				pincel.pintarCasilleros(fila, columna, 1, -1, tiroActual, tiroOponente);
 			}
 			this.matrizEnglobadora[fila][columna] = tiroActual;
 			cambiarTurno();
@@ -408,68 +307,32 @@ public class Reversi {
 		}
 	}
 
-	/**
-	 * pre : fila está en el intervalo [1, contarFilas()], columnas está en el
-	 * intervalo [1, contarColumnas()]
-	 *
-	 * @param fila
-	 * @param columna
-	 * @param direccion_fila
-	 *            :recibe valores entre 1 y -1, para indicar para que lado
-	 *            pintar casilleros, en caso de ser 1 sera para abajo y en
-	 *            viceversa para arriba
-	 * @param direccion_columna
-	 *            :valores entre 1 y -1, para indicar para que lado pintar
-	 *            casilleros, en caso de ser 1 sera para la derecha y en
-	 *            viceversa para izquierda post: coloca ficha del turno actual
-	 *            en los casilleros que sean del tiro oponente hasta toparse con
-	 *            un tiroActual o llegue a los limites del tablero
-	 */
 
-	private void pintarCasilleros(int fila, int columna, int direccion_fila,
-			int direccion_columna) {
-		if (hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna)) {
-			while (matrizEnglobadora[fila][columna] != Casillero.NULA
-					&& !(matrizEnglobadora[fila][columna] == tiroActual)) {
-				if (matrizEnglobadora[fila][columna] == tiroOponente) {
-					matrizEnglobadora[fila][columna] = tiroActual;
-					animaciones.agregarAnimaciones(fila, columna);
-				}
-				fila += direccion_fila;
-				columna += direccion_columna;
-			}
-		}
-
-	}
 
 	/**
 	 * post: devuelve la cantidad de fichas negras en el tablero.
 	 */
 	public int contarFichasNegras() {
-		int fichasNegras = 0;
+		return contar(Casillero.CRUZ);
+	}
+
+	private int contar(Casillero casilleroABuscar){
+		int cantidadDeFichas = 0;
 		for (int i = 0; i < this.matrizReversi.length; i++) {
 			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.CRUZ) {
-					fichasNegras++;
+				if (this.matrizEnglobadora[i + 1][j + 1] == casilleroABuscar) {
+					cantidadDeFichas++;
 				}
 			}
 		}
-		return fichasNegras;
+		return cantidadDeFichas;
 	}
 
 	/**
 	 * post: devuelve la cantidad de fichas blancas en el tablero.
 	 */
 	public int contarFichasBlancas() {
-		int fichasBlancas = 0;
-		for (int i = 0; i < this.matrizReversi.length; i++) {
-			for (int j = 0; j < this.matrizReversi[i].length; j++) {
-				if (this.matrizEnglobadora[i + 1][j + 1] == Casillero.CIRCULO) {
-					fichasBlancas++;
-				}
-			}
-		}
-		return fichasBlancas;
+		return contar(Casillero.CIRCULO);
 	}
 
 	/**
@@ -521,15 +384,12 @@ public class Reversi {
 	 * post: indica si el juego terminó y tiene un ganador.
 	 */
 	public boolean hayGanador() {
-		boolean huboGanador = false;
 		if (contarFichasNegras() > contarFichasBlancas()) {
 			ganador = jugadores[0];
-			huboGanador = true;
 		} else if (contarFichasNegras() < contarFichasBlancas()) {
 			ganador = jugadores[1];
-			huboGanador = true;
 		}
-		return huboGanador;
+		return (contarFichasNegras() > contarFichasBlancas()) || contarFichasBlancas() > contarFichasNegras();
 	}
 
 	/**
@@ -548,12 +408,6 @@ public class Reversi {
 	private void armarAnimaciones() {
 		animaciones = new Animacion(matrizEnglobadora.length);
 	}
-
-	/**
-	 * post: restablece el estado de las animaciones
-	 */
-
-
 
 	/**
 	 * @param fila
