@@ -12,20 +12,6 @@ public class ReversiTest {
 		assertEquals(4, juego.contarFilas());
 	}
 
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero12x12() {
-		new Reversi(12, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero0x0() {
-		new Reversi(0, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero11x11() {
-		new Reversi(11, "blacas", "negras");
-	}
 
 	@Test
 	public void obtenerFilaConUnTablero10x10() {
@@ -33,60 +19,6 @@ public class ReversiTest {
 		assertEquals(10, juego.contarFilas());
 	}
 
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero2() {
-		new Reversi(2, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero3() {
-		new Reversi(3, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero9x9() {
-		new Reversi(9, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero7x7() {
-		new Reversi(7, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerFilaConUnTablero5x5() {
-		new Reversi(5, "blacas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero0x0() {
-		new Reversi(0, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero2x2() {
-		new Reversi(2, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero3x3() {
-		new Reversi(3, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero5x5() {
-		new Reversi(5, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero11x11() {
-		new Reversi(11, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void obtenerColumnaConUnTablero12x12() {
-		new Reversi(12, "blancas", "negras");
-	}
 
 	@Test
 	public void obtenerColumnaConUnTablero4x4() {
@@ -105,16 +37,6 @@ public class ReversiTest {
 	public void colocarFichaEnFila0() {
 		Reversi juego = new Reversi(4, "blancas", "negras");
 		juego.colocarFicha(0, 4);
-	}
-
-	@Test(expected = Error.class)
-	public void crearTableroDimensionNegativa() {
-		new Reversi(-4, "blancas", "negras");
-	}
-
-	@Test(expected = Error.class)
-	public void crearTableroDimension0() {
-		new Reversi(0, "blancas", "negras");
 	}
 
 	@Test(expected = Error.class)

@@ -50,7 +50,6 @@ public class Reversi {
     private void iniciarHerramientas(Casillero[][] matrizReversi2) {
         examinador = new Examinador(matrizReversi);
         pincel = new Pincel(examinador, animaciones, matrizReversi);
-		
 	}
 
 	/**
@@ -181,6 +180,9 @@ public class Reversi {
      * @param columna
      */
     public Casillero obtenerCasillero(int fila, int columna) {
+    	fila--;
+    	columna--;
+    	iniciarHerramientas(matrizReversi);
         validador.validarPosicion(fila, columna, matrizReversi);
         return this.matrizReversi[fila][columna];
     }
@@ -195,6 +197,9 @@ public class Reversi {
      *                el casillero
      */
     public boolean puedeColocarFicha(int fila, int columna) {
+    	fila--;
+    	columna--;
+    	iniciarHerramientas(matrizReversi);
         validador.validarPosicion(fila, columna, matrizReversi);
 
         boolean sePuedeColocarFicha = false;
@@ -216,7 +221,9 @@ public class Reversi {
      */
 
     public void colocarFicha(int fila, int columna) {
-
+    	fila--;
+    	columna--;
+    	iniciarHerramientas(matrizReversi);
         validador.validarPosicion(fila, columna, matrizReversi);
         validador.validarPuedeColocar(fila, columna);
         animaciones.reiniciarAnimaciones();
@@ -330,7 +337,7 @@ public class Reversi {
         int movimientosPosibles = 0;
         for (int i = 0; i < this.matrizReversi.length; i++) {
             for (int j = 0; j < this.matrizReversi[i].length; j++) {
-                if (puedeColocarFicha(i , j)) {
+                if (puedeColocarFicha(i+1 , j+1)) {
                     movimientosPosibles++;
                 }
             }

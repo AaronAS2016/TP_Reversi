@@ -37,41 +37,42 @@ public class Validador {
                 || nombreCruces.length() < MINIMO_DE_CARACTERES
                 || nombreCirculo.length() < MINIMO_DE_CARACTERES) {
             throw new Error(
-                    "El nÃºmero de caracteres no puede superar los 10 ni ser menor a 3");
+                    "El número de caracteres no puede superar los 10 ni ser menor a 3");
         }
     }
 
     /**
      * @param dimensionTablero
      *            : cantidad de filas y columnas que tiene el tablero. post:
-     *            ejecuta una error en caso que el tablero no esten entre el
-     *            maximo y minimo de dimensiones permitidas y si la dimension no
+     *            ejecuta una error en caso que el tablero no estén entre el
+     *            máximo y mínimo de dimensiones permitidas y si la dimensión no
      *            es par
      */
 
+
     public void validarTablero(int dimensionTablero) {
         if (dimensionTablero < MINIMO_DEL_TABLERO) {
-            throw new Error("El tablero debe tener una dimensiÃ³n minima de 4x4");
+            throw new Error("El tablero debe tener una dimensión mínima de 4x4");
         }
         if (dimensionTablero > MAXIMO_DEL_TABLERO) {
             throw new Error(
-                    "El tablero debe tener una dimensiÃ³n no mayor a 10x10");
+                    "El tablero debe tener una dimensión no mayor a 10x10");
         }
         if (dimensionTablero % 2 != 0) {
-            throw new Error("El tablero debe ser de un nÃºmero par");
+            throw new Error("El tablero debe ser de un número par");
         }
     }
 
     /**
      * @param fila
      * @param columna
-     *            post: ejecuta una error en caso que el tablero no esten entre
+     *            post: ejecuta una error en caso que el tablero no estén entre
      *            los limites del tablero
      */
     public void validarPosicion(int fila, int columna, Casillero[][] matrizReversi) {
         if (fila < 0 || columna < 0 || fila >= matrizReversi.length
                 || columna >= matrizReversi.length) {
-            throw new Error("PosiciÃ³n fuera del tablero");
+            throw new Error("Posición fuera del tablero");
         }
     }
 
@@ -82,7 +83,7 @@ public class Validador {
      *            el casillero
      */
     public void validarPuedeColocar(int fila, int columna) {
-        if (!juego.puedeColocarFicha(fila, columna)) {
+        if (!juego.puedeColocarFicha(fila+1, columna+1)) {
             throw new Error("No se puede colocar ficha en este casillero");
         }
     }
