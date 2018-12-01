@@ -18,62 +18,47 @@
             <Image url="@../img/logo.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" layoutY="30.0" prefHeight="108.0" prefWidth="262.0" text="CREDITOS" textAlignment="CENTER" textFill="#ffbc22">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="270.0" layoutY="55.0" prefHeight="108.0" prefWidth="262.0" text="CREDITOS" textAlignment="CENTER" textFill="#ffbc22">
          <font>
             <Font name="Oswald SemiBold" size="48.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="279.0" layoutY="150.0" prefHeight="63.0" prefWidth="185.0" text="PROGRAMACIÓN DISEÑO" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="177.0" prefHeight="26.0" prefWidth="219.0" text="PROGRAMACIÓN DISEÑO" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald Medium" size="15.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="283.0" layoutY="246.0" prefHeight="63.0" prefWidth="165.0" text="TESTEO" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="271.0" prefHeight="26.0" prefWidth="219.0" text="TESTEO" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald Medium" size="15.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="283.0" layoutY="366.0" prefHeight="63.0" prefWidth="165.0" text="TESTEO/DISEÑO" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="393.0" prefHeight="26.0" prefWidth="219.0" text="TESTEO/DISEÑO" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald Medium" size="15.0" />
          </font>
       </Label>
-      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="284.0" layoutY="150.0" prefHeight="63.0" prefWidth="175.0" text="Aaron Saban" textAlignment="CENTER" textFill="#ffbc22">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="213.0" prefHeight="26.0" prefWidth="219.0" text="Aaron Saban" textFill="#ffbc22">
          <font>
             <Font name="Oswald ExtraLight" size="13.0" />
          </font>
       </Label>
-      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="284.0" layoutY="254.0" prefHeight="63.0" prefWidth="175.0" text="Fer  Juares" textAlignment="CENTER" textFill="#ffbc22">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="317.0" prefHeight="26.0" prefWidth="219.0" text="Fer  Juares" textFill="#ffbc22">
          <font>
             <Font name="Oswald ExtraLight" size="13.0" />
          </font>
       </Label>
-      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="284.0" layoutY="367.0" prefHeight="63.0" prefWidth="175.0" text="Sabrina Cardoso" textAlignment="CENTER" textFill="#ffbc22">
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="292.0" layoutY="430.0" prefHeight="26.0" prefWidth="219.0" text="Sabrina Cardoso" textFill="#ffbc22">
          <font>
             <Font name="Oswald ExtraLight" size="13.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="441.0" prefHeight="121.0" prefWidth="219.0" text="PARA ALGORITMOS Y PROGRAMACIÓN (I)" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="291.0" layoutY="456.0" prefHeight="121.0" prefWidth="219.0" text="PARA ALGORITMOS Y PROGRAMACIÓN (I)" textAlignment="CENTER" textFill="#ffbc22" wrapText="true">
          <font>
             <Font name="Oswald Medium" size="15.0" />
          </font>
       </Label>
       <Button id="btnCerrar" fx:id="btnCerrar" layoutX="740.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
       <Button id="btnVolver" fx:id="btnVolver" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="22.0" styleClass="toggle-button" />
-      <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="475.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/User.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="472.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/User.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="63.0" fitWidth="60.0" layoutX="472.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/User.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
