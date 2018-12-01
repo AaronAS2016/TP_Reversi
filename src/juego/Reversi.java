@@ -41,14 +41,19 @@ public class Reversi {
         cargarJugadores(fichasNegras, fichasBlancas);
         armarMatrizReversi(dimensionTablero);
         armarAnimaciones();
-        examinador = new Examinador(matrizReversi);
-        pincel = new Pincel(examinador, animaciones, matrizReversi);
+        iniciarHerramientas(matrizReversi);
         validador = new Validador(this);
         validador.validarTablero(dimensionTablero);
         validador.validarJugadores(fichasNegras, fichasBlancas);
     }
 
-    /**
+    private void iniciarHerramientas(Casillero[][] matrizReversi2) {
+        examinador = new Examinador(matrizReversi);
+        pincel = new Pincel(examinador, animaciones, matrizReversi);
+		
+	}
+
+	/**
      * post: devuelve el jugador que tenga el tiro actual.
      */
     public Casillero obtenerTiroActual() {
@@ -139,6 +144,7 @@ public class Reversi {
         tiroOponente = Casillero.CIRCULO;
         jugadorActual = jugadores[0];
         armarMatrizReversi(this.contarFilas());
+        iniciarHerramientas(matrizReversi);
         int mitadDelTablero = matrizReversi.length / 2;
         animaciones.agregarAnimaciones(mitadDelTablero, mitadDelTablero);
         animaciones.agregarAnimaciones(mitadDelTablero - 1, mitadDelTablero);
