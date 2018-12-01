@@ -69,8 +69,8 @@ public class Validador {
      *            los limites del tablero
      */
     public void validarPosicion(int fila, int columna, Casillero[][] matrizReversi) {
-        if (fila < 1 || columna < 1 || fila > matrizReversi.length
-                || columna > matrizReversi.length) {
+        if (fila < 0 || columna < 0 || fila >= matrizReversi.length
+                || columna >= matrizReversi.length) {
             throw new Error("Posición fuera del tablero");
         }
     }

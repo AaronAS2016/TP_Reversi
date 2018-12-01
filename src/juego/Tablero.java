@@ -92,9 +92,9 @@ public class Tablero {
 
 		grilla.getChildren().clear();
 
-		for (int fila = 1; fila <= juego.contarFilas(); fila++) {
+		for (int fila = 0; fila < juego.contarFilas(); fila++) {
 
-			for (int columna = 1; columna <= juego.contarColumnas(); columna++) {
+			for (int columna = 0; columna < juego.contarColumnas(); columna++) {
 
 				dibujarFicha(fila, columna);
 				dibujarBoton(fila, columna);
@@ -198,7 +198,7 @@ public class Tablero {
 
 		GridPane.setHalignment(elemento, HPos.CENTER);
 		GridPane.setValignment(elemento, VPos.CENTER);
-		grilla.add(elemento, columna - 1, fila - 1);
+		grilla.add(elemento, columna, fila );
 
 		if (vecesDibujado > 1) {
 			int estadoAnimacion = juego.obtenerAnimaciones(fila, columna);

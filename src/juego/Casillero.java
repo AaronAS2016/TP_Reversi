@@ -4,6 +4,5 @@ public enum Casillero {
 
 	LIBRE,
 	CRUZ,
-	CIRCULO,
-	NULA
+	CIRCULO
 }

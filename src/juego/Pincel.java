@@ -3,13 +3,13 @@ package juego;
 public class Pincel {
 
     private Examinador examinador;
-    private Casillero[][] matrizEnglobadora;
     private Animacion animaciones;
+    private Casillero[][] matrizReversi;
 
-    public Pincel(Casillero[][] matrizEnglobadora, Examinador examinador, Animacion animaciones) {
-        this.matrizEnglobadora = matrizEnglobadora;
+    public Pincel(Examinador examinador, Animacion animaciones, Casillero[][] matrizReversi) {
         this.examinador = examinador;
         this.animaciones = animaciones;
+        this.matrizReversi = matrizReversi;
     }
 
     /**
@@ -28,19 +28,38 @@ public class Pincel {
      *                          un tiroActual o llegue a los limites del tablero
      */
 
-    public void pintarCasilleros(int fila, int columna, int direccion_fila,
-                                  int direccion_columna, Casillero tiroActual, Casillero tiroOponente) {
+    public Casillero[][] pintarCasilleros(int fila, int columna, int direccion_fila,
+                                  int direccion_columna, Casillero pincel, Casillero tiroOponente, Casillero[][] matrizReversi) {
 
-        if (examinador.hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna, tiroActual)) {
-            while (matrizEnglobadora[fila][columna] != Casillero.NULA
-                    && !(matrizEnglobadora[fila][columna] == tiroActual)) {
-                if (matrizEnglobadora[fila][columna] == tiroOponente) {
-                    matrizEnglobadora[fila][columna] = tiroActual;
+        if (examinador.hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna, pincel, matrizReversi)) {
+            while (puedePintar(fila, columna, matrizReversi) && !encontroActual(fila, columna, matrizReversi, pincel)){
+
+                if (matrizReversi[fila][columna] == tiroOponente) {
+                    this.matrizReversi[fila][columna] = pincel;
                     animaciones.agregarAnimaciones(fila, columna);
                 }
+
                 fila += direccion_fila;
                 columna += direccion_columna;
             }
+
         }
+
+        return this.matrizReversi;
     }
+
+    private boolean encontroActual(int fila, int columna, Casillero[][] matrizReversi, Casillero tiroActual) {
+
+        boolean encontroActual = false;
+
+        if(puedePintar(fila, columna, matrizReversi)){
+            encontroActual = (matrizReversi[fila][columna] == tiroActual);
+        }
+       return encontroActual;
+    }
+
+    public boolean puedePintar(int fila, int columna, Casillero[][] matrizReversi){
+        return (fila  >= 0 && columna >= 0 && fila < matrizReversi.length && columna < matrizReversi.length);
+    }
+
 }
