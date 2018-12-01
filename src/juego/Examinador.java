@@ -3,8 +3,16 @@ package juego;
 public class Examinador {
 
     private Pincel pincel;
+    private Casillero[][] matrizReversi;
 
-    public boolean examinarTablero(Casillero[][] matrizReversi, int fila, int columna, Casillero tiroOponente, Casillero tiroActual, Pincel pincel) {
+
+    public Examinador(Casillero[][] matrizReversi) {
+        this.matrizReversi = matrizReversi;
+    }
+
+    public boolean examinarTablero(int fila, int columna, Casillero tiroOponente, Casillero tiroActual, Pincel pincel) {
+
+
 
         this.pincel = pincel;
 
@@ -12,50 +20,50 @@ public class Examinador {
 
 
         if (fila + 1 < matrizReversi.length) {
-            if (matrizReversi[fila + 1][columna] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 0, tiroActual, matrizReversi);
+            if (matrizReversi[fila + 1][columna] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 0, tiroActual);
             }
         }
 
         if (fila - 1 > 0) {
-            if (matrizReversi[fila - 1][columna] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 0, tiroActual, matrizReversi);
+            if (matrizReversi[fila - 1][columna] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 0, tiroActual);
             }
         }
 
         if (columna + 1 < matrizReversi.length) {
-            if (matrizReversi[fila][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, 1, tiroActual, matrizReversi);
+            if (matrizReversi[fila][columna + 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, 1, tiroActual);
             }
         }
 
         if (columna - 1 > 0) {
-            if (matrizReversi[fila][columna - 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, -1, tiroActual, matrizReversi);
+            if (matrizReversi[fila][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 0, -1, tiroActual);
             }
         }
 
         if (fila - 1 > 0 && columna - 1 > 0) {
-            if (matrizReversi[fila - 1][columna - 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, -1, tiroActual, matrizReversi);
+            if (matrizReversi[fila - 1][columna - 1] == tiroOponente && !sePuedeColocarFicha) {
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, -1, tiroActual);
             }
         }
 
-        if (fila + 1 < matrizReversi.length && columna + 1 < matrizReversi.length) {
+        if (fila + 1 < matrizReversi.length && columna + 1 < matrizReversi.length && !sePuedeColocarFicha) {
             if (matrizReversi[fila + 1][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 1, tiroActual, matrizReversi);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, 1, tiroActual);
             }
         }
 
-        if (fila - 1 > 0 && columna + 1 < matrizReversi.length) {
+        if (fila - 1 > 0 && columna + 1 < matrizReversi.length && !sePuedeColocarFicha) {
             if (matrizReversi[fila - 1][columna + 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 1, tiroActual, matrizReversi);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, -1, 1, tiroActual);
             }
         }
 
-        if (fila + 1 < matrizReversi.length && columna - 1 > 0) {
+        if (fila + 1 < matrizReversi.length && columna - 1 > 0 && !sePuedeColocarFicha) {
             if (matrizReversi[fila + 1][columna - 1] == tiroOponente) {
-                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, -1, tiroActual, matrizReversi);
+                sePuedeColocarFicha = hayFichaEnElMedio(fila, columna, 1, -1, tiroActual);
             }
         }
 
@@ -79,14 +87,16 @@ public class Examinador {
      *                          actual contiguos al casillero
      */
     public boolean hayFichaEnElMedio(int fila, int columna,
-                                     int direccion_fila, int direccion_columna, Casillero colorPincel, Casillero[][] matrizReversi) {
+                                     int direccion_fila, int direccion_columna, Casillero colorPincel) {
         boolean hayFichaEnMedio = false;
-        while (pincel.puedePintar(fila,columna, matrizReversi) && !hayFichaEnMedio) {
-
-            hayFichaEnMedio = (matrizReversi[fila][columna] == colorPincel);
+        while (pincel.puedePintar(fila, columna) && !hayFichaEnMedio) {
 
             fila += direccion_fila;
             columna += direccion_columna;
+            if (pincel.puedePintar(fila, columna)) {
+                hayFichaEnMedio = (matrizReversi[fila][columna] == colorPincel);
+            }
+
 
         }
         return hayFichaEnMedio;

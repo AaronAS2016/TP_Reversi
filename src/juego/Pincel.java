@@ -28,11 +28,11 @@ public class Pincel {
      *                          un tiroActual o llegue a los limites del tablero
      */
 
-    public Casillero[][] pintarCasilleros(int fila, int columna, int direccion_fila,
-                                  int direccion_columna, Casillero pincel, Casillero tiroOponente, Casillero[][] matrizReversi) {
+    public void pintarCasilleros(int fila, int columna, int direccion_fila,
+                                  int direccion_columna, Casillero pincel, Casillero tiroOponente) {
 
-        if (examinador.hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna, pincel, matrizReversi)) {
-            while (puedePintar(fila, columna, matrizReversi) && !encontroActual(fila, columna, matrizReversi, pincel)){
+        if (examinador.hayFichaEnElMedio(fila, columna, direccion_fila, direccion_columna, pincel)) {
+            while (puedePintar(fila, columna) && !encontroActual(fila, columna, pincel)){
 
                 if (matrizReversi[fila][columna] == tiroOponente) {
                     this.matrizReversi[fila][columna] = pincel;
@@ -45,20 +45,19 @@ public class Pincel {
 
         }
 
-        return this.matrizReversi;
     }
 
-    private boolean encontroActual(int fila, int columna, Casillero[][] matrizReversi, Casillero tiroActual) {
+    private boolean encontroActual(int fila, int columna, Casillero tiroActual) {
 
         boolean encontroActual = false;
 
-        if(puedePintar(fila, columna, matrizReversi)){
+        if(puedePintar(fila, columna)){
             encontroActual = (matrizReversi[fila][columna] == tiroActual);
         }
        return encontroActual;
     }
 
-    public boolean puedePintar(int fila, int columna, Casillero[][] matrizReversi){
+    public boolean puedePintar(int fila, int columna){
         return (fila  >= 0 && columna >= 0 && fila < matrizReversi.length && columna < matrizReversi.length);
     }
 

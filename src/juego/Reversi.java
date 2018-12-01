@@ -41,7 +41,7 @@ public class Reversi {
         cargarJugadores(fichasNegras, fichasBlancas);
         armarMatrizReversi(dimensionTablero);
         armarAnimaciones();
-        examinador = new Examinador();
+        examinador = new Examinador(matrizReversi);
         pincel = new Pincel(examinador, animaciones, matrizReversi);
         validador = new Validador(this);
         validador.validarTablero(dimensionTablero);
@@ -193,7 +193,7 @@ public class Reversi {
 
         boolean sePuedeColocarFicha = false;
         if (matrizReversi[fila][columna] == Casillero.LIBRE) {
-            sePuedeColocarFicha = examinador.examinarTablero(matrizReversi, fila, columna, tiroOponente, tiroActual, pincel);
+            sePuedeColocarFicha = examinador.examinarTablero(fila, columna, tiroOponente, tiroActual, pincel);
         }
         return sePuedeColocarFicha;
     }
@@ -219,46 +219,46 @@ public class Reversi {
         if (matrizReversi[fila][columna] == Casillero.LIBRE) {
             if (fila + 1 < matrizReversi.length) {
                 if (matrizReversi[fila + 1][columna] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, 1, 0, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, 1, 0, tiroActual, tiroOponente);
                 }
             }
             if (fila - 1 > 0) {
                 if (matrizReversi[fila - 1][columna] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, -1, 0, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, -1, 0, tiroActual, tiroOponente);
                 }
             }
             if (columna + 1 < matrizReversi.length) {
                 if (matrizReversi[fila][columna + 1] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, 0, 1, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, 0, 1, tiroActual, tiroOponente);
                 }
             }
             if (columna - 1 > 0) {
                 if (matrizReversi[fila][columna - 1] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, 0, -1, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, 0, -1, tiroActual, tiroOponente);
                 }
             }
 
             if (fila - 1 > 0 && columna - 1 > 0) {
                 if (matrizReversi[fila - 1][columna - 1] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, -1, -1, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, -1, -1, tiroActual, tiroOponente);
                 }
             }
 
             if (fila + 1 < matrizReversi.length && columna + 1 < matrizReversi.length) {
                 if (matrizReversi[fila + 1][columna + 1] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, 1, 1, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, 1, 1, tiroActual, tiroOponente);
                 }
             }
 
             if (fila - 1 > 0 && columna + 1 < matrizReversi.length) {
                 if (matrizReversi[fila - 1][columna + 1] == tiroOponente) {
-                     matrizReversi = pincel.pintarCasilleros(fila, columna, -1, 1, tiroActual, tiroOponente, matrizReversi);
+                     pincel.pintarCasilleros(fila, columna, -1, 1, tiroActual, tiroOponente);
                 }
             }
 
             if (fila + 1 < matrizReversi.length && columna - 1 > 0) {
                 if (matrizReversi[fila + 1][columna - 1] == tiroOponente) {
-                    matrizReversi = pincel.pintarCasilleros(fila, columna, 1, -1, tiroActual, tiroOponente, matrizReversi);
+                    pincel.pintarCasilleros(fila, columna, 1, -1, tiroActual, tiroOponente);
                 }
             }
 
