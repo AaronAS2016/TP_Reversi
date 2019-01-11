@@ -3,11 +3,13 @@ Juego Reversi para proyecto final de la materia Algoritmos y Programación I
 
 ## Cómo Jugar
 [https://es.wikipedia.org/wiki/Reversi](https://es.wikipedia.org/wiki/Reversi)
+
 [https://es.wikihow.com/jugar-a-Othello](https://es.wikihow.com/jugar-a-Othello)
 
 ## Capturas
-![Captura de la app](./.readme-static/opciones.png)
+
 ![Captura de la app](./.readme-static/menu.png)
+![Captura de la app](./.readme-static/opciones.png)
 ![Captura de la app](./.readme-static/juego.png)
 
 ## ¿Como lo hicimos?
