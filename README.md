@@ -20,9 +20,9 @@ El proyecto fue realizado en Java 8 utilizando como interfaz gráfica JavaFx, pa
 
 ## Miembro del grupo :eyes:
 
-* Aaron Saban
-* Fernando Gabriel Juares Coria
-* Sabrina Micaela Cardoso
+* [Aaron Saban](https://github.com/AaronAS2016)
+* [Fernando Gabriel Juares Coria](https://github.com/FerJuaresCoria)
+* [Sabrina Micaela Cardoso](https://github.com/MicaCardoso)
 
 ## Nombre del Grupo : The Yellow Code
 
